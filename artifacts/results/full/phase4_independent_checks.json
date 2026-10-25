@@ -1,0 +1,44 @@
+{
+  "real_graph_with_stubbed_models": "passed",
+  "wrong_raw_response_overridden": "passed",
+  "batch_cache_reuse": "passed",
+  "approval_pause_reject_approve_replay": "passed",
+  "thread_isolation": "passed",
+  "invalid_input_and_decisions": "passed",
+  "exact_quote_and_fallback_checks": "passed",
+  "chat_control_escaping_and_ablation": "passed",
+  "local_tool_parsing": "passed",
+  "earlier_reviewed_source_unchanged": true,
+  "model_scope": "deterministic stubs isolate control flow; actual cached models separately run in fresh CUDA notebook",
+  "actual_agent_label_token_ids": [
+    32,
+    33
+  ],
+  "response_prefix_token_boundaries": "passed for safe/phishing, defended/undefended",
+  "actual_tokenizer_explainer_role_delimiters": "passed with hostile email and retrieved-control spellings",
+  "saved_agent_repetition_penalty": 1.1,
+  "explicit_explainer_repetition_penalty": 1.0,
+  "fresh_cuda_notebook_seconds": 30.0,
+  "successful_code_cells": 11,
+  "notebook_errors": 0,
+  "nbformat_valid": true,
+  "reviewed_earlier_source_sha256": {
+    "p13-003": "c69a7826080e032ddfd7a513208c834652ecc0dbe2a4a98a42200894e77e1604",
+    "p13-004": "9b24b7b894d007fef5076c65b736fae4e75fd77006bccedcb5b92cce5058b399",
+    "p13-006": "17f45f4907f027f5a4de6aaf59bf895ceed380f1375bf51b2141be723ad91c88",
+    "p13-008": "5380149f933888feae60310fab2c42f010fcd3d0b3e42b20ce5b908238ab7d23",
+    "p13-009": "714a6b6cd757fa581e30c3fdd2ef4fb9c37a36435caa86e7cd1156aea5a49f16",
+    "p13-010": "150a93670f48bd6c33a9e7f944f1c2eebe3c80bf6ff043796b8dd18567817495",
+    "p13-011": "bde21251db0b05ecf98a4dae5ada241acdf74dc34b4856939c80131cbe33cb93",
+    "p13-014": "2404890d21b149009cfedb17e83b95718536a2db6b806ff8137a773c005e6a9c",
+    "p13-015": "6cdf606c52a6f1261780712e89a770130857cf1a4749da1238a88e1ec56acbcd",
+    "phase3-results": "6915fc927ecd74fd0a4303b930744f01a1de3e0969538c46840964bb36e3dc49"
+  },
+  "reviewed_phase4_source_sha256": {
+    "p13-012": "c91699536ea208a611ed6549bde0f8ab7ad49cc8dd9574e8171188c001b6b98e",
+    "p13-013": "733991e5fc9df7d6515321fcfe47930af73a02e1e8429e2ea5e6a6bc49aba691",
+    "p13-016": "d48719cd4bd2fd7a2c17ade06de261d7989b3b2583758be5ea2dda9fdcf76ee7",
+    "p13-027": "9d234e8429381efce5f2cabe48ab020c5068cce518e5a48cc0ee95e8d6e3e83e",
+    "checkpoint-4": "879890d17530593ec57aacbd4b6295dd9d800bcd75e35988c689bab3bad8f863"
+  }
+}

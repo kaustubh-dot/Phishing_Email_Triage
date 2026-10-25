@@ -1,0 +1,3 @@
+defended,common_eligible_controls,unique_scenarios,targeted_successes,attack_success_rate,classifier_flips,attacked_allow_despite_phishing
+False,15,5,4,0.26666666666666666,4,0
+True,15,5,7,0.4666666666666667,7,0

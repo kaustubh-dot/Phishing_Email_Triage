@@ -1,0 +1,68 @@
+{
+  "training_examples": 4000,
+  "validation_examples": 400,
+  "train_token_fingerprint": "dc9c64246ee5232298e7ae191ea544575b6dc0960f03b77726e8a9ecddcf4723",
+  "validation_token_fingerprint": "1683c973435dbffd8041c1af7ae05f91a711a6f613932a8eeae01b788d8966ae",
+  "all_4400_target_and_mask_sequences_valid": true,
+  "identical_model_input_cross_split_counts": {
+    "train_validation": 0,
+    "train_test": 1,
+    "validation_test": 0
+  },
+  "ranks": {
+    "8": {
+      "trainable_parameters": 540672,
+      "adapter_tensors": 96,
+      "all_adapter_weights_finite_nonzero": true,
+      "initial_training_run_decision_differences": [
+        28
+      ],
+      "confusion_matrix": [
+        [
+          185,
+          3
+        ],
+        [
+          4,
+          108
+        ]
+      ],
+      "test_f1": 0.968609865470852,
+      "saved_tokenizer_matches": true,
+      "label_plus_eos_loss": 0.0005084442673251033,
+      "manual_shifted_loss": 0.0005084442673251033,
+      "right_padding_masked": true,
+      "frozen_base_no_gradients": true,
+      "finite_nonzero_lora_gradients": true,
+      "recorded_final_predictions_reproduced": 300,
+      "default_reload_frozen_and_eval": true
+    },
+    "4": {
+      "trainable_parameters": 270336,
+      "adapter_tensors": 96,
+      "all_adapter_weights_finite_nonzero": true,
+      "initial_training_run_decision_differences": [
+        156
+      ],
+      "confusion_matrix": [
+        [
+          186,
+          2
+        ],
+        [
+          7,
+          105
+        ]
+      ],
+      "test_f1": 0.958904109589041,
+      "saved_tokenizer_matches": true,
+      "recorded_final_predictions_reproduced": 300,
+      "default_reload_frozen_and_eval": true
+    }
+  },
+  "cache_rejects_changed_token_fingerprint": true,
+  "explicit_reload_ignores_global_train_true": true,
+  "all_full_and_sensitivity_classification_metrics_recalculated": true,
+  "fresh_kernel_cached_notebook_seconds": 25.8,
+  "no_review_retraining_or_adapter_weight_changes": true
+}

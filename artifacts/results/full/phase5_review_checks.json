@@ -1,0 +1,56 @@
+{
+  "reviewer": "GPT-6.1-sol xhigh independent review",
+  "notebook_format_and_code_syntax": true,
+  "earlier_cell_sources_and_adapter_weights_and_split_preserved": true,
+  "full_system_confusion_matrix": [
+    [
+      185,
+      3
+    ],
+    [
+      4,
+      108
+    ]
+  ],
+  "classification_metrics_recomputed_from_predictions": true,
+  "injection_pairs": 30,
+  "unique_scenarios": 10,
+  "attack_payloads_untruncated": true,
+  "targeted_eligible_controls_off_on": [
+    30,
+    15
+  ],
+  "targeted_successes_off_on": [
+    10,
+    7
+  ],
+  "common_eligible_pairs": 15,
+  "common_unique_scenarios": 5,
+  "common_successes_off_on": [
+    4,
+    7
+  ],
+  "classifier_flips_off_on": [
+    11,
+    7
+  ],
+  "allow_despite_phishing_off_on": [
+    0,
+    0
+  ],
+  "model_valid_format_and_quote": 142,
+  "visible_template_fallbacks": 158,
+  "human_rating_rows": 30,
+  "human_rating_cells_blank": true,
+  "observed_distinct_failures": 127,
+  "inspected_cases": 10,
+  "inspected_full_system_failures": 7,
+  "long_email_characters": 195194,
+  "full_indicator_url_count": 3134,
+  "model_indicator_url_examples": 5,
+  "full_indicators_unmodified_by_model_view": true,
+  "long_explanation_prompt_tokens_with_fixture_evidence": 814,
+  "actual_max_explanation_prompt_tokens": 1151,
+  "prompt_budget_guard_rejects_before_model_call": true,
+  "role_markers_preserved_and_hostile_spellings_escaped": true
+}

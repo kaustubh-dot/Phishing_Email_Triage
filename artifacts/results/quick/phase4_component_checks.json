@@ -1,0 +1,14 @@
+{
+  "tool_cases_passed": 6,
+  "body_headers_ignored": true,
+  "folded_sender_headers_parsed": true,
+  "specialist_order_checked": true,
+  "evidence_training_only": true,
+  "defended_action_matches_verdict": true,
+  "batch_cache_reuse_checked": true,
+  "valid_quote_accepted": true,
+  "invalid_output_fallback_visible": true,
+  "untrusted_chat_delimiters_escaped": true,
+  "smoke_email_count": 2,
+  "full_evaluation_completed": false
+}

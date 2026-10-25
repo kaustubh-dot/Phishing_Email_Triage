@@ -1,0 +1,49 @@
+{
+  "diagnostic": "saved adapter default inference versus Trainer-style BF16 autocast",
+  "ranks": {
+    "8": {
+      "different_prediction_indices": [
+        28
+      ],
+      "raw_decisions_match_recorded": 299,
+      "autocast_decisions_match_recorded": 300,
+      "raw_different_scores": [
+        0.4687906503677368
+      ],
+      "autocast_different_scores": [
+        0.5926666259765625
+      ],
+      "truth_at_differences": [
+        0
+      ]
+    },
+    "4": {
+      "different_prediction_indices": [
+        156
+      ],
+      "raw_decisions_match_recorded": 299,
+      "autocast_decisions_match_recorded": 300,
+      "raw_different_scores": [
+        0.5926666259765625
+      ],
+      "autocast_different_scores": [
+        0.4073334336280823
+      ],
+      "truth_at_differences": [
+        1
+      ]
+    }
+  },
+  "bounded_input_collisions": [
+    {
+      "test_index": 114,
+      "test_email_id": "5f900787c5f5be016556a65936576786ccbcaaa796cf457d4dec6ab09bb88a12",
+      "training_email_id": "a699f247df116fb0a71bebd3b8752683f6ed9b38ba545fcf100e433507c6d498",
+      "test_label": 0,
+      "training_label": 0,
+      "test_characters": 18873,
+      "training_characters": 11103,
+      "full_text_equal": false
+    }
+  ]
+}

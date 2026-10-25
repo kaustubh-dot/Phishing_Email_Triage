@@ -1,0 +1,64 @@
+{
+  "reviewer": "GPT-6.1-sol xhigh independent review",
+  "notebook_format_syntax_sections_and_17_saved_code_outputs": true,
+  "runtime_code_in_notebook": true,
+  "dependency_pins_match_setup_and_installed_versions": true,
+  "phase1_to5_cell_sources_preserved_except_documented_numpy_pin_and_version_recording": true,
+  "review_changed_cell_ids": [
+    "p13-028",
+    "p13-029"
+  ],
+  "adapter_weights_splits_revisions_and_supplied_sources_preserved": true,
+  "mode_checks": {
+    "full": {
+      "evaluated_emails": 300,
+      "runtime_seconds_after_setup_imports": 149.96,
+      "all_metrics_recomputed": true,
+      "approval_checks_passed": true,
+      "human_ratings_completed": 0
+    },
+    "quick": {
+      "evaluated_emails": 60,
+      "runtime_seconds_after_setup_imports": 44.28,
+      "all_metrics_recomputed": true,
+      "approval_checks_passed": true,
+      "human_ratings_completed": 0
+    }
+  },
+  "full_saved_code_cell_span_seconds_including_install_excluding_kernel_startup": 151.96,
+  "full_confusion_matrix": [
+    [
+      185,
+      3
+    ],
+    [
+      4,
+      108
+    ]
+  ],
+  "common_attack_pairs": 15,
+  "common_unique_scenarios": 5,
+  "common_successes_off_on": [
+    4,
+    7
+  ],
+  "model_explanations_valid_format_and_quote": 142,
+  "visible_template_fallbacks": 158,
+  "demo_has_observed_success_and_actual_failure": true,
+  "ask_review_notebook_function_checks_with_saved_output_fixtures": "passed; not a new model inference evaluation",
+  "bounded_demo_indicators_preserve_complete_state": true,
+  "full_and_quick_rating_sheets_separate_and_human_fields_blank": true,
+  "full_evidence_based_failure_inspections": 10,
+  "primary_reference_links_checked": true,
+  "quick_environment_numpy_recording": "omitted in earlier quick artifact; installed NumPy unchanged at 2.5.4; final full artifact records it",
+  "no_training_or_full_gpu_rerun_during_review": true,
+  "unverified_platforms": [
+    "CPU",
+    "Colab T4"
+  ],
+  "remaining_human_work": [
+    "30 explanation ratings",
+    "actual team contributions",
+    "presentation rehearsal and Q&A"
+  ]
+}

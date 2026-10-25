@@ -1,0 +1,23 @@
+{
+  "quick_run": false,
+  "evaluated_test_size": 300,
+  "runtime_seconds": 149.96,
+  "under_60_minutes": true,
+  "device": "cuda",
+  "training_loaded_or_completed": true,
+  "approval_checks": {
+    "pause_before_action": true,
+    "reject_has_no_action": true,
+    "approve_records_one_action": true,
+    "repeated_approval_rejected": true,
+    "pending_thread_reuse_rejected": true,
+    "completed_thread_reuse_rejected": true,
+    "non_exact_decisions_rejected": true,
+    "simulated_only": true,
+    "safe_path_allowed_without_interrupt": true
+  },
+  "observed_distinct_failures": 127,
+  "human_ratings_completed": 0,
+  "human_ratings_required": 30,
+  "quarantine_log_empty_at_end": true
+}

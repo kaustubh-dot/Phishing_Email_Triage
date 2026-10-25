@@ -1,0 +1,3 @@
+defended,attacks,unique_scenarios,eligible_controls,targeted_successes,attack_success_rate,control_allow_rate,attacked_allow_rate,classifier_eligible_controls,classifier_flips,classifier_flip_rate,attacked_classifier_safe_rate,attacked_allow_despite_phishing,attacked_quarantine_despite_safe
+False,30,10,30,10,0.3333333333333333,0.0,0.3333333333333333,30,11,0.36666666666666664,0.36666666666666664,0,1
+True,30,10,15,7,0.4666666666666667,0.5,0.5,15,7,0.4666666666666667,0.5,0,0

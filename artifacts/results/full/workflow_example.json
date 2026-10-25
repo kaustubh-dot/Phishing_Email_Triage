@@ -1,0 +1,62 @@
+{
+  "email": "To remove see below.I work with a company that submits\nweb sites to search engines and saw\nyour listing on the internet.We can submit your site twice a month\nto over 400 search engines and directories\nfor only $29.95 per month.We periodically mail you progress\nreports showing where you are ranked.To get your web site in the fast lane\ncall our toll free number below!Sincerely,Brian Waters\n888-532-8842\n* All work is verified\nTo be removed call: 888-800-6339 X1377",
+  "email_id": "660968998f5f80aace514884a73bfc1df156e01aba798de00c888c766f4b8206",
+  "defended": true,
+  "stage": 4,
+  "trace": [
+    "classifier: LoRA label and training-only kNN evidence",
+    "extractor: local URL, domain and sender tools",
+    "explainer: reason and verified email quote",
+    "responder: proposed quarantine"
+  ],
+  "verdict": "phishing",
+  "phishing_score": 0.9924227595329285,
+  "evidence": [
+    {
+      "email_id": "fb65d87fc37cf3ae59e10753f1d718e4a110c25b0a2d46124a2543ac7749f121",
+      "label": "phishing",
+      "similarity": 0.9992,
+      "excerpt": "To remove see below.I work with a company that submits\nweb sites to search engines and saw\nyour listing on the internet.We can submit your site twice a month\nto over 400 search engines and directories\nfor only $29.95 per month.We periodically mail you progress\nreports showing where you are ranked.To get your web site in the fast lane\ncall our toll "
+    },
+    {
+      "email_id": "01cc813366d1aa2f99c8b33cf3ab03a8c8e17a1dffd893c5c8df42b9e5afbaca",
+      "label": "phishing",
+      "similarity": 0.8875,
+      "excerpt": "Removal instructions below\nI saw your listing on the internet.  I work\nfor a company that submits websites to search\nengines.  We can submit your website to over\n350 of the worlds best search engines and \ndirectories for a one time charge of only\n$39.95.  If you would like to put your website in \nthe fast lane and receive more\ntraffic call me on ou"
+    },
+    {
+      "email_id": "bb93154d0be2d63e99968150c17973976f7582beabbe26dbe5a088be4cd06a47",
+      "label": "phishing",
+      "similarity": 0.5535,
+      "excerpt": "webCREDITThank You,Your email address was obtained from a purchased \nlist, Reference # 1320-15000.Â Â If you wish to unsubscribe from this list, please\nClick here and enter your\nname into the remove box. If you have previously\nunsubscribed and are still receiving this message, you may email our\nAbuse Control Center,\nor call 1-888-763-2497, or write"
+    },
+    {
+      "email_id": "9a3210231471fe01f39aa28e20e08064544b9f85e1de306c32ae190202456089",
+      "label": "phishing",
+      "similarity": 0.5496,
+      "excerpt": "http : / / www . foulston . com hello , i have visited www . foulston . com and noticed that your website is not listed on some search engines . i am sure that through our service the number of people who visit your website will definitely increase . seekercenter is a unique technology that instantly submits your website to over 500 , 000 search en"
+    },
+    {
+      "email_id": "25e64e24fd78a0c5b02389c38412ea11ac16d9badd0fd71e88a43fed95eaa41e",
+      "label": "phishing",
+      "similarity": 0.5467,
+      "excerpt": "We want to help you get lower HOUSE payments, with no hassleClickTo stop recieving this, remove from our link on the site.56281814119876554443333"
+    }
+  ],
+  "indicators": {
+    "urls": [],
+    "domains": [],
+    "sender_addresses": [],
+    "sender_headers_present": false,
+    "cue_groups": [],
+    "network_lookup_performed": false
+  },
+  "explanation": {
+    "reason": "The classifier predicts phishing; matching cue groups: none detected. This fallback does not establish that the prediction is correct.",
+    "quote": "To remove see below.I work with a company that submits\nweb sites to search engines and saw\nyour listing on the internet.We can submit your site twice a month\nto",
+    "fallback_used": true,
+    "quote_verified": true,
+    "raw_output": "{\"reason\": \"The email contains a link to a company that offers to submit a website to search engines for a fee, which is a common tactic used in phishing scams.\", \"quote\": \"To get your web site in the fast lane call our toll free number below!\"}"
+  },
+  "proposed_action": "quarantine"
+}

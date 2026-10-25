@@ -1,0 +1,16 @@
+{
+  "indicator_cases_passed": 6,
+  "indicator_cases_total": 6,
+  "explanations_with_verified_quote": 300,
+  "model_explanations_valid_format_and_quote": 142,
+  "model_explanation_valid_format_and_quote_rate": 0.47333333333333333,
+  "explanation_fallbacks": 158,
+  "verified_template_quotes": 158,
+  "explanation_fallback_rate": 0.5266666666666666,
+  "evaluated_emails": 300,
+  "proposed_quarantines_paused": 111,
+  "quarantines_executed_in_evaluation": 0,
+  "human_ratings_status": "pending real human input",
+  "indicator_views_truncated_for_model": 4,
+  "max_explanation_prompt_tokens": 1151
+}

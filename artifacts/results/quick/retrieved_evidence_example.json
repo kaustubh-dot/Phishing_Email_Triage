@@ -1,0 +1,39 @@
+{
+  "query_email_id": "01294eb8bee5842ca719e13c37e227108f82405c89ec0e23de7f42e677beb8d0",
+  "split": "validation",
+  "query_label": "Phishing Email",
+  "query_excerpt": "Get ready for the most amazing site you will ever see!Click on this link NOW!\nhttp://64.227.161.52/archives/index2.html\nhttp://64.227.161.52/remove/\nsheryl-lee.m",
+  "k": 5,
+  "evidence": [
+    {
+      "email_id": "c97c9e2a8b6d2e42053b977dc1a262658a26dd0daac07b5269832d8dd73df826",
+      "label": "phishing",
+      "similarity": 0.5082,
+      "excerpt": "she looks good click here to be removed"
+    },
+    {
+      "email_id": "55f2f02c1896c60137c0a14278a05846e78e8dc4df86b29d2ac409ac7e3e9d28",
+      "label": "phishing",
+      "similarity": 0.4842,
+      "excerpt": "Fantastic Facials!\nClick here to be removed"
+    },
+    {
+      "email_id": "01cc813366d1aa2f99c8b33cf3ab03a8c8e17a1dffd893c5c8df42b9e5afbaca",
+      "label": "phishing",
+      "similarity": 0.4504,
+      "excerpt": "Removal instructions below\nI saw your listing on the internet.  I work\nfor a company that submits websites to search\nengines.  We can submit your website to over\n350 of the worlds best search engines and \ndirectories for a one time charge of only\n$39.95.  If you would like to put your website in \nthe fast lane and receive more\ntraffic call me on ou"
+    },
+    {
+      "email_id": "bb8332467be681cd8d9a43c9ee484ae5c718b3992d73ad8deb0120cd4e85b0ec",
+      "label": "phishing",
+      "similarity": 0.432,
+      "excerpt": "re : new page hi sweetie , come see the most beautiful , sweet . . . - - > 18 year old girls bare it all ! < - - http : / / freexmovies . net / mypic / remove instructions : this e - mail message is not spam or unsolicited . this e - mail address has joined or requested information in the past . if this is a mistake or you would prefer not to recei"
+    },
+    {
+      "email_id": "25bd4c2afc4c7e3fb189dccdbf85c5addc195a8534191718ff32acba1994c2f5",
+      "label": "phishing",
+      "similarity": 0.427,
+      "excerpt": "Hi Sweetie,Come See the most beautiful, sweet...-->18 Year Old Girls Bare it ALL!<--\nhttp://freexmovies.net/mypic/*******************************************************\nRemove Instructions:\nThis e-mail message is not spam or unsolicited.  This e-mail address has joined or requested information in the past.  If this is a mistake or \nyou would prefe"
+    }
+  ]
+}

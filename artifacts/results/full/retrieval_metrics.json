@@ -1,0 +1,7 @@
+{
+  "label_hit_at_5": 0.9833333333333333,
+  "label_reciprocal_rank_at_5": 0.97,
+  "selected_k_from_validation": 5,
+  "index_size": 4000,
+  "index_seconds": 0.00475525704678148
+}

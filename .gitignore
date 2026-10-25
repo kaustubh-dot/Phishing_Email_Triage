@@ -1,0 +1,8 @@
+.venv/
+.cache/
+__pycache__/
+.ipynb_checkpoints/
+Lab-*.zip
+artifacts/checkpoints/
+artifacts/embeddings/
+artifacts/executed-notebook.log

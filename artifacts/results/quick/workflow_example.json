@@ -1,0 +1,62 @@
+{
+  "email": "got xanaa , vlcodd 1 n , somma , codelne , vlaagrra , claal 1 s , zol 0 ft , \\ / allium charset = iso - 8859 - 1 \" > met rich favour worthy , profession usedto scene planning approach trees . discouunt priice meds ( brand new ) shiip to all countries viccoddin , viaagrra , codeiine , \\ / aliium , lorazeepam , rivotri , meridiia , cialiis , xanaax , lipiitor , flexiril back , sooma , zoloft , ambiien , celebrex , board & many more high demanding meds stopping ciiick here to enjoy discouunt too repeated greater books a captain . immediate with likely ? within pray mother necessary anybody . oh off length years arm . towards shining raise fail already . somewhere being speaking gray off ? goodbye teacher go build . mistress fancy years letters however am .",
+  "email_id": "0be52cf760854b4761d4403c7f61e4d0699fe7196a82394502bc2436133f3355",
+  "defended": true,
+  "stage": 4,
+  "trace": [
+    "classifier: LoRA label and training-only kNN evidence",
+    "extractor: local URL, domain and sender tools",
+    "explainer: reason and verified email quote",
+    "responder: proposed quarantine"
+  ],
+  "verdict": "phishing",
+  "phishing_score": 0.9999251365661621,
+  "evidence": [
+    {
+      "email_id": "e1c8353afa76ba03933e352b7c28d0b1a0c9e5cafdd6be069fcd890933cb41dc",
+      "label": "phishing",
+      "similarity": 0.5877,
+      "excerpt": "the probblem solved how to save on your medl prolocutor catlons over 60 % . pharma nettle zmail shop - successfull and proven way to sav tombola e your m bandeaux oney . fertile v a lithesome g methodology l l filament u revisionism l r welshman a untrue cla inelegant isv hatred al aeronavigation m andmanyother . * bes sandstorm t prlces * wor feat"
+    },
+    {
+      "email_id": "61e4c9825e0cf4594ce15c9b50ae6d29ff6af3fa2d93632354f3e4b90e806e6b",
+      "label": "phishing",
+      "similarity": 0.5853,
+      "excerpt": "fwd : get all meds . vic ^ odin \\ xana + x + - v | @ gra _ valiu / m / pntermi . n . % som @ bvrumchtvcsz we give you the power to make an educated choice in your treatment approach and in what medications you are going to take . what ' s available : $ | vialium * | sioma ? pnterm . i . n , viagr @ ) xain | ax > at : | v @ n plus : ambi 3 ' n , son"
+    },
+    {
+      "email_id": "a448986810f87913b1ba0b137dc77e7e289678eab4304262fead8be87c79bea5",
+      "label": "phishing",
+      "similarity": 0.567,
+      "excerpt": "our cooll medz how to save on your medlcations prevision over 70 % . recreancy pharmshop - successfull and proven way t jerboa o save your mone bardic y . hammering v sloping ag a unappropriated l l speculation u homoeopathic l authentic rac interlocutrix l i holystone sva spelaean l botany m andmanyother . b priceless est prlces . world impresario"
+    },
+    {
+      "email_id": "bc4ca5cea7a193d42ed0a787fe0f4b151ebe8ea32a6d313e06d10da534cc0d65",
+      "label": "phishing",
+      "similarity": 0.5598,
+      "excerpt": "special proop how to s pincers ave on your medlcatlons over 70 % . pharmzm singleton ail shop - successfu palaeontology ll and proven way to save your mon fustigate ey . daemonic v salacious ag a lukewarm l iambic lu curlingirons l scrambled ra outgiving cl i hydrodynamics sv studious al elegant m andmanyother . * best prlc denary es * worldwide sh"
+    },
+    {
+      "email_id": "670bab434879027ffa1c1f709ee6706f7e8c2ad7160e2ae1bf98584f45b944e3",
+      "label": "phishing",
+      "similarity": 0.555,
+      "excerpt": "fw : its all about cialis now buy xanax online from a us pharmacy xanax ( alprazolam ) is now available online purchase xanax lmg and 2 mg from a us - licensed doctor free consultation . overnight shipping meridia viagra viagra st super viagra ( cialis ) prozac xanax valium paxil ultram soma zyban shop here for xanax remove cultivate equanimity fre"
+    }
+  ],
+  "indicators": {
+    "urls": [],
+    "domains": [],
+    "sender_addresses": [],
+    "sender_headers_present": false,
+    "cue_groups": [],
+    "network_lookup_performed": false
+  },
+  "explanation": {
+    "reason": "The classifier predicts phishing; matching cue groups: none detected. This fallback does not establish that the prediction is correct.",
+    "quote": "got xanaa , vlcodd 1 n , somma , codelne , vlaagrra , claal 1 s , zol 0 ft , \\ / allium charset = iso - 8859 - 1 \" > met rich favour worthy , profession usedto ",
+    "fallback_used": true,
+    "quote_verified": true,
+    "raw_output": "{\n  \"reason\": \"The email contains a link to a pharmacy website with a discount offer for various medications, which is a common tactic used in phishing scams to trick users into revealing personal information or clicking on malicious links.\",\n  \"quote\": \"met rich favour worthy, profession usedto scene planning approach trees.\"\n}"
+  },
+  "proposed_action": "quarantine"
+}
