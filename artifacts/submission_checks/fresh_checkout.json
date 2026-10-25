@@ -1,0 +1,14 @@
+{
+  "commit": "821de23072bd435acc7983a2d183729fa6ffc9a4",
+  "checkout": "fresh GitHub clone",
+  "dependency_environment": "new venv, pinned packages installed using the existing uv package cache",
+  "hugging_face_cache": "empty before run; named public dataset/models downloaded",
+  "successful_code_cells": 17,
+  "evaluated_test_emails": 300,
+  "predictions_match_published_results": true,
+  "runner_wall_seconds": 291.6,
+  "device": "local RTX 4000 Ada GPU",
+  "adapters": "loaded from committed artifacts; no training",
+  "unpublished_authoring_scripts_required_by_notebook": false,
+  "laptop_or_t4_requirement_verified": false
+}

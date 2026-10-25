@@ -1,0 +1,35 @@
+{
+  "kind": "targeted real-model CPU compatibility probe, not a full benchmark or laptop timing",
+  "device": "cpu",
+  "dtype": "torch.float32",
+  "elapsed_seconds": 33.55,
+  "examples": [
+    {
+      "rating_row": 1,
+      "email_id": "0392c8a7a5d000ace973797f994e3ace15f353387d0de73d5f4f61224329459e",
+      "cpu_verdict": "phishing",
+      "gpu_verdict": "phishing",
+      "changed_explanation_fields": [],
+      "paused": true
+    },
+    {
+      "rating_row": 2,
+      "email_id": "03a60ed58cefdce3ab952f0bc1b407ada8f0dbc83610b4fc91c36bb8e353c019",
+      "cpu_verdict": "phishing",
+      "gpu_verdict": "phishing",
+      "changed_explanation_fields": [
+        "reason"
+      ],
+      "paused": true
+    }
+  ],
+  "existing_rating_snapshot_blocks_rerun": false,
+  "rating_error": null,
+  "simulated_quarantines_executed": 0,
+  "synthetic_rating_fixtures_not_human_scores": true,
+  "existing_sheet_and_fixture_score_preserved": true,
+  "old_scores_not_transferred_to_changed_cpu_explanation": true,
+  "new_snapshot_sheet_created": true,
+  "reordered_matching_rows_accepted": true,
+  "immutable_snapshot_tampering_rejected": true
+}

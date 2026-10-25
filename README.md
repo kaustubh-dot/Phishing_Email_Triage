@@ -44,7 +44,7 @@ Ten distinct failures now have specific AI-assisted evidence analysis: all seven
 
 Phase 6 is complete and has passed GPT-6.1-sol xhigh review after clarifying the common injection comparison and completing primary reference links; see `reviews/phase-6.md`. Fresh-kernel runs passed in both modes: 60 emails in quick mode and 300 in full mode. The notebook's runtime summaries record 44.28 and 149.96 seconds after setup imports, excluding dependency installation. Runner wall times were 47.9 and 153.5 seconds including kernel startup and the installation cell. These cached-model, saved-adapter measurements are from the local RTX 4000 Ada GPU. CPU/Colab T4 timing remains unverified. The earlier quick environment record omits the subsequently added NumPy version field; NumPy remained at 2.5.4 and the final full record includes it.
 
-Contributions remain to be discussed. Explanation ratings require real human input; the implementation exports the sheet and preserves existing entries on reruns.
+Contributions remain to be discussed. Explanation ratings require real human input; the implementation exports the sheet and preserves existing entries on reruns. Different explanation snapshots use separate sheets, including when backend numerical differences change generated text.
 
 ## Notebook controls and artifacts
 
@@ -53,7 +53,11 @@ Contributions remain to be discussed. Explanation ratings require real human inp
 - `ask(email)` returns a new thread ID and prints the explanation, evidence and trace. Use `review(thread_id, 'approve')` or `review(thread_id, 'reject')` for a pending simulated quarantine. Reused or completed threads are rejected.
 - `artifacts/adapters/r8/` and `r4/`: saved LoRA adapters and metadata. `artifacts/revisions.json`: pinned model/data revisions.
 - `artifacts/results/full/`: the complete comparison, predictions, graph/chart, injection pairs and metrics, failure analysis and runtime summary. Quick outputs use `artifacts/results/quick/`.
-- `artifacts/human_explanation_ratings.csv`: the full-run human rating sheet. Complete the rater ID and all three integer ratings (1–5) for each case, then rerun to summarize. Preserve immutable email/explanation columns; a mismatching sheet is rejected. Quick mode has its own sheet.
+- `artifacts/human_explanation_ratings.csv`: the full-run human rating sheet. Complete the rater ID and all three integer ratings (1–5) for each case, then rerun to summarize. Preserve immutable email/explanation columns. If a run produces different explanations, it uses a separate fingerprinted sheet while preserving older sheets and scores; ratings are never transferred to different text. Quick mode has its own sheet.
 - `reviews/phase-1.md` through `phase-6.md`: completed independent reviews. `artifacts/results/full/phase6_review_checks.json` records the final checks.
 
-The notebook contains the presentation walkthrough. Contributions, 30 genuine human ratings and rehearsal remain team work before academic submission. Runtime has been measured on this local GPU; CPU and Colab T4 execution have not been timed.
+The notebook contains the presentation walkthrough. Contributions, 30 genuine human ratings and rehearsal remain team work before academic submission. Full runtime has been measured on this local GPU; full laptop CPU and Colab T4 runs remain unverified. The targeted desktop CPU probe below is compatibility evidence only.
+
+## Submission readiness and detailed testing
+
+See [SUBMISSION_READINESS.md](SUBMISSION_READINESS.md) for the requirement-by-requirement assessment and [DETAILED_TESTING.md](DETAILED_TESTING.md) for the fresh-checkout, browser and backend checks. A post-publication CPU probe found a rating-snapshot portability issue; corrected runs preserve old sheets and isolate scores for changed explanations. Fresh GPU quick/full reruns passed in 50.9/151.5 seconds, including kernel startup. Both current environment records now include NumPy 2.5.4. No model weights, prompts, splits or attack cases were changed. The follow-up checkpoint passed GPT-6.1-sol xhigh independent review; see [reviews/submission-testing.md](reviews/submission-testing.md). Mandatory human work and target-platform verification remain pending.

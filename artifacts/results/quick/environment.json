@@ -9,7 +9,8 @@
     "transformers": "4.57.1",
     "peft": "0.17.1",
     "datasets": "4.2.0",
-    "langgraph": "1.0.1"
+    "langgraph": "1.0.1",
+    "numpy": "2.5.4"
   },
   "config": {
     "dataset": "zefang-liu/phishing-email-dataset",

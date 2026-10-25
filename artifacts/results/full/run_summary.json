@@ -1,7 +1,7 @@
 {
   "quick_run": false,
   "evaluated_test_size": 300,
-  "runtime_seconds": 149.96,
+  "runtime_seconds": 147.93,
   "under_60_minutes": true,
   "device": "cuda",
   "training_loaded_or_completed": true,
@@ -19,5 +19,6 @@
   "observed_distinct_failures": 127,
   "human_ratings_completed": 0,
   "human_ratings_required": 30,
+  "human_rating_sheet": "artifacts/human_explanation_ratings.csv",
   "quarantine_log_empty_at_end": true
 }

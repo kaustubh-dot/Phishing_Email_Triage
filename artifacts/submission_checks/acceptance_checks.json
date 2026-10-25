@@ -1,0 +1,65 @@
+{
+  "audit": "Submission acceptance checks; later independent review recorded separately",
+  "notebook_format_syntax_sections_and_17_saved_code_outputs": true,
+  "runtime_code_in_notebook": true,
+  "dependency_pins_match_setup_and_installed_versions": true,
+  "only_rating_snapshot_logic_and_description_and_summary_changed": true,
+  "changed_cell_ids_since_initial_publication": [
+    "p13-021",
+    "p13-022",
+    "p13-030"
+  ],
+  "adapter_weights_splits_revisions_and_supplied_sources_preserved": true,
+  "mode_checks": {
+    "full": {
+      "evaluated_emails": 300,
+      "runtime_seconds_after_setup_imports": 147.93,
+      "all_metrics_recomputed": true,
+      "approval_checks_passed": true,
+      "human_ratings_completed": 0
+    },
+    "quick": {
+      "evaluated_emails": 60,
+      "runtime_seconds_after_setup_imports": 47.19,
+      "all_metrics_recomputed": true,
+      "approval_checks_passed": true,
+      "human_ratings_completed": 0
+    }
+  },
+  "full_saved_code_cell_span_seconds_including_install_excluding_kernel_startup": 149.94,
+  "full_confusion_matrix": [
+    [
+      185,
+      3
+    ],
+    [
+      4,
+      108
+    ]
+  ],
+  "common_attack_pairs": 15,
+  "common_unique_scenarios": 5,
+  "common_successes_off_on": [
+    4,
+    7
+  ],
+  "model_explanations_valid_format_and_quote": 142,
+  "visible_template_fallbacks": 158,
+  "demo_has_observed_success_and_actual_failure": true,
+  "ask_review_notebook_function_checks_with_saved_output_fixtures": "passed; not a new model inference evaluation",
+  "bounded_demo_indicators_preserve_complete_state": true,
+  "full_and_quick_rating_sheets_separate_and_human_fields_blank": true,
+  "full_evidence_based_failure_inspections": 10,
+  "published_browser_notebook_preview_checked": true,
+  "quick_environment_numpy_recording": "2.5.4",
+  "model_weights_preserved_without_retraining": true,
+  "unverified_platforms": [
+    "full laptop CPU timing",
+    "Colab T4 timing"
+  ],
+  "remaining_human_work": [
+    "30 explanation ratings",
+    "actual team contributions",
+    "presentation rehearsal and Q&A"
+  ]
+}

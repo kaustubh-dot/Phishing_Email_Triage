@@ -3,5 +3,5 @@
   "label_reciprocal_rank_at_5": 0.97,
   "selected_k_from_validation": 5,
   "index_size": 4000,
-  "index_seconds": 0.00475525704678148
+  "index_seconds": 0.004533022991381586
 }

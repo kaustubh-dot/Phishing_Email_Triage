@@ -1,0 +1,43 @@
+{
+  "reviewer": "GPT-6.1-sol xhigh independent review",
+  "notebook_format_python_syntax_and_17_saved_code_executions": true,
+  "only_changed_notebook_sources": [
+    "p13-021",
+    "p13-022",
+    "p13-030"
+  ],
+  "protected_weights_revisions_splits_attacks_supplied_files_and_genuine_rating_sheets_match_821de23": true,
+  "rating_cell_independent_fixture_checks": {
+    "initial_creation_blank": true,
+    "existing_scores_preserved": true,
+    "reordered_sheet_rows_accepted": true,
+    "new_explanation_has_distinct_blank_sheet": true,
+    "no_old_scores_transferred": true,
+    "selected_fingerprinted_snapshot_tamper_rejected": true,
+    "selected_snapshot_schema_and_case_identity_checked": true,
+    "unmatched_canonical_legacy_sheet_preserved_and_isolated": true,
+    "quick_and_full_paths_separate": true,
+    "synthetic_scores_only_in_temporary_directory": true
+  },
+  "mode_checks": {
+    "full": {
+      "evaluated_emails": 300,
+      "metrics_independently_recomputed": true,
+      "human_ratings_completed": 0,
+      "current_rating_sheet": "artifacts/human_explanation_ratings.csv",
+      "recorded_runtime_after_setup_seconds": 147.93
+    },
+    "quick": {
+      "evaluated_emails": 60,
+      "metrics_independently_recomputed": true,
+      "human_ratings_completed": 0,
+      "current_rating_sheet": "artifacts/results/quick/human_explanation_ratings.csv",
+      "recorded_runtime_after_setup_seconds": 47.19
+    }
+  },
+  "fresh_clone_saved_notebook_outputs_and_300_predictions_verified": true,
+  "real_cpu_two_case_probe_artifacts_inspected": true,
+  "no_new_model_run_or_training_during_independent_review": true,
+  "target_platform_runtime_requirement_still_pending": true,
+  "academic_submission_ready": false
+}
