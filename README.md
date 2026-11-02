@@ -69,8 +69,6 @@ The demo includes one correctly classified held-out email and one observed failu
 | `artifacts/revisions.json` | Pinned model and dataset revisions |
 | `artifacts/results/full/` | Metrics, predictions, split manifest, charts, injection cases, failure analysis and run records |
 | `artifacts/human_explanation_ratings.csv` | Completed ratings for 30 saved explanations |
-| `P13_Phishing_Email_Triage_Team.pdf` | Project brief |
-| `0_Guidelines_and_Judging.pdf` | Assessment guidelines |
 
 Quick results, downloaded models/data, embeddings and training checkpoints are generated locally and excluded from Git. A notebook-only copy needs the accompanying artifacts or must retrain the adapters.
 
