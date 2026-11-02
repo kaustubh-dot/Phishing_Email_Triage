@@ -10,9 +10,9 @@ One executable notebook adapted from `Project_Notebook_Template.ipynb`, covering
 
 | Member | Roll number | Role and contribution |
 | --- | --- | --- |
-| Kaustubh Rajesh Upadhya | S20240030379 | To be discussed |
-| Tejas Tandon | S20240030405 | To be discussed |
-| Kanishk Gorana | S20240030378 | To be discussed |
+| Kaustubh Rajesh Upadhya | S20240030379 | Module 1 & 4: PEFT LoRA Fine-Tuning (Qwen2.5-0.5B-Instruct), Supervisor StateGraph, Node Routing, and Benchmark Evaluation |
+| Tejas Tandon | S20240030405 | Module 3 & 4: MiniLM Embeddings, FAISS kNN Vector Index, and Indicator Tools (extract_urls, check_domain_lookalike, extract_sender_headers) |
+| Kanishk Gorana | S20240030378 | Module 2 & Security: Explainer Node & Quoting Safeguards, Human Approval Gate (interrupt()), 30 Prompt-Injection Attack Suite, and Live Demo |
 
 ## Phases
 

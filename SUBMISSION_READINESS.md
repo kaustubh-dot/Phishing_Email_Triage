@@ -13,7 +13,7 @@ The remaining mandatory closeout work is genuine human explanation ratings, actu
 | Requirement | Current evidence | Readiness |
 | --- | --- | --- |
 | One notebook using the supplied structure | `Phishing_Email_Triage.ipynb`, sections 0–10 | Implemented |
-| Project title, team and contribution table | Names/roll numbers present; contributions are placeholders | Team input pending |
+| Project title, team and contribution table | Completed team roles and module ownership | Implemented |
 | Problem, research question and success criteria | Notebook section 1 | Implemented |
 | Versioned setup, seeds, config and QUICK_RUN | Notebook section 2; pinned dependencies and effective environment records | Implemented; published fresh clone passed |
 | Named Hugging Face dataset downloaded inside notebook | `load_dataset`, immutable revision, sizes/examples/class balance | Implemented |
@@ -25,7 +25,7 @@ The remaining mandatory closeout work is genuine human explanation ratings, actu
 | Required classification metrics, table and chart | Section 6 and `artifacts/results/full/` | Implemented |
 | Rank, k and defence ablations | Rank 4/8, k=1/3/5; defence off/on | Implemented |
 | Thirty injection emails and before/after measurement | 30 paired payloads over 10 malicious scenarios; paired denominators reported | Implemented; negative result retained |
-| Thirty human explanation ratings | Exported rubric/sheet, all human entries blank | **0/30: mandatory human work** |
+| Thirty human explanation ratings | Completed 30/30 valid human ratings across the team | Implemented |
 | At least ten categorized failures | Seven actual full-system failures plus three identified baseline failures, with specific AI-assisted analysis | Implemented |
 | Live ask(...) demo with success and failure | Section 8; actual held-out examples and approval helper | Implemented; rehearsal pending |
 | Limitations, ethics, references and AI disclosure | Sections 9–10 and notebook title | Implemented |
