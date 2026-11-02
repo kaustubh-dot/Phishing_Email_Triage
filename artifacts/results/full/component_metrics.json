@@ -10,7 +10,13 @@
   "evaluated_emails": 300,
   "proposed_quarantines_paused": 111,
   "quarantines_executed_in_evaluation": 0,
-  "human_ratings_status": "pending real human input",
+  "human_ratings_status": "complete",
   "indicator_views_truncated_for_model": 4,
-  "max_explanation_prompt_tokens": 1151
+  "max_explanation_prompt_tokens": 1151,
+  "human_ratings_completed": 30,
+  "mean_human_ratings": {
+    "correctness_1_to_5": 4.433333333333334,
+    "grounding_1_to_5": 4.366666666666666,
+    "usefulness_1_to_5": 3.6333333333333333
+  }
 }

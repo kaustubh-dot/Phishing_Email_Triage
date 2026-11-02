@@ -6,3 +6,4 @@ Lab-*.zip
 artifacts/checkpoints/
 artifacts/embeddings/
 artifacts/executed-notebook.log
+artifacts/results/quick/
