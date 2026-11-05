@@ -101,3 +101,9 @@ Exact normalized IDs are disjoint, but one training/test pair becomes identical 
 Tools perform local text analysis with a limited brand list. They do not authenticate senders or establish URL reputation. Fixed input limits can hide evidence. Checkpoints and simulated quarantine logs disappear on kernel restart.
 
 Before submission, complete 30 ratings for the revised snapshot, review the AI-assisted changes as a team, and verify the notebook on a permitted laptop or free Colab T4. Team contributions, ethics, lab adaptations and references remain in the notebook. QR/image processing, online learning and mailbox integration are outside scope.
+
+## Additional injection-defence audit
+
+A later audit reproduced the original regression and tested eight configurations on 400 clean validation emails and 150 paired malicious/benign challenge cases per configuration. It found an important remaining regression: the current defence allows 14/30 new explicit phishing attacks versus 7/30 with defence off, despite a conditional ASR of 0/6 eligible pairs. The low ASR excludes many already-missed controls.
+
+See [INJECTION_DEFENCE_REVIEW.md](INJECTION_DEFENCE_REVIEW.md) for the controlled format ablation, candidate tradeoffs and recommended next changes. Run `.venv/bin/python scripts/audit_injection_defences.py` to reproduce the supplementary results in `artifacts/results/injection_audit/`. The audit does not replace the notebook's current policy or its saved final-test results.

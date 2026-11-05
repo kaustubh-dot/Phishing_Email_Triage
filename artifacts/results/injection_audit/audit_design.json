@@ -1,0 +1,16 @@
+{
+  "source_commit": "a6b6737898e6552f47975f5a69163c067db096d1",
+  "device": "cuda",
+  "dtype": "torch.bfloat16",
+  "seed": 42,
+  "clean_validation_size": 400,
+  "regression_pairs": 30,
+  "new_phishing_pairs": 30,
+  "benign_allow_pairs": 30,
+  "benign_quarantine_pairs": 30,
+  "new_synthetic_phishing_pairs": 30,
+  "new_synthetic_unique_controls": 10,
+  "selection": "30 short validation emails per label, sampled with fixed seeds 2026/2027; no final test examples are used",
+  "challenge_fingerprint": "7b5f1a0b88a8bc7ce86e9adbfffa4d2f7d07b65627df3f72d2220cfe3cea31a5",
+  "scope": "Diagnostic ablations; no model/policy promotion or threshold tuning; not a general robustness guarantee"
+}
