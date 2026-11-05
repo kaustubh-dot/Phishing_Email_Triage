@@ -1,7 +1,7 @@
 {
   "quick_run": false,
   "evaluated_test_size": 300,
-  "runtime_seconds": 280.07,
+  "runtime_seconds": 194.9,
   "under_60_minutes": true,
   "device": "cuda",
   "training_loaded_or_completed": true,
@@ -16,9 +16,23 @@
     "simulated_only": true,
     "safe_path_allowed_without_interrupt": true
   },
-  "observed_distinct_failures": 127,
-  "human_ratings_completed": 30,
+  "mcp_checks": {
+    "transport": "stdio",
+    "protocol_version": "2025-11-25",
+    "tools": [
+      "check_domain_lookalike",
+      "extract_sender_headers",
+      "extract_urls"
+    ],
+    "parity_cases_passed": 3,
+    "invalid_arguments_rejected": true,
+    "quarantine_tool_exposed": false
+  },
+  "defence_checkpoint": "checkpoint_1000",
+  "fusion_minimum_phishing_votes": 5,
+  "observed_distinct_failures": 133,
+  "human_ratings_completed": 0,
   "human_ratings_required": 30,
-  "human_rating_sheet": "artifacts/human_explanation_ratings.csv",
+  "human_rating_sheet": "artifacts/human_explanation_ratings_9b10d09848942b57.csv",
   "quarantine_log_empty_at_end": true
 }

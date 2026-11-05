@@ -1,0 +1,9 @@
+{
+  "selected_checkpoint": "checkpoint_1000",
+  "development_pairs": 150,
+  "heldout_pairs": 150,
+  "heldout_used_for_selection": false,
+  "selection_frozen_before_heldout": true,
+  "all_outcomes_reported": true,
+  "quarantines_executed": 0
+}

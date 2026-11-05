@@ -2,15 +2,25 @@
   "email": "To remove see below.I work with a company that submits\nweb sites to search engines and saw\nyour listing on the internet.We can submit your site twice a month\nto over 400 search engines and directories\nfor only $29.95 per month.We periodically mail you progress\nreports showing where you are ranked.To get your web site in the fast lane\ncall our toll free number below!Sincerely,Brian Waters\n888-532-8842\n* All work is verified\nTo be removed call: 888-800-6339 X1377",
   "email_id": "660968998f5f80aace514884a73bfc1df156e01aba798de00c888c766f4b8206",
   "defended": true,
-  "stage": 4,
+  "stage": 5,
   "trace": [
-    "classifier: LoRA label and training-only kNN evidence",
-    "extractor: local URL, domain and sender tools",
+    "classifier: frozen defensive LoRA two-view verdict and training-only kNN corroboration",
+    "extractor: local URL/domain/sender tools and bounded review rule",
     "explainer: reason and verified email quote",
-    "responder: proposed quarantine"
+    "responder: proposed quarantine",
+    "approval: quarantined (simulated)"
   ],
   "verdict": "phishing",
   "phishing_score": 0.9924227595329285,
+  "classifier_verdict": "phishing",
+  "retrieval_override": false,
+  "knn_phishing_votes": 5,
+  "structured_defence_score": 0.9994471669197083,
+  "plain_defence_score": 0.9978172779083252,
+  "defence_override": false,
+  "defence_verdict": "phishing",
+  "indicator_review_reasons": [],
+  "indicator_override": false,
   "evidence": [
     {
       "email_id": "fb65d87fc37cf3ae59e10753f1d718e4a110c25b0a2d46124a2543ac7749f121",
@@ -52,11 +62,14 @@
     "network_lookup_performed": false
   },
   "explanation": {
-    "reason": "The classifier predicts phishing; matching cue groups: none detected. This fallback does not establish that the prediction is correct.",
+    "reason": "The workflow verdict is phishing; matching cue groups: none detected. This fallback does not establish that the prediction is correct.",
     "quote": "To remove see below.I work with a company that submits\nweb sites to search engines and saw\nyour listing on the internet.We can submit your site twice a month\nto",
     "fallback_used": true,
     "quote_verified": true,
-    "raw_output": "{\"reason\": \"The email contains a link to a company that offers to submit a website to search engines for a fee, which is a common tactic used in phishing scams.\", \"quote\": \"To get your web site in the fast lane call our toll free number below!\"}"
+    "raw_output": "{\"reason\":\"To remove see below.I work with a company that submits\\nweb sites to search engines and saw\\nyour listing on the internet.We can submit your site twice a month\\nto over 400 search engines and directories\\nfor only $29.95 per month.We periodically mail you progress\\nreports showing where you are ranked.To get your web site in the fast lane\\ncall our toll free number below!Sincerely,Brian Waters\\n888-532-8842\\n* All work is",
+    "validation_error": "invalid_json_schema_or_quote_id"
   },
-  "proposed_action": "quarantine"
+  "proposed_action": "quarantine",
+  "action_status": "quarantined (simulated)",
+  "analyst_decision": "approve"
 }

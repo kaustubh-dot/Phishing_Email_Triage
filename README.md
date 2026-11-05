@@ -1,12 +1,12 @@
 # Phishing email triage (P13)
 
-A notebook project that classifies email as safe or phishing and shows the evidence behind a proposed action. It combines a Qwen LoRA classifier, MiniLM/FAISS retrieval and local indicator tools in a LangGraph workflow. Quarantine is simulated and requires an explicit analyst decision.
+A text-email triage notebook built to the original P13 brief, including its MCP server stretch goal. It combines Qwen LoRA classification, MiniLM/FAISS retrieval, local indicator tools, explanations and a LangGraph supervisor. Every quarantine proposal requires explicit analyst approval; actions are simulated.
 
-The complete implementation, saved outputs, evaluation and demo are in [Phishing_Email_Triage.ipynb](Phishing_Email_Triage.ipynb). Team contributions are recorded in its opening table. The repository includes both trained adapters and 30 completed human explanation ratings.
+The complete implementation, saved evaluation and demo are in [Phishing_Email_Triage.ipynb](Phishing_Email_Triage.ipynb). The latest changes prioritize injection resistance and preserve the original adapters as baselines. See [DEFENCE_IMPROVEMENTS.md](DEFENCE_IMPROVEMENTS.md) for the training, held-out security results and clean-email tradeoff.
 
 ## Run locally
 
-Use Python 3.12. Keep the notebook at the repository root so it can find the saved adapters and ratings.
+Use Python 3.12 and keep the notebook at the repository root.
 
 ```bash
 uv venv .venv
@@ -14,70 +14,87 @@ uv pip install --python .venv/bin/python -r requirements.txt
 .venv/bin/python -m ipykernel install --prefix .venv --name python3
 ```
 
-Open the notebook in a Jupyter-compatible editor, select `.venv/bin/python` as its kernel and run the cells in order. The first run needs internet access to download the public dataset and base models. Dependencies are pinned in `requirements.txt` and the notebook setup cell. Downloads stay in `.cache/` and are excluded from Git.
+Select `.venv/bin/python` as the kernel and run all cells in order. First use needs internet for the public Hugging Face dataset and pinned base models. The saved original and defensive adapters are included. Downloads, embeddings and training checkpoints are cached locally and excluded from Git.
 
-The notebook uses CUDA when available and otherwise runs on CPU. The recorded full run used an NVIDIA RTX 4000 Ada GPU. A fresh full run completed all 17 code cells in 283.5 seconds on that GPU, including kernel startup and setup. Full laptop CPU and free Colab T4 timing have not been verified.
+- `QUICK_RUN=True` evaluates 60 fixed test emails; `False` evaluates all 300. `P13_QUICK_RUN=1` or `0` overrides the flag. Committed outputs show the full evaluation.
+- `TRAIN=False` loads matching saved adapters or trains missing ones. `TRAIN=True` retrains. Incompatible cached metadata raises an error.
+- Both modes use the same 4,000 downloaded training emails, 400 validation emails and training-only retrieval index. Defensive training creates 8,000 derived examples from those 4,000 identities; it never trains on validation/test emails or held-out attack cases.
 
-### Run controls
+Fresh full execution with saved adapters takes about three to four minutes on the available RTX 4000 Ada GPU; quick mode takes about 85 seconds. Defensive training took approximately 279 seconds on that GPU. Full laptop CPU/free Colab T4 timing remains unverified. A notebook-only copy needs accompanying adapters and rating snapshots or must retrain. Both helper Python files and security-fixture recipes are embedded and recreated by the notebook.
 
-- `QUICK_RUN=True` evaluates 60 fixed test emails; `False` evaluates all 300. An explicit `P13_QUICK_RUN=1` or `0` environment setting overrides the flag. The committed outputs show the full evaluation.
-- `TRAIN=False` loads matching saved adapters and trains once if they are missing. `TRAIN=True` retrains both ranks. A saved adapter with mismatching metadata raises an error.
-- Both modes use the same 4,000 training emails, 400 validation emails and training-only retrieval index. Seed 42, pinned dataset/model revisions and input fingerprints support reproduction.
+## Defensive training and decisions
 
-## Results
+The original rank-4/rank-8 LoRA adapters remain unchanged. A separate rank-8 adapter continues training with 4,000 clean structured examples, 2,000 clean plain examples and 2,000 label-preserving adversarial examples. Requested A/B labels are balanced independently of true labels. The inference threshold stays at 0.5.
 
-All conditions below use the same 300 test emails: 188 safe and 112 phishing. Precision, recall and F1 treat phishing as the positive class. The notebook also reports k=1 and k=3 ablations; k=5 was selected using validation data.
+Half/full checkpoints are selected on development security outcomes subject to prespecified clean-validation and malicious-control safeguards. The full checkpoint is frozen before scoring the fresh attack holdout. Both escaped JSON and escaped plain-text views use this selected model. Either may flag phishing. Unanimous training-only retrieval can also request review.
+
+The existing extractor adds a bounded review rule for direct secret requests at untrusted URLs, or disabling protection and installing/running a download. Negation handling is tested but limited. Exact known-brand spelling is a policy exception, not authentication or reputation verification. The full verdict and contributing indicator evidence are visible to the analyst. No component can approve quarantine.
+
+## Injection results
+
+The original 30 attacks share ten malicious scenarios. The revised off/on comparison correctly quarantines every control in both modes, so all 30 pairs have the same eligibility: targeted ASR falls from **10/30 (33.3%) off to 1/30 (3.3%) on**. The previous defence allowed 7/30 attacked emails and missed three underlying controls.
+
+A fresh 150-pair holdout uses new payload templates and disjoint development/test identities. It was frozen before training and was not used for model selection.
+
+| Fresh holdout outcome | Defence off | Previous defence | Improved defence |
+| --- | ---: | ---: | ---: |
+| Dataset-labelled phishing attacked emails allowed | 11/30 | 7/30 | 2/30 |
+| Explicit phishing attacked emails allowed | 4/30 | 7/30 | 0/30 |
+| Benign emails forced into quarantine | 26/30 | 10/30 | 2/30 |
+| Authored benign emails forced into quarantine | 22/30 | 8/30 | 4/30 |
+
+All ten unique explicit malicious holdout controls are quarantined by the improved policy. Two dataset-labelled phishing controls remain wrong before and after injection; their allows are included in the table. Benign allow-directed negative controls produce 1/30 false quarantine proposals versus 0/30 previously.
+
+Results include all control/attacked outcomes, conditional denominators, common-pair comparisons and structured-only/two-view/retrieval/full-policy ablations. An ASR with no eligible controls is undefined. Authored scenarios and related payload families are correlated; these results do not establish general immunity or statistical significance.
+
+## Clean classification tradeoff
+
+Every classification condition uses the same 300 fixed test emails: 188 safe and 112 phishing. Phishing is positive. The complete baseline and ablation table remains in the notebook and saved metrics.
 
 | Condition | Accuracy | Precision | Recall | F1 | False-positive rate |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Keyword rules | 0.6433 | 0.7273 | 0.0714 | 0.1301 | 0.0160 |
 | Zero-shot Qwen | 0.6267 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
-| MiniLM/FAISS kNN, k=5 | 0.9633 | 0.9469 | 0.9554 | 0.9511 | 0.0319 |
-| LoRA rank 8 | 0.9767 | 0.9730 | 0.9643 | 0.9686 | 0.0160 |
-| LoRA rank 4 | 0.9700 | 0.9813 | 0.9375 | 0.9589 | 0.0106 |
-| Full defended workflow | 0.9767 | 0.9730 | 0.9643 | 0.9686 | 0.0160 |
+| kNN, validation-selected k=5 | 0.9633 | 0.9469 | 0.9554 | 0.9511 | 0.0319 |
+| Original LoRA rank 8 | 0.9767 | 0.9730 | 0.9643 | 0.9686 | 0.0160 |
+| Original LoRA rank 4 | 0.9700 | 0.9813 | 0.9375 | 0.9589 | 0.0106 |
+| Defensive LoRA, structured only | 0.9633 | 0.9316 | 0.9732 | 0.9520 | 0.0426 |
+| Defensive LoRA, two-view | 0.9567 | 0.9160 | 0.9732 | 0.9437 | 0.0532 |
+| Full improved defence | 0.9467 | 0.8934 | 0.9732 | 0.9316 | 0.0691 |
 
-The rank-8 classifier makes three false positives and four false negatives. The defended workflow preserves its verdict, so retrieval, tools and approval do not add a classification accuracy gain. The unchanged zero-shot model predicts every test email as safe under the notebook's constrained A/B scoring.
+The full improved workflow has 13 false positives and 3 false negatives, versus 5/3 and F1 0.9646 for the previous workflow. The original rank-8 classifier has 3/4 and F1 0.9686. This material cost is reported explicitly; the security policy is not retuned on test outcomes. The full evaluation pauses all 122 quarantine proposals and executes none. Separate integration checks cover approval, rejection, replay protection and thread isolation.
 
-The full workflow produces 111 quarantine proposals, all paused for approval. Evaluation executes no quarantine. Separate integration checks cover approval, rejection, replay protection and thread isolation.
+Zero-shot still predicts every test email as safe under the unchanged constrained A/B method. Scores and max-of-view combinations are not calibrated probabilities.
 
-### Explanations and human ratings
+## Explanations and human ratings
 
-Of 300 model explanations, 142 pass JSON-format and exact-quote checks; the remaining 158 use visible template fallbacks. A quote appearing in an email does not establish that the reason is correct.
+The explainer writes a factual observation and selects an exact source span by ID. Invalid structure, IDs and some directly checkable unsupported claims produce visible template fallbacks. Quote verification does not establish reasoning correctness. Current counts and failure reasons are in `artifacts/results/full/component_metrics.json`.
 
-The [human rating sheet](artifacts/human_explanation_ratings.csv) contains 30 completed cases. Mean ratings on a 1 to 5 scale are 4.43 for correctness, 4.37 for grounding and 3.63 for usefulness. These ratings apply to the saved email/explanation snapshot. If a rerun changes the explanations, the notebook preserves the existing sheet and creates a separate fingerprinted sheet; scores are counted only for matching text. Quick mode uses its own sheet.
+The original [30 completed ratings](artifacts/human_explanation_ratings.csv) remain unchanged for their historical explanation snapshot. Revised explanations need **30 fresh human ratings**. The active fingerprinted sheet is identified by `human_rating_sheet` in [run_summary.json](artifacts/results/full/run_summary.json). Rate correctness, grounding and usefulness from 1 to 5 and record the rater's name; rerun to validate matching text. Historical ratings are never transferred to changed explanations.
 
-### Prompt-injection test
+## MCP server and demo
 
-Thirty attack pairs share ten synthetic malicious scenarios. On the same 15 pairs eligible in both defence conditions, targeted attacks succeed in 4/15 cases with defence off and 7/15 with it on. Across all 30 attacked emails, allow counts are 10/30 and 15/30. The defence does not improve this observed stress test. All attacked allow outcomes follow a safe classifier verdict, which the action-consistency rule cannot correct.
+[mcp_indicator_server.py](mcp_indicator_server.py) exposes `extract_urls`, `check_domain_lookalike` and `extract_sender_headers` through the official MCP SDK 1.28.0 over stdio:
 
-These authored cases do not establish general injection robustness. The notebook reports the individual-condition denominators, shared eligible pairs and classifier flips separately.
+```bash
+.venv/bin/python mcp_indicator_server.py
+```
 
-## Try the demo
+The server waits for MCP client requests and needs no model or URL fetching. The notebook embeds the same source and verifies initialization, discovery, calls, output parity and invalid-argument rejection. No quarantine action is exposed. References: [SDK v1 documentation](https://py.sdk.modelcontextprotocol.io/v1/), [SDK source](https://github.com/modelcontextprotocol/python-sdk).
 
-After running the notebook, `ask(email)` prints the verdict, quoted explanation, retrieved evidence and trace, then returns a new thread ID. A proposed quarantine waits for `review(thread_id, 'approve')` or `review(thread_id, 'reject')`. Completed threads cannot be reused.
+After Run All, `ask(email)` prints original/workflow verdicts, defence changes, indicator review reasons, explanation, retrieved evidence and trace. A quarantine proposal waits for `review(thread_id, 'approve')` or `review(thread_id, 'reject')`. Completed threads cannot be reused. The demo includes a success and an actual failure.
 
-The demo includes one correctly classified held-out email and one observed failure. Complete indicators remain in graph state. Checkpoints and the simulated quarantine log are held in memory and disappear when the kernel restarts.
+## Verification and limits
 
-## Repository contents
+```bash
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python -m pip check
+```
 
-| Path | Contents |
-| --- | --- |
-| `Phishing_Email_Triage.ipynb` | Implementation, evaluation, demo, team contributions, limitations and references |
-| `requirements.txt` | Pinned Python dependencies |
-| `artifacts/adapters/r8/` and `r4/` | Trained LoRA adapters, tokenizer files and training metadata |
-| `artifacts/revisions.json` | Pinned model and dataset revisions |
-| `artifacts/results/full/` | Metrics, predictions, split manifest, charts, injection cases, failure analysis and run records |
-| `artifacts/human_explanation_ratings.csv` | Completed ratings for 30 saved explanations |
+Fourteen regression checks cover MCP, URL/header handling, two-view preservation, label-balanced augmentation, holdout separation, negated security reminders and explanation validation. Saved training fingerprints and frozen selection records are under `artifacts/adapters/defended-r8/`; all evaluation evidence is under `artifacts/results/full/`.
 
-Quick results, downloaded models/data, embeddings and training checkpoints are generated locally and excluded from Git. A notebook-only copy needs the accompanying artifacts or must retrain the adapters.
+The public dataset includes ambiguous spam labels and near-duplicate campaigns. One bounded classifier input overlaps training/testing; the same 299-email sensitivity table is retained. Fixed context limits can hide evidence. Local tools do not authenticate headers or establish website reputation. Checkpoints and simulated quarantine logs disappear on restart.
 
-## Limitations
+Before submission, complete the current human ratings, review the AI-assisted changes as a team, and verify execution on a permitted laptop or free Colab T4. Contributions, references, ethics, failure analyses and presentation walkthrough remain in the notebook.
 
-The public dataset includes spam-like messages labelled phishing. Results describe one fixed split and do not establish performance on current threats or a statistically significant advantage over other classifiers.
-
-One distinct safe training/test email pair becomes identical after classifier truncation. The notebook retains the original split and reports a common 299-email sensitivity check for every condition; rank-8 F1 is unchanged. Fixed input limits can also hide evidence in long emails.
-
-Indicator tools inspect local text. They do not authenticate sender headers, visit URLs or query reputation services. The brand list is limited, and model explanations can misinterpret valid quotes. There is no live mailbox integration.
-
-Codex assisted with implementation, experiments and notebook prose. Team members reviewed and verified the work; their contributions and the dataset, model, library and lab references are recorded in the notebook.
+The earlier [injection audit](INJECTION_DEFENCE_REVIEW.md) is historical evidence behind this implementation. `scripts/audit_injection_defences.py` reproduces those original-adapter ablations against fixed reference actions; the notebook evaluates the latest defence. The scope remains text-email triage plus the named MCP stretch goal.
