@@ -27,6 +27,12 @@
     "inference_batch_size": 8,
     "agent_input_tokens": 4096,
     "explanation_indicator_limit": 5,
+    "fusion_vote_candidates": [
+      0,
+      3,
+      4,
+      5
+    ],
     "epochs": 1,
     "learning_rate": 0.0002,
     "lora_ranks": [

@@ -1,22 +1,27 @@
 {
-  "indicator_cases_passed": 6,
-  "indicator_cases_total": 6,
+  "indicator_cases_passed": 9,
+  "indicator_cases_total": 9,
   "explanations_with_verified_quote": 300,
-  "model_explanations_valid_format_and_quote": 142,
-  "model_explanation_valid_format_and_quote_rate": 0.47333333333333333,
-  "explanation_fallbacks": 158,
-  "verified_template_quotes": 158,
-  "explanation_fallback_rate": 0.5266666666666666,
+  "model_explanations_valid_format_and_quote": 226,
+  "model_explanation_valid_format_and_quote_rate": 0.7533333333333333,
+  "explanation_failure_reasons": {
+    "invalid_json_schema_or_quote_id": 29,
+    "unsupported_sensitive_information_claim": 16,
+    "unsupported_domain_flag": 2,
+    "unsupported_url_claim": 22,
+    "unverified_website_reputation": 5
+  },
+  "quote_selection_method": "model-selected exact source span ID",
+  "explanation_fallbacks": 74,
+  "verified_template_quotes": 74,
+  "explanation_fallback_rate": 0.24666666666666667,
   "evaluated_emails": 300,
-  "proposed_quarantines_paused": 111,
+  "retrieval_overrides": 3,
+  "proposed_quarantines_paused": 114,
   "quarantines_executed_in_evaluation": 0,
-  "human_ratings_status": "complete",
+  "human_ratings_status": "pending real human input",
   "indicator_views_truncated_for_model": 4,
-  "max_explanation_prompt_tokens": 1151,
-  "human_ratings_completed": 30,
-  "mean_human_ratings": {
-    "correctness_1_to_5": 4.433333333333334,
-    "grounding_1_to_5": 4.366666666666666,
-    "usefulness_1_to_5": 3.6333333333333333
-  }
+  "max_explanation_prompt_tokens": 1530,
+  "human_ratings_completed": 0,
+  "mean_human_ratings": {}
 }

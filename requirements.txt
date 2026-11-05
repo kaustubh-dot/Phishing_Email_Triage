@@ -17,3 +17,5 @@ nbclient==0.10.2
 ipykernel==7.0.1
 pip==25.2
 numpy==2.5.4
+mcp==1.28.0
+pydantic-settings==2.12.0
