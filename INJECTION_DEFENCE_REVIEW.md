@@ -1,5 +1,7 @@
 **Injection-defence audit — November 5, 2026**
 
+This is the historical pre-hardening audit at commit `09f8f9f`. Its recommended changes have since been implemented and tested; see [DEFENCE_IMPROVEMENTS.md](DEFENCE_IMPROVEMENTS.md) for current results.
+
 The current defence improves the original 30-pair regression but still regresses on a new set of explicit phishing scenarios. It is not ready to freeze as the final defence. A low conditional attack success rate alone is insufficient: a defender that already allows malicious controls can exclude those failures from its ASR denominator.
 
 The audit reproduced every committed control/attack action in both original conditions, then tested eight fixed inference configurations on the available RTX 4000 Ada GPU. It used 400 clean validation emails and 150 paired cases per configuration. No final test emails, model weights, notebook policy, approval logic or MCP tools were changed. All actions are proposed labels; no quarantine was executed.

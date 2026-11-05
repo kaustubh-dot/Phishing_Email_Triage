@@ -6,6 +6,7 @@ import re
 import unittest
 
 from pydantic import BaseModel, Field
+from defence_hardening import defence_decision
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,7 +17,8 @@ def source_containing(marker):
     return next(''.join(c['source']) for c in CELLS if marker in ''.join(c['source']))
 
 
-NAMESPACE = {'json':json, 're':re, 'BaseModel':BaseModel, 'Field':Field, 'FUSION_MIN_VOTES':5}
+NAMESPACE = {'json':json, 're':re, 'BaseModel':BaseModel, 'Field':Field,
+             'FUSION_MIN_VOTES':5, 'defence_decision':defence_decision}
 baseline = source_containing('CUES = {')
 exec(baseline[:baseline.index('def cue_names')], NAMESPACE)
 definitions = ast.parse(source_containing('def decision_from_score('))
@@ -43,6 +45,13 @@ class DecisionPolicyTests(unittest.TestCase):
         result = NAMESPACE['decision_from_score'](.8, [{'label':'safe'}] * 5, True)
         self.assertEqual(result['verdict'], 'phishing')
         self.assertFalse(result['retrieval_override'])
+
+    def test_either_defensive_view_can_require_review(self):
+        decide = NAMESPACE['decision_from_score']
+        safe_neighbors = [{'label':'safe'}] * 5
+        self.assertEqual(decide(.1, safe_neighbors, True, .1, .9)['verdict'], 'phishing')
+        self.assertEqual(decide(.1, safe_neighbors, True, .9, .1)['verdict'], 'phishing')
+        self.assertEqual(decide(.1, safe_neighbors, False, .9, .9)['verdict'], 'safe')
 
 
 class ExplanationValidationTests(unittest.TestCase):

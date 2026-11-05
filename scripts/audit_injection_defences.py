@@ -1,4 +1,4 @@
-"""Controlled P13 injection ablations; keeps notebook/models and its final test set unchanged.
+"""Historical pre-hardening P13 injection ablations; original adapters and reference actions remain fixed.
 
 Runs the existing 30-pair regression, 400 clean validation emails, a frozen
 challenge with 30 distinct phishing and 30 distinct safe validation emails,
@@ -201,7 +201,7 @@ policies={
  'Raw/protected OR + majority RAG':(probs['raw']>=.5)|(probs['current']>=.5)|(votes>=3),
 }
 # Reproduce the committed regression actions before using its extensions.
-previous=pd.read_csv(ROOT/'artifacts/results/full/injection_detail.csv')
+previous=pd.read_csv(OUT/'reference_actions.csv')
 for defended,name in [(False,'Off original responder'),(True,'Current defence')]:
     group=previous[previous.defended==defended].set_index('attack_id')
     for row in old.itertuples():
