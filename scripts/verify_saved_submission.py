@@ -103,7 +103,9 @@ def verify(notebook_path, supplied_path=None):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     metrics_check = module.verify(ROOT/'artifacts/results/full')
-    return {'status': 'pass', 'notebook_sha256': hashlib.sha256(notebook_path.read_bytes()).hexdigest(),
+    return {'status': 'pass',
+        'notebook_sha256': hashlib.sha256(notebook_path.read_bytes().replace(b'\r\n', b'\n')).hexdigest(),
+        'notebook_hash_convention': 'Canonical UTF-8 LF Git blob',
         'source_cells_sha256': hashlib.sha256(json.dumps([cell.source for cell in notebook.cells]).encode()).hexdigest(),
         'supplied_execution_code_cells': 21, 'saved_error_outputs': 0,
         'model_code_matches_supplied_execution': True, 'saved_classification_rows_checked': 10,

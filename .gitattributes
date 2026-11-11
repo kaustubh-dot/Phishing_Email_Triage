@@ -1,4 +1,5 @@
 # Preserve exact quoted source text and unified-diff context in review evidence.
+Phishing_Email_Triage.ipynb text eol=lf
 artifacts/human_explanation_ratings*.csv -text
 artifacts/human_based_reviews.csv -text -whitespace
 archive/gpu-reference-2026-11-11/* -text

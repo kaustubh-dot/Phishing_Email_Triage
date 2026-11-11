@@ -11,7 +11,7 @@
   "approval_date": "2026-11-11",
   "published_notebook_path": "Phishing_Email_Triage.ipynb",
   "review_copy_committed": false,
-  "current_notebook_sha256": "5755da652977ccfa54eb2ba9e5ff96c8f7b0c65ff724a41d69532dcc76a8174c",
+  "current_notebook_sha256": "16c91a276389ee87ecf6d0ce453a2ece5e4f964a9226e1f5d2fafd1be8f60fdd",
   "current_source_cells_sha256": "f0171629f3a63ea33986c951a40e4e2449ba89f5b6b4a85a2b77e8a51e91c907",
   "attribution_cleanup": {
     "date": "2026-11-11",
@@ -98,5 +98,6 @@
     "assistance_disclosure_retained": true
   },
   "current_human_based_reviews_completed": 30,
-  "current_review_snapshot_verified": true
+  "current_review_snapshot_verified": true,
+  "current_notebook_hash_convention": "SHA-256 of the canonical UTF-8 LF Git blob, identical to the published raw notebook."
 }

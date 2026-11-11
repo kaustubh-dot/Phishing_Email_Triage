@@ -1,6 +1,7 @@
 {
   "status": "pass",
-  "notebook_sha256": "5755da652977ccfa54eb2ba9e5ff96c8f7b0c65ff724a41d69532dcc76a8174c",
+  "notebook_sha256": "16c91a276389ee87ecf6d0ce453a2ece5e4f964a9226e1f5d2fafd1be8f60fdd",
+  "notebook_hash_convention": "Canonical UTF-8 LF Git blob",
   "source_cells_sha256": "f0171629f3a63ea33986c951a40e4e2449ba89f5b6b4a85a2b77e8a51e91c907",
   "supplied_execution_code_cells": 21,
   "saved_error_outputs": 0,

@@ -41,6 +41,8 @@
   "asset_bootstrap": {
     "status": "pass",
     "cold_workspace_files_verified": 17,
-    "source": "immutable Git archive with canonical LF bytes"
+    "source": "immutable Git archive with canonical LF bytes",
+    "live_github_download_passed": true,
+    "published_record": "output/submission/verification/supplied-saved-run/published_bootstrap.json"
   }
 }
