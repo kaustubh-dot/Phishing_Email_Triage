@@ -1,6 +1,7 @@
 """Exercise the notebook's actual decision/validation functions without loading models."""
 import ast
 import json
+import os
 from pathlib import Path
 import re
 import unittest
@@ -10,7 +11,8 @@ from defence_hardening import defence_decision
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CELLS = json.loads((ROOT / 'Phishing_Email_Triage.ipynb').read_text())['cells']
+NOTEBOOK = Path(os.environ.get('P13_NOTEBOOK_PATH', ROOT / 'Phishing_Email_Triage.ipynb'))
+CELLS = json.loads(NOTEBOOK.read_text())['cells']
 
 
 def source_containing(marker):

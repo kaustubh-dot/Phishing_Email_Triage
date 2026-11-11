@@ -1,0 +1,14 @@
+{
+  "original_filename": "P13_Phishing_Email_Triage.ipynb",
+  "original_sha256": "721e1714907b92cea1af7aff1598a8edb618af32c8e4f36c6863dbefdac3066c",
+  "reviewed_filename": "P13_Phishing_Email_Triage.ipynb",
+  "runtime_asset_revision": "044821a93fc84c4b1165caea57ca8c7f63bfb414",
+  "runtime_asset_count": 15,
+  "github_push_authorized": true,
+  "reviewed_sha256": "096b018a24643ddb1cc4de7d08df9cb8d300bcf61422cd637e37dcfe8796666a",
+  "source_cells_sha256": "b6ee416c7f6ab49903d44b52c9bf4e557cac6d653f7a178f466078a7ba0dc1a9",
+  "unchanged_system_cell_count": 15,
+  "approval_date": "2026-11-11",
+  "published_notebook_path": "Phishing_Email_Triage.ipynb",
+  "review_copy_committed": false
+}

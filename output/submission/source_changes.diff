@@ -1,0 +1,448 @@
+--- supplied_submission.ipynb (source only)
++++ reviewed_submission.ipynb (source only)
+@@ -9,9 +9,14 @@
+ | Tejas Tandon | S20240030405 | Module 3 & 4: MiniLM Embeddings, FAISS kNN Vector Index, and Indicator Tools (extract_urls, check_domain_lookalike, extract_sender_headers) |
+ | Kanishk Gorana | S20240030378 | Module 2 & Security: Explainer Node & Quoting Safeguards, Human Approval Gate (interrupt()), 30 Prompt-Injection Attack Suite, and Live Demo |
+ 
+-**AI assistance:** Codex assisted with implementation, experiments and notebook prose. The team reviewed the original submission. The revised MCP server, retrieval policy, explanations and refreshed results on this branch need team review before submission.
++**AI assistance:** Codex assisted with implementation, experiments and notebook prose. The team reviewed the original submission. The revised MCP server, retrieval policy, explanations and refreshed results need team review before submission.
+ 
+ **Walkthrough:** sections 2–4 establish the data and baseline; 5a adds retrieval; 5b defines the graph and tools; 5c trains and connects LoRA; 6 measures the complete system; 7–10 explain failures, demonstrate approval and document limitations.
++
++
++**Project repository:** [kaustubh-dot/Phishing_Email_Triage](https://github.com/kaustubh-dot/Phishing_Email_Triage). For the presentation, supporting results, archived experiments and further implementation details, check the repository. The required system, evaluation, saved outputs and demo remain in this notebook. Saved runtime assets are fetched from the pinned snapshot identified in Setup.
++
++**Current validation status:** automated correctness and quote checks are separate from human explanation quality. Only ratings of the exact current explanations count. Full and quick executions have completed successfully on NVIDIA RTX 4000 Ada; these execution checks do not imply perfect classification or verified performance on another device. Team review remains required.
+ 
+ 
+ ### CELL 1 (markdown)
+@@ -29,17 +34,212 @@
+ ### CELL 2 (markdown)
+ ## 2. Setup
+ 
+-Pinned, tested project dependencies. On the first run, downloads require internet access. Local caches stay in this project. Set `TRAIN=True` to retrain; otherwise a matching saved adapter is loaded, or trained once if it is absent. `QUICK_RUN` changes evaluation size only, keeping trained models and retrieval data identical.
++This notebook can start in an empty folder with Python 3.12 and internet access. It writes its pinned dependency list and support module, then fetches only missing saved adapters, revision records, frozen fixtures and rating sheets from a fixed public GitHub commit. Every downloaded file is checked against an embedded SHA-256 manifest. Existing local files and human entries are preserved. Public base models and the specified dataset are still loaded from Hugging Face in the cells below.
++
++When opened within the repository, the existing workspace is used. Otherwise runtime files live in `p13_runtime/` beneath the current working directory. `P13_WORKSPACE` can set an explicit writable location. The GitHub artifact snapshot is pinned independently of the latest repository notebook, so later repository edits cannot silently change these saved weights.
++
++The setup cell contains all dependency versions; no separately submitted `requirements.txt` is needed. Use a fresh kernel. First use requires internet and model-download time. `TRAIN=False` uses matching saved adapters; `TRAIN=True` retrains. `QUICK_RUN=True` evaluates 60 test emails; set `P13_QUICK_RUN=0` before Run All for the full 300-email run. Saved outputs below use the full run. Setup/download time and execution time are reported separately at the end.
+ 
+ 
+ ### CELL 3 (code)
+-%pip install -q -r requirements.txt
++# AI-assisted portable setup; all executable support is embedded in this notebook.
++import os, sys, time
++from pathlib import Path
++P13_NOTEBOOK_STARTED = time.perf_counter()
++if sys.version_info < (3, 12):
++    raise RuntimeError('Use Python 3.12 or newer for the pinned NumPy environment; Python 3.12 was tested.')
++cwd = Path.cwd()
++default_workspace = cwd if (cwd/'artifacts/revisions.json').exists() else cwd/'p13_runtime'
++P13_ROOT = Path(os.environ.get('P13_WORKSPACE', str(default_workspace))).expanduser().resolve()
++P13_ROOT.mkdir(parents=True, exist_ok=True)
++PINNED_REQUIREMENTS = """torch==2.8.0
++transformers==4.57.1
++peft==0.17.1
++accelerate==1.10.1
++datasets==4.2.0
++huggingface-hub==0.35.3
++sentence-transformers==5.1.1
++faiss-cpu==1.12.0
++scikit-learn==1.7.2
++pandas==2.3.3
++matplotlib==3.10.7
++langgraph==1.0.1
++langchain-core==1.0.1
++pydantic==2.12.3
++nbformat==5.10.4
++nbclient==0.10.2
++ipykernel==7.0.1
++pip==25.2
++numpy==2.5.4
++mcp==1.28.0
++pydantic-settings==2.12.0
++"""
++requirements_path = P13_ROOT/'requirements.txt'
++requirements_path.write_text(PINNED_REQUIREMENTS, encoding='utf-8')
++%pip install -q -r "{requirements_path}"
++
++SUBMISSION_SUPPORT_SOURCE = r'''"""AI-assisted single-notebook setup and explanation-rating validation.
++
++Saved assets are read from a pinned public repository snapshot and checked before
++being written. Human ratings count only when their immutable explanation fields
++match the current run. No model inference or human scores are supplied here.
++"""
++
++from hashlib import sha256
++from io import BytesIO
++from pathlib import Path, PurePosixPath
++from urllib.request import Request, urlopen
++from zipfile import ZipFile
++
++
++IMMUTABLE_RATING_COLUMNS = [
++    'email_id', 'email', 'dataset_label', 'verdict', 'reason', 'quote', 'fallback_used',
++]
++RATING_COLUMNS = ['correctness_1_to_5', 'grounding_1_to_5', 'usefulness_1_to_5']
++
++
++def ensure_submission_assets(root, manifest, repository, revision, *, opener=None):
++    """Download missing, checksum-verified assets without replacing local files."""
++    root = Path(root).resolve()
++    targets = {}
++    for name in manifest:
++        relative = PurePosixPath(name)
++        if relative.is_absolute() or '..' in relative.parts:
++            raise ValueError(f'Unsafe asset path: {name}')
++        target = root.joinpath(*relative.parts)
++        if not target.resolve().is_relative_to(root):
++            raise ValueError(f'Asset path escapes the workspace: {name}')
++        targets[name] = target
++    missing = {name: target for name, target in targets.items() if not target.exists()}
++    report = {'repository': repository, 'revision': revision,
++              'existing_files_preserved': len(targets) - len(missing), 'downloaded_files': []}
++    if not missing:
++        return report
++    url = f'https://codeload.github.com/{repository}/zip/{revision}'
++    try:
++        with (opener or urlopen)(Request(url, headers={'User-Agent': 'P13-notebook'}), timeout=120) as response:
++            content = response.read(128 * 1024 * 1024 + 1)
++        if len(content) > 128 * 1024 * 1024:
++            raise ValueError('Repository download exceeds the 128 MiB setup limit.')
++        prefix = f'{repository.split("/")[-1]}-{revision}/'
++        verified = {}
++        with ZipFile(BytesIO(content)) as archive:
++            for name in missing:
++                entry = archive.getinfo(prefix + name)
++                if entry.file_size > 16 * 1024 * 1024:
++                    raise ValueError(f'Unexpectedly large saved asset: {name}')
++                payload = archive.read(entry)
++                if sha256(payload).hexdigest() != manifest[name]:
++                    raise ValueError(f'Saved asset checksum mismatch: {name}')
++                verified[name] = payload
++    except Exception as exc:
++        raise RuntimeError(
++            'Saved P13 assets are missing and could not be downloaded and verified. '
++            'Enable internet for the first run, or copy the artifacts folder from '
++            f'https://github.com/{repository}/tree/{revision} into {root}. '
++            'Existing files have been preserved.'
++        ) from exc
++    # Validate the entire download before writing any file. Never overwrite local
++    # adapters, rating sheets or other work, including a file created meanwhile.
++    for name, payload in verified.items():
++        target = missing[name]
++        target.parent.mkdir(parents=True, exist_ok=True)
++        try:
++            with target.open('xb') as stream:
++                stream.write(payload)
++        except FileExistsError:
++            continue
++        report['downloaded_files'].append(name)
++    return report
++
++
++def rating_snapshot_matches(frame, expected):
++    """Require the exact cases, verdicts, reasons and quotes; allow row reordering."""
++    required = set(IMMUTABLE_RATING_COLUMNS + RATING_COLUMNS + ['rater', 'comment'])
++    if not required.issubset(frame.columns) or len(frame) != len(expected):
++        return False
++    if not frame.email_id.is_unique or not expected.email_id.is_unique:
++        return False
++    actual = frame.set_index('email_id').sort_index()
++    wanted = expected.set_index('email_id').sort_index()
++
++    def normalized_column(data, column):
++        return data[column].fillna('').astype(str).str.replace('\r\n', '\n', regex=False)
++
++    return actual.index.equals(wanted.index) and all(
++        normalized_column(actual, column).equals(normalized_column(wanted, column))
++        for column in IMMUTABLE_RATING_COLUMNS if column != 'email_id'
++    )
++
++
++def load_current_ratings(expected, base_path):
++    """Create or load only the current snapshot and validate genuine rating fields."""
++    import pandas as pd
++
++    if len(expected) != 30 or not expected.email_id.is_unique:
++        raise ValueError('Explanation evaluation requires 30 distinct fixed cases.')
++    base_path = Path(base_path)
++    base_path.parent.mkdir(parents=True, exist_ok=True)
++    active_path = base_path
++    preserved_path = None
++    if base_path.exists() and not rating_snapshot_matches(pd.read_csv(base_path), expected):
++        fingerprint = sha256(expected[IMMUTABLE_RATING_COLUMNS].to_json(
++            orient='records', force_ascii=False).encode('utf-8')).hexdigest()[:16]
++        active_path = base_path.with_name(f'{base_path.stem}_{fingerprint}.csv')
++        preserved_path = base_path
++    if not active_path.exists():
++        expected.to_csv(active_path, index=False)
++    ratings = pd.read_csv(active_path)
++    if not rating_snapshot_matches(ratings, expected):
++        raise ValueError(
++            'The current rating sheet does not match the exact exported explanations. '
++            'Preserve it and reconcile its immutable fields before counting any scores.'
++        )
++    numeric = ratings[RATING_COLUMNS].apply(pd.to_numeric, errors='coerce')
++    valid = numeric.apply(lambda col: col.between(1, 5) & col.mod(1).eq(0)).all(axis=1)
++    raters = ratings.rater.fillna('').astype(str).str.strip()
++    valid &= raters.ne('')
++    return {'path': active_path, 'preserved_path': preserved_path, 'ratings': ratings,
++            'numeric': numeric, 'valid': valid,
++            'rater_counts': raters.loc[valid].value_counts().to_dict(),
++            'means': numeric.loc[valid].mean().to_dict() if valid.any() else {}}
++'''
++support_path = P13_ROOT/'submission_support.py'
++support_path.write_text(SUBMISSION_SUPPORT_SOURCE, encoding='utf-8')
++submission_support = {'__name__':'p13_submission_support'}
++exec(compile(SUBMISSION_SUPPORT_SOURCE, str(support_path), 'exec'), submission_support)
++ASSET_REPOSITORY = 'kaustubh-dot/Phishing_Email_Triage'
++ASSET_REVISION = '044821a93fc84c4b1165caea57ca8c7f63bfb414'
++SAVED_ASSET_MANIFEST = {
++    "artifacts/revisions.json": "89f6dc2665d27df35f7c20ffd2b2bc39cc22d4cb0de57437c8fbdc8dcb9e06f6",
++    "artifacts/adapters/r4/adapter_config.json": "0bbdbb1ac05eb33f21649b81fac19ac0c8b775cdd782d03a8618f6975b129867",
++    "artifacts/adapters/r4/adapter_model.safetensors": "90eb90bfff3732ff5b53f2b2e066add801e08b787a042ff5757e6215c7df4f57",
++    "artifacts/adapters/r4/training_metadata.json": "74ace309c36031a7c700fc8ba44e9abbb906baecf8ec184bc1933eacc73c9520",
++    "artifacts/adapters/r8/adapter_config.json": "bc001dc6d7d19cb650867520690d421c0191504ae690d7359913f6e5af798c07",
++    "artifacts/adapters/r8/adapter_model.safetensors": "8b7da2eee8ddfdc054e4af0b7b1b0c1ad3330f5f275cee86153fb2c1319e76ad",
++    "artifacts/adapters/r8/training_metadata.json": "ef08228fc196c5a477438c6cf4d3565c8f48a4e27bcc351628a31fe91ebb238d",
++    "artifacts/adapters/defended-r8/adapter_config.json": "e0c4a93704b73c3791fdd66a49de32b79c285e3124386575f923721734da1c43",
++    "artifacts/adapters/defended-r8/adapter_model.safetensors": "b4195a52f6115257fffe959d7ef187e3f095eda63e663811643fe27d9f0d6da7",
++    "artifacts/adapters/defended-r8/training_metadata.json": "0814ae7351a1e162cb93fb2cee479e4b443d2a75cc3656a0574fc52faf17ce78",
++    "artifacts/human_explanation_ratings.csv": "63134ebd9e832b316864f7881385d8fbe44cc665584486e3f771f6b9007520c8",
++    "artifacts/human_explanation_ratings_9b10d09848942b57.csv": "732052ff9b48844d84eae9d7dfe74806c5b8ea50e7d8f70759f37a9200ceb62f",
++    "artifacts/human_explanation_ratings_d3a1f535c3f5db32.csv": "a602341e14387ff878c141d4ec8687c645909c1da06d9c93ed7017fd34df1d80",
++    "artifacts/security/development_specs.json": "5b9de0e5031d003fa517a10c652a89e14ed2e91a66b49d4d14f627e3f4432838",
++    "artifacts/security/heldout_specs.json": "551bc512b1f3000fdf176115b683b64415323135290b17bf3fd70e7769aa6c75"
++}
++asset_setup = submission_support['ensure_submission_assets'](
++    P13_ROOT, SAVED_ASSET_MANIFEST, ASSET_REPOSITORY, ASSET_REVISION)
++P13_SETUP_SECONDS = time.perf_counter()-P13_NOTEBOOK_STARTED
++print('Workspace:', P13_ROOT)
++print('Saved asset snapshot:', ASSET_REVISION)
++print('Existing files preserved:', asset_setup['existing_files_preserved'],
++      '| downloaded and checksum-verified:', len(asset_setup['downloaded_files']))
+ 
+ 
+ ### CELL 4 (code)
+ import os
+ from pathlib import Path
+-ROOT = Path.cwd()
++ROOT = P13_ROOT
+ os.environ['HF_HOME'] = str(ROOT / '.cache' / 'huggingface')
+ os.environ['HF_HUB_DISABLE_XET'] = '1'
+ os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+@@ -99,18 +299,18 @@
+     path.parent.mkdir(parents=True, exist_ok=True)
+     path.write_text(json.dumps(value, indent=2, ensure_ascii=False, default=str) + '\n', encoding='utf-8')
+ 
+-from huggingface_hub import HfApi
+-revision_path = ART / 'revisions.json'
+-if revision_path.exists():
+-    REVISIONS = json.loads(revision_path.read_text())
+-else:
+-    api = HfApi()
+-    REVISIONS = {key: api.model_info(CONFIG[key]).sha for key in ['classifier', 'agent', 'embedder']}
+-    REVISIONS['dataset'] = api.dataset_info(CONFIG['dataset']).sha
+-    save_json(revision_path, REVISIONS)
++# Exact model/data revisions remain fixed even when only the notebook is supplied.
++PINNED_REVISIONS = {'classifier': '7ae557604adf67be50417f59c2c2f167def9a775', 'agent': '989aa7980e4cf806f80c7fef2b1adb7bc71aa306', 'embedder': '1110a243fdf4706b3f48f1d95db1a4f5529b4d41', 'dataset': '34085a032c123ca237f314a01a67909cdea35e34'}
++revision_path = ART/'revisions.json'
++REVISIONS = json.loads(revision_path.read_text()) if revision_path.exists() else PINNED_REVISIONS.copy()
++if REVISIONS != PINNED_REVISIONS:
++    raise RuntimeError('Local revisions differ from the reviewed snapshot. Use a fresh P13_WORKSPACE.')
++save_json(revision_path, REVISIONS)
+ 
+ environment = {
+     'device': DEVICE, 'dtype': str(DTYPE), 'quick_run': QUICK_RUN,
++    'artifact_repository':ASSET_REPOSITORY, 'artifact_revision':ASSET_REVISION,
++    'setup_seconds':round(P13_SETUP_SECONDS,2),
+     'gpu': torch.cuda.get_device_name(0) if DEVICE == 'cuda' else None,
+     'gpu_vram_gb': round(torch.cuda.get_device_properties(0).total_memory / 2**30, 2) if DEVICE == 'cuda' else None,
+     'versions': {p: version(p) for p in ['torch', 'transformers', 'peft', 'datasets', 'langgraph', 'numpy']},
+@@ -126,6 +326,9 @@
+ Download the specified dataset with `load_dataset`. Drop missing/short emails and unknown labels. Hash normalized text, remove contradictory-label duplicate groups, then deduplicate **before** stratified splitting. Train, validation and test identities are disjoint. Select all subsets with seed 42; use validation alone to choose k. The full held-out comparison contains 300 messages; quick evaluation uses a fixed stratified 60-message subset of those same 300.
+ 
+ Examples below are untrusted dataset text and are displayed as plain text. No embedded instructions are executed.
++
++
++The 4,000-email training cap is a fixed compute budget for the rank and defence comparisons, not a claim that the remaining emails are invalid. Stratified sampling preserves the approximately 62.7% safe / 37.3% phishing distribution. There is no learning-curve experiment establishing that 4,000 is optimal.
+ 
+ 
+ ### CELL 6 (code)
+@@ -244,6 +447,17 @@
+ 
+ For Qwen, emails longer than 12,000 characters retain their first and last 6,000 characters, separated by an omission marker. If still over 320 model tokens, retain the first 240 and last 80 tokens, plus an omission marker. Chat instructions and JSON escaping add a small overhead beyond that retained-content budget. MiniLM separately sees the first 12,000 characters and truncates at its 256-token limit. These fixed limits can hide useful evidence in long messages.
+ 
++
++
++### Design decisions and simpler alternatives
++
++| Decision | Simpler alternative and evidence |
++| --- | --- |
++| LoRA on a small open classifier | Compare unchanged zero-shot Qwen, keyword rules and kNN on the identical fixed test subset. The combined table reports both rank 4 and rank 8. |
++| Training-only semantic retrieval | Compare k = 1, 3 and 5; choose k using validation F1. Retrieved labels are evidence, not verified campaign identity. |
++| Fixed supervisor with separate roles | A sequential function pipeline would be sufficient for basic classification. LangGraph makes shared evidence, checkpointed approval and trace inspection explicit. We do not claim that the graph itself improves accuracy or implement autonomous planning. |
++| Defence training plus two views and review rules | The security tables compare the original path, previous defence and current policy, with component ablations. Security gains have a measured clean-email false-positive cost. |
++| Source-span selection in explanations | Compare against the original quote-copying method on the same validation emails. Exact quote checks are limited automatic checks; human quality still requires ratings. |
+ 
+ 
+ ### CELL 10 (code)
+@@ -2279,8 +2493,11 @@
+ The revised explanations differ from the original 30 rated explanations. Their new fingerprinted sheet contains blank human fields until the team supplies fresh ratings. The previous sheet is retained unchanged and its scores are not attributed to this revision.
+ 
+ 
++The active CSV is chosen by exact case/verdict/reason/quote matching. Historical ratings can be inspected in the repository archive, but they cannot establish the quality of revised explanations. Rater counts are computed from valid rows, never hard-coded. A first run creates a blank current sheet. Editing immutable text causes validation to fail rather than count scores for a different explanation.
++
++
+ ### CELL 30 (code)
+-rating_path = (RUN if QUICK_RUN else ART)/'human_explanation_ratings.csv'
++rating_base_path = (RUN if QUICK_RUN else ART)/'human_explanation_ratings.csv'
+ rating_rows = []
+ for row, output in list(zip(test_df.itertuples(), system_outputs))[:30]:
+     rating_rows.append({
+@@ -2292,49 +2509,25 @@
+         'usefulness_1_to_5': None, 'comment': '',
+     })
+ expected_ratings = pd.DataFrame(rating_rows)
+-immutable_rating_cols = ['email_id', 'email', 'dataset_label', 'verdict', 'reason', 'quote', 'fallback_used']
+-rating_cols = ['correctness_1_to_5', 'grounding_1_to_5', 'usefulness_1_to_5']
+-
+-def rating_snapshot_matches(frame):
+-    required = set(immutable_rating_cols + rating_cols + ['rater', 'comment'])
+-    if not required.issubset(frame.columns) or len(frame) != 30 or not frame.email_id.is_unique:
+-        return False
+-    actual = frame.set_index('email_id').sort_index()
+-    expected = expected_ratings.set_index('email_id').sort_index()
+-    def normalized_column(frame, column):
+-        return frame[column].fillna('').astype(str).str.replace('\r\n', '\n', regex=False)
+-    return actual.index.equals(expected.index) and all(
+-        normalized_column(actual, col).equals(normalized_column(expected, col))
+-        for col in immutable_rating_cols if col != 'email_id'
+-    )
+-
+-# Check active snapshot and reconcile with preserved benchmark ratings
+-if rating_path.exists() and not rating_snapshot_matches(pd.read_csv(rating_path)):
+-    snapshot = digest(expected_ratings[immutable_rating_cols].to_json(orient='records', force_ascii=False))[:16]
+-    previous_rating_path = rating_path
+-    active_sheet_path = rating_path.with_name(f'{rating_path.stem}_{snapshot}.csv')
+-    if not active_sheet_path.exists():
+-        expected_ratings.to_csv(active_sheet_path, index=False)
+-    print('Preserved previous rating snapshot:', previous_rating_path.relative_to(ROOT))
+-    print('Current outputs tracked in snapshot:', active_sheet_path.relative_to(ROOT))
++rating_result = submission_support['load_current_ratings'](expected_ratings, rating_base_path)
++rating_path = rating_result['path']
++ratings, numeric_ratings, valid = (rating_result[name] for name in ['ratings','numeric','valid'])
++if rating_result['preserved_path'] is not None:
++    print('Preserved historical rating sheet:', rating_result['preserved_path'].relative_to(ROOT))
++    print('Historical scores are not counted for the current explanations.')
++print(f'Completed valid CURRENT human ratings: {int(valid.sum())}/{len(ratings)}')
++print('Current rating sheet:', rating_path.relative_to(ROOT))
++print('Rater counts from valid current rows:', rating_result['rater_counts'])
++if int(valid.sum()) >= 30:
++    display(pd.Series(rating_result['means'], name='mean_current_human_rating'))
+ else:
+-    active_sheet_path = rating_path
+-
+-# Benchmark evaluation uses the preserved 30 human ratings
+-ratings = pd.read_csv(rating_path)
+-numeric_ratings = ratings[rating_cols].apply(pd.to_numeric, errors='coerce')
+-valid = numeric_ratings.apply(lambda col: col.between(1, 5) & col.mod(1).eq(0)).all(axis=1)
+-valid &= ratings.rater.fillna('').astype(str).str.strip().ne('')
+-print(f'Completed valid human ratings: {int(valid.sum())}/{len(ratings)} (10 by Kanishk Gorana, 10 by Kaustubh Upadhya, 10 by Tejas Tandon)')
+-if int(valid.sum()) >= 30:
+-    mean_ratings_series = numeric_ratings.loc[valid].mean().rename('mean_human_rating')
+-    display(mean_ratings_series)
+-else:
+-    print('Human explanation quality: pending.')
+-
++    print('Current explanation quality: pending 30 real human ratings; no scores are fabricated or transferred.')
+ component_metrics['human_ratings_status'] = 'complete' if int(valid.sum()) >= 30 else 'pending real human input'
+ component_metrics['human_ratings_completed'] = int(valid.sum())
+-component_metrics['mean_human_ratings'] = numeric_ratings.loc[valid].mean().to_dict() if valid.any() else {}
++component_metrics['human_rating_sheet'] = str(rating_path.relative_to(ROOT))
++component_metrics['human_rating_snapshot_verified'] = True
++component_metrics['human_rater_counts'] = rating_result['rater_counts']
++component_metrics['mean_human_ratings'] = rating_result['means']
+ save_json(RUN/'component_metrics.json', component_metrics)
+ 
+ 
+@@ -2480,6 +2673,9 @@
+ Reserve five additional minutes for Q&A. Each team member should explain work they have reviewed and answer at least one question; contributions are recorded in the opening table.
+ 
+ 
++The success example is chosen after evaluation only for presentation: prefer a correctly flagged phishing-labelled email with a nonfallback exact quote, no identical bounded training input and no retrieved similarity of 0.98 or more. The failure remains an observed full-system error. This presentation choice does not alter test membership, model weights, thresholds or reported metrics. The earlier deck illustrates its saved historical examples; live examples can differ under this explicit selection rule.
++
++
+ ### CELL 34 (code)
+ def ask(email: str):
+     """Run full triage, print the evidence and trace, and return its approval thread ID."""
+@@ -2488,6 +2684,10 @@
+     print('Verdict:',output['verdict'],'| proposed action:',output['proposed_action'])
+     print('Raw LoRA verdict:',output['classifier_verdict'],'| defence change:',output['defence_override'],'| retrieval override:',output['retrieval_override'])
+     print('Review-rule evidence:',output['indicator_review_reasons'])
++    print('Scores (uncalibrated A/B): original=',round(output['phishing_score'],4),
++          'structured=',round(output['structured_defence_score'],4),
++          'plain=',round(output['plain_defence_score'],4))
++    print('Explanation uses a visible template fallback:',output['explanation']['fallback_used'])
+     print('Reason:',output['explanation']['reason'])
+     print('Email quote:',repr(output['explanation']['quote']))
+     print('Indicator summary:',json.dumps(explanation_indicators(output['indicators']),ensure_ascii=False))
+@@ -2498,8 +2698,17 @@
+ 
+ print('Demo: one held-out message the full system classifies correctly')
+ correct_indices = np.flatnonzero(PREDICTIONS['Full system (defended)']==truth)
+-print('Dataset label:',test_df.iloc[int(correct_indices[0])].label_name)
+-demo_success_thread = ask(test_df.iloc[int(correct_indices[0])].text)
++# Presentation selection only: prefer a true positive with a model explanation,
++# no identical bounded training input, and no almost-identical retrieved example.
++preferred_successes = [int(i) for i in correct_indices if truth[i] == 1
++    and not input_overlap_mask[i] and not system_outputs[i]['explanation']['fallback_used']
++    and max((e['similarity'] for e in system_outputs[i]['evidence']), default=0.) < .98]
++phishing_successes = [int(i) for i in correct_indices if truth[i] == 1]
++demo_success_index = (preferred_successes or phishing_successes or correct_indices.tolist())[0]
++print('Selection: first observed correct phishing example with verified model quote and no near-copy, when available.')
++print('This choice illustrates a result; it does not change the benchmark or tune the policy.')
++print('Dataset label:',test_df.iloc[demo_success_index].label_name)
++demo_success_thread = ask(test_df.iloc[demo_success_index].text)
+ wrong_indices = np.flatnonzero(PREDICTIONS['Full system (defended)']!=truth)
+ if len(wrong_indices):
+     print('\nDemo: an actual full-system failure; dataset label:',test_df.iloc[int(wrong_indices[0])].label_name)
+@@ -2524,6 +2733,8 @@
+ - Saved adapters, revisions, training fingerprints, selection records and frozen fixtures support reproduction. GPU arithmetic can affect borderline scores. Fresh full and quick runs are checked on the available RTX 4000 Ada; laptop CPU/free Colab T4 full timing is unverified.
+ - Public emails can contain personal details; redact unnecessary identifiers in the talk. False-positive quarantine proposals interrupt legitimate work, and false-negative allows expose users to threats. Team members must review the AI-assisted changes and understand their own recorded contributions.
+ 
++- The submission setup retrieves pinned saved artifacts from the linked public repository and checks downloaded bytes. A first run still needs internet for dependencies, assets, the dataset and base models. Existing local files are preserved, and their adapter metadata is validated by the training/loading cells. The reviewed one-file workflow is tested separately from any permitted-device runtime claim.
++
+ 
+ ### CELL 36 (markdown)
+ ## 10. References
+@@ -2542,15 +2753,26 @@
+ 
+ - Defensive training motivation: Chen et al., [StruQ: Defending Against Prompt Injection with Structured Queries](https://arxiv.org/abs/2402.06363). This project applies label-preserving adversarial augmentation to its required Qwen LoRA classifier; it does not claim to reproduce StruQ or its security guarantees.
+ 
++- Supporting results and presentation: [project GitHub repository](https://github.com/kaustubh-dot/Phishing_Email_Triage). Runtime assets are pinned to commit `044821a93fc84c4b1165caea57ca8c7f63bfb414`, with per-file SHA-256 values in Setup. The repository documents historical experiments separately from the current evaluation.
++
+ 
+ ### CELL 37 (code)
+ runtime_seconds = time.perf_counter()-STARTED
++total_runtime_seconds = time.perf_counter()-P13_NOTEBOOK_STARTED
+ run_summary = {'quick_run':QUICK_RUN,'evaluated_test_size':len(test_df),
+-    'runtime_seconds':round(runtime_seconds,2),'under_60_minutes':runtime_seconds < 3600,
++    'runtime_seconds':round(runtime_seconds,2),'setup_seconds':round(P13_SETUP_SECONDS,2),
++    'total_runtime_seconds':round(total_runtime_seconds,2),
++    'under_60_minutes':total_runtime_seconds < 3600,
++    'asset_revision':ASSET_REVISION, 'downloaded_asset_count':len(asset_setup['downloaded_files']),
+     'device':DEVICE,'training_loaded_or_completed':True,'approval_checks':approval_checks,
+     'mcp_checks':mcp_checks,'defence_checkpoint':DEFENCE_METADATA['selected_candidate'],'fusion_minimum_phishing_votes':FUSION_MIN_VOTES,
+     'observed_distinct_failures':len(failures),'human_ratings_completed':int(valid.sum()),
+-    'human_ratings_required':30,'human_rating_sheet':str(rating_path.relative_to(ROOT)),'quarantine_log_empty_at_end':not QUARANTINE_LOG}
++    'human_ratings_required':30,'human_rating_snapshot_verified':True,
++    'human_rater_counts':rating_result['rater_counts'],'human_rating_sheet':str(rating_path.relative_to(ROOT)),'quarantine_log_empty_at_end':not QUARANTINE_LOG}
+ save_json(RUN/'run_summary.json',run_summary)
+ display(run_summary)
+ print(f'Execution finished in {runtime_seconds/60:.1f} minutes (excluding dependency installation).')
++
++print(f'Total including this run setup: {total_runtime_seconds/60:.1f} minutes; first model download times depend on network/cache.')
++print('Verified execution: all evaluation stages completed successfully on', environment.get('gpu') or DEVICE)
++print('Final human checks: complete current ratings and team review. Classification and security limitations remain reported above.')

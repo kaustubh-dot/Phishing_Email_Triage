@@ -1,0 +1,542 @@
+[
+  {
+    "case": 1,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "Visible cautious fallback with an exact excerpt, but no case-specific reason for phishing.",
+    "new_comment": "Equivalent cautious fallback; changing classifier to workflow adds no explanation evidence.",
+    "email_id": "02f107793a103580303e7f2d6e5cde7a65c9adee7eefbcabbe1c9baba1b1b475",
+    "current_snapshot_sha256": "d7c21b7d35c21dc91ddf4e4b379747a78200d7a73b51ea130ba50844ee91dbe3",
+    "historical_snapshot_sha256": "9d03d8361645ff01f5b8629620543d2d1ee6350af7d38ea457329e59b364c733"
+  },
+  {
+    "case": 2,
+    "old": [
+      2,
+      2,
+      2
+    ],
+    "new": [
+      3,
+      4,
+      2
+    ],
+    "old_comment": "Claims a direct phishing website link although the email contains only Click Here wording, with no visible URL or verified reputation.",
+    "new_comment": "Avoids the unsupported website claim and quotes the click request, but remains a generic fallback.",
+    "email_id": "0392c8a7a5d000ace973797f994e3ace15f353387d0de73d5f4f61224329459e",
+    "current_snapshot_sha256": "6a495745d90fa4b758376522a218ed510cc721ffbab5d21f085331eb1a2bad2d",
+    "historical_snapshot_sha256": "49cbf4d3714123a4610dcd0a938fd973b461e71c42605a1a0e0d69287b930263"
+  },
+  {
+    "case": 3,
+    "old": [
+      1,
+      1,
+      1
+    ],
+    "new": [
+      3,
+      5,
+      1
+    ],
+    "old_comment": "Invents a suspicious website link and generic greeting in an obfuscated free-cable message with no URL.",
+    "new_comment": "Faithfully copies the source span but does not explain how the noisy free-cable lure supports the verdict.",
+    "email_id": "03a60ed58cefdce3ab952f0bc1b407ada8f0dbc83610b4fc91c36bb8e353c019",
+    "current_snapshot_sha256": "115c9d4ffb67a5a849183542b5edd90fbf7277ab4ef4beeb49a11950a5db1fce",
+    "historical_snapshot_sha256": "2b8c55778f1fed146b370125e4d954bd053edae278a6da98055401c86d73b84d"
+  },
+  {
+    "case": 4,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      4,
+      4,
+      2
+    ],
+    "old_comment": "Cautious generic fallback does not explain the pharmaceutical reminder or obfuscation.",
+    "new_comment": "Accurately paraphrases the reminder, but is long and does not identify why the message merits phishing review.",
+    "email_id": "048184f8db88aee76d50ce7d5ed3fba093677d4b10a7a21b9ee77c734179ced1",
+    "current_snapshot_sha256": "cbae19a573d8e6581c45cb8917d3ad79ac506a82a8ceae10a29e7bdc83fd8ecf",
+    "historical_snapshot_sha256": "8c13f5d619f5c63654ab4cc54854a4f2326d3d6f59f02800332b6b65de07fe85"
+  },
+  {
+    "case": 5,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      5,
+      1
+    ],
+    "old_comment": "Accurate excerpt with a transparent fallback, lacking specific reasoning.",
+    "new_comment": "Copies promotional text and random padding almost verbatim; source-grounded but not an analyst explanation.",
+    "email_id": "064b987ecb4dda682ee7cc4e5964b88cabc915f07eea26f4ed2661044985e437",
+    "current_snapshot_sha256": "69f36925f6e61dc3103f80e2b109f8cc70c94eb922fe812145a7b67cdc94df28",
+    "historical_snapshot_sha256": "6ac2d9a293c39bd140830e429533d8f48c87f13614e078cb618d6045fa4eb514"
+  },
+  {
+    "case": 6,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "Safe verdict and excerpt are plausible, but the fallback does not identify ordinary HR correspondence.",
+    "new_comment": "Same generic safe fallback; no substantive change in explanation quality.",
+    "email_id": "07120bb6261c57b64bc70b1dfbaf0ecd019cc09481323b53342d652bae536fb0",
+    "current_snapshot_sha256": "32a06d0a126c84cef5ec1e0edb129930fead44dd8d7420eeb91cc30a94c4799c",
+    "historical_snapshot_sha256": "d9607c975951c52fc05e89c170f1918303dd94ec2acb445ff5d032996df52197"
+  },
+  {
+    "case": 7,
+    "old": [
+      2,
+      3,
+      2
+    ],
+    "new": [
+      4,
+      5,
+      4
+    ],
+    "old_comment": "The medication promotion is visible, but the claimed link and phishing website are not established by this text.",
+    "new_comment": "Identifies the visible drug-delivery promotion without inventing website findings; useful for the dataset's broad spam/phishing label.",
+    "email_id": "07bf43f58e077e1fa59836814cd340fed8d85ecbcdc88373285861835489b291",
+    "current_snapshot_sha256": "ae9667173ca7d2088041385087eec1648a6b6b0d50515902293c8fcc34faeebf",
+    "historical_snapshot_sha256": "fddf0fd49359572b9dbba5b0a43704cfbc203e26a34a9462b0c851082c37ae6a"
+  },
+  {
+    "case": 8,
+    "old": [
+      4,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      5,
+      2
+    ],
+    "old_comment": "Safe characterization is plausible for the technical discussion, but absence-of-suspicion wording is generic.",
+    "new_comment": "Closely follows the technical discussion yet ends as an incomplete paraphrase and gives little verdict reasoning.",
+    "email_id": "07c3a328df7a7fa8a3fea8ff75e9dbb626c54733ac83c261525deb3e2acb65fb",
+    "current_snapshot_sha256": "04669dd92615e53dd9d05461b01a80df2905e2f2ad942b7f0b4a47e5df4e09c0",
+    "historical_snapshot_sha256": "0c70f36a6262e267d3eb33319846b31fcd75bcee31f117853e59b3f756fe918f"
+  },
+  {
+    "case": 9,
+    "old": [
+      2,
+      3,
+      2
+    ],
+    "new": [
+      4,
+      5,
+      4
+    ],
+    "old_comment": "Promotion is evident, but calling the pharmacy site a phishing attempt exceeds the available evidence.",
+    "new_comment": "Describes the explicit product solicitation and visible URL more cautiously; source excerpt supports that description.",
+    "email_id": "08092ab697e055aa0500a4354c1b338f0309aae6db50cd3456564da0d9994f80",
+    "current_snapshot_sha256": "43bf1b45d56f95cd5d27052c553b762976903f788e73936305a03fc736a08e4c",
+    "historical_snapshot_sha256": "4c365f09893ade89b5db2fda3283d88fc0975be8cf8f224d56ae67da18367ba5"
+  },
+  {
+    "case": 10,
+    "old": [
+      3,
+      4,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "The click-request fallback is source-supported but provides little explanation beyond a cue.",
+    "new_comment": "Repeats the sender's opt-in claim as fact and focuses on unsubscribe instructions rather than explaining phishing or uncertainty.",
+    "email_id": "08815e0ca0a1f99dd6d4da7a424cadfa70a3e7a1149509b4d51b1e7dddbe2850",
+    "current_snapshot_sha256": "557e8c58db806a7285bba63417d87940662536ce18ea4da804ffda338964ab5d",
+    "historical_snapshot_sha256": "f5a850360bdd4ae977e857ca48c8d2b5c71cf9cadb574d6bdc341d41962a090a"
+  },
+  {
+    "case": 11,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      4,
+      3,
+      4
+    ],
+    "old_comment": "Generic fallback misses the visible wealth-redistribution solicitation.",
+    "new_comment": "Accurately describes a financial-gain solicitation, but the selected opening quote omits the wealth promise itself.",
+    "email_id": "08cf9489bbbf564cc80e27deaa073ef928f988cc2d6091b81da51873a590f531",
+    "current_snapshot_sha256": "a2f8fc3ad073e1cb6d3d360680774e39b857232b48f350dea0ddadf792cc1c5f",
+    "historical_snapshot_sha256": "84a5838c4ee9090ce147c1077d2079905c3819249533f41ca01398e36e61f8c4"
+  },
+  {
+    "case": 12,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      4,
+      3,
+      4
+    ],
+    "old_comment": "Credential vocabulary occurs in benign software instructions; the fallback does not explain that context.",
+    "new_comment": "Recognizes a vulnerability advisory and patch, but its quote is a UI fragment and the absolute no-malicious-content claim is stronger than authentication-free analysis supports.",
+    "email_id": "0a44e1ed7c32f1016653bf7243e57c559dcf1d8d9fa5b897833a8b97fb6caa9a",
+    "current_snapshot_sha256": "74d83dd4ab31a80fda405277b4a413dcf24fbebffdcbd4f8d9cdf6a69420c97f",
+    "historical_snapshot_sha256": "81753bbb1d5ed319c727765e2d8a22ebff9cd4320101cccd2a08f2c13ea4e96a"
+  },
+  {
+    "case": 13,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "Exact obfuscated-drug excerpt with a generic cautious fallback.",
+    "new_comment": "Substantively the same fallback; obfuscated drug promotion remains unexplained.",
+    "email_id": "0be52cf760854b4761d4403c7f61e4d0699fe7196a82394502bc2436133f3355",
+    "current_snapshot_sha256": "aaf8292a30ba99bcea7103381e01dc43ed131aa435212502a0250b40946074d9",
+    "historical_snapshot_sha256": "fe5c3824dd3378925f48e348a34d5b1bb0888692a5ae76f86a9d0f6d882b623d"
+  },
+  {
+    "case": 14,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "Cautious safe fallback quotes the discussion but does not explain the benign conversational context.",
+    "new_comment": "Equivalent fallback with no new evidence about why the discussion is safe.",
+    "email_id": "0d55670ca49b9cd64b24b4efd1a69b31571b5eeeb2e7ac08c017a7713b3e6cde",
+    "current_snapshot_sha256": "8a4ef193495238fc35bb16b4ec527dfd5d78119f956835e5c9fa8c44ceac1888",
+    "historical_snapshot_sha256": "f21f02cf569267cb639a7b3e47655d862770711751f9f8672a25953ff629d9b9"
+  },
+  {
+    "case": 15,
+    "old": [
+      2,
+      2,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "An IP-address marketing URL is visible, but its spelling alone does not establish a phishing scam.",
+    "new_comment": "Removes the unsupported URL judgment but replaces it with a generic fallback instead of identifying the marketing solicitation.",
+    "email_id": "0d775cac61927ea3c004333bd116fbc32c993211b39dcedd60adade9701720ec",
+    "current_snapshot_sha256": "8fed09d0ad88b44775b3b6a9432f2f2d75f7ecb865f96a82cbe344d385bd1bd5",
+    "historical_snapshot_sha256": "2a1093753405362225cc1abecf0cfd60d61419c3ba02ebcf616cbd4cae6eef9d"
+  },
+  {
+    "case": 16,
+    "old": [
+      1,
+      1,
+      1
+    ],
+    "new": [
+      3,
+      5,
+      2
+    ],
+    "old_comment": "Claims a sender-domain mismatch without authenticated sender headers; the visible course domains do not establish that claim.",
+    "new_comment": "Faithfully copies the Portuguese course title without inventing a mismatch, but does not justify phishing or address label ambiguity.",
+    "email_id": "0e168f6179fd47b9b835c2098dd42e069b75eebb136919e6a684c7445c765a43",
+    "current_snapshot_sha256": "5f832d99e6e41b4fdbbe608efa36fc8303f1f545869d80a309889c4f79846e7f",
+    "historical_snapshot_sha256": "6519a107a3f091a7d353079cbcb01138273ff3c489c96c312d13c78e092d4690"
+  },
+  {
+    "case": 17,
+    "old": [
+      4,
+      3,
+      2
+    ],
+    "new": [
+      4,
+      4,
+      3
+    ],
+    "old_comment": "Generic safe explanation is plausible for the academic publication announcement.",
+    "new_comment": "Describes the specific academic publication, which is more informative, although the quote is truncated and the safety rationale is implicit.",
+    "email_id": "1007640ea1b7c6a0fb00ecd1a06675d68edcd2f665e7bf87a96b44166c46f5be",
+    "current_snapshot_sha256": "8dfa89248247562323b9f1b44c2178b73b341afc373dd1668829dc53220c8f82",
+    "historical_snapshot_sha256": "204f029d0b19e2ff312967d9974d313b04ea250b4eb92338e768b0f4cfdcb22e"
+  },
+  {
+    "case": 18,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      3
+    ],
+    "old_comment": "Cautious fallback does not analyze the promotion.",
+    "new_comment": "Recognizes product solicitation, but treats testimonial name Matt as the solicitor and selects a quote not containing that attribution.",
+    "email_id": "120c8963151dfcd570da1560f3429bdda9014f5a4d64f15883d116b61784b697",
+    "current_snapshot_sha256": "0a1509fd441f44a4ae22858af2fc77d3684dd0ce673581bc769ea717e9262172",
+    "historical_snapshot_sha256": "e925d4acd6b3f880919967c72e394ff1c61915d22d90ee67a38c8e054f1baf41"
+  },
+  {
+    "case": 19,
+    "old": [
+      2,
+      2,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "The fallback acknowledges uncertainty but does not confront the false-positive verdict on an ordinary software announcement.",
+    "new_comment": "Subscription benefits are described accurately; it still fails to explain or challenge the phishing verdict, and the price quote does not support all listed benefits.",
+    "email_id": "135b63c7b132747d2fec8d4f56c0ccf310c01febf1fdfa56666de0b10399d761",
+    "current_snapshot_sha256": "8b4b381c2c939674adb15dd14522b6b3d7588810842cc00c60f86a630253f0fc",
+    "historical_snapshot_sha256": "c0c00e7707dc620485e558d6d7ca560e2c4686e701fe76c02ba9ccd8a16c1ac2"
+  },
+  {
+    "case": 20,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "Exact discounted-medication excerpt with generic fallback reasoning.",
+    "new_comment": "Equivalent fallback; no case-specific improvement.",
+    "email_id": "136a1ac6251a5b2f4bac21de07660f8fdfcbf110c43e7db56762128ba11c0a0f",
+    "current_snapshot_sha256": "9d6d70de336ce9cd0a3020262117f08f70b36cc834cd1a5c90ebc7b6b55e1841",
+    "historical_snapshot_sha256": "10865676401c1a2de972c787504d4e9cdd5c4c022c1a23f1c2c083ea0e72e594"
+  },
+  {
+    "case": 21,
+    "old": [
+      4,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "The safe verdict fits a seminar advertisement, although the explanation is generic.",
+    "new_comment": "Describes the solicitation but does not establish fraud or acknowledge the legitimate-seminar context behind this new false positive.",
+    "email_id": "1474e1f943c34a1bb7a560ecc3570c0277f5bfbb7f71888d245abf1a271ab93d",
+    "current_snapshot_sha256": "702a790d96edf8ef77d0629afdd6dfda16249e3122ba0c1262fcb71e1883ab02",
+    "historical_snapshot_sha256": "f1fcbbc3d3e15b89ad50ff6e57a6141f625dae80db3836b118edc479052bb5e5"
+  },
+  {
+    "case": 22,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      4,
+      3
+    ],
+    "old_comment": "Cautious fallback provides little analysis of the promotion and unrelated padding.",
+    "new_comment": "Identifies the promotion, but attributes psychological motives and generalizes to phishing without direct evidence of those intentions.",
+    "email_id": "151670c3cd1776e6580688d984252b48e8051d398bf912e72eefa8e1fa7a7b8b",
+    "current_snapshot_sha256": "b0d2e3b6413a32715f29322034836a5d48a38a8ebd228afe5ea7261800e452ff",
+    "historical_snapshot_sha256": "25450197f6ee3b08264e0c3f0131e36ca869788c47083d7db0a25759b8800efd"
+  },
+  {
+    "case": 23,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "Generic fallback quote omits the implausible loan terms and application request.",
+    "new_comment": "Same generic fallback; the message-specific loan and obfuscation signals remain unexplained.",
+    "email_id": "162a0788b473317c2ab94d38a58c4a009763e8708011a1ae59756cb0a144b45d",
+    "current_snapshot_sha256": "c636a4924117c5440fd465eaa591edab37d2bb1a4fa51da22077627cd9b66458",
+    "historical_snapshot_sha256": "bc657568485be57827ef2efc1cb59f20d65d9823182d3bc655f4a11cc5fdd1b0"
+  },
+  {
+    "case": 24,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      4,
+      4,
+      3
+    ],
+    "old_comment": "The urgency cue occurs in a benign outage notice; the fallback does not explain that distinction.",
+    "new_comment": "Accurately summarizes the outage/generator event, making the ordinary operational context clearer, though the safe rationale remains implicit.",
+    "email_id": "164572f79ae5cd66befc1bfeb806c6f58636e6ce2daff5ae41eab3df0c1d9f18",
+    "current_snapshot_sha256": "e5a010f822d14835b55ab6003541b218d5e641c351af820a65c570a5bc4aaede",
+    "historical_snapshot_sha256": "067c7000329deb775f8783129b0a1baebee3d472f48a5f5f084d6cdddce4f667"
+  },
+  {
+    "case": 25,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      2
+    ],
+    "old_comment": "Generic safe fallback does not identify the academic-linguistics discussion.",
+    "new_comment": "Equivalent fallback on the same academic message.",
+    "email_id": "167469b8eb9065f415667e2921ca0e5753d86861ae21b8fb138211e9a46c8809",
+    "current_snapshot_sha256": "85861287760b15e6c1d326ac03a77427b1e4e4812e897e2cb7d69e22e04b3883",
+    "historical_snapshot_sha256": "f45e3b9417d6a27fd691c3c3e7edbb16ffbc226bce24a995e16230f7354d3684"
+  },
+  {
+    "case": 26,
+    "old": [
+      4,
+      3,
+      2
+    ],
+    "new": [
+      4,
+      4,
+      4
+    ],
+    "old_comment": "Plausible but generic safe characterization of a conference announcement.",
+    "new_comment": "Specifies the conference and abstracts invitation, providing useful ordinary-correspondence context; no sender authentication is established.",
+    "email_id": "17456893bd323350de6d8975806b1e25e0c2822b598812dc585d73be4c399f52",
+    "current_snapshot_sha256": "f5a63c9f913c3b220bef571bf793d64fe1045d7ddd5ae9d074061c4e7613070c",
+    "historical_snapshot_sha256": "6817140eae28fd3aef9e6855e71b1e523e5f1ba49239096161c17b72dc53cbe2"
+  },
+  {
+    "case": 27,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      2,
+      5,
+      1
+    ],
+    "old_comment": "Cautious fallback avoids endorsing the loan-rate promise but is not diagnostic.",
+    "new_comment": "Repeats the unverified savings/rate promise in the sender's voice rather than explaining or qualifying it; accurate copying alone is not safe guidance.",
+    "email_id": "17561b7722f14603c2e07044e3c9cf855be807e0e8ca797072c366df35c22832",
+    "current_snapshot_sha256": "5df1836055e01dc507cfb8cc17cfd235ea2082f9b863d8ed7b939a20bb29194f",
+    "historical_snapshot_sha256": "2960c81e3b2c0b297b2fd3c5011569e4090e6033203ab8fe6d137aa7d0bb5f30"
+  },
+  {
+    "case": 28,
+    "old": [
+      3,
+      3,
+      2
+    ],
+    "new": [
+      3,
+      3,
+      3
+    ],
+    "old_comment": "Generic safe fallback omits the book-catalogue context.",
+    "new_comment": "Recognizes the book catalogue, but publisher reputation is an external assumption and does not authenticate the email; the selected quote omits the publisher.",
+    "email_id": "17b16993f63685335208999971998c29e08fb1c56210db60914df78ab37183cc",
+    "current_snapshot_sha256": "3abe19cc6d660b125c36ffa1de7352d9b39aec72f4f9334d023fb8d77c68fd43",
+    "historical_snapshot_sha256": "837911b1db0d893c14ae9a5dbb48059b8efd4301901f1ecb56fe07d3820926a2"
+  },
+  {
+    "case": 29,
+    "old": [
+      4,
+      4,
+      3
+    ],
+    "new": [
+      1,
+      2,
+      1
+    ],
+    "old_comment": "The employee's forwarded conference-permission request supports the safe interpretation; wording is still broad.",
+    "new_comment": "Declares a conference discount to be phishing, ignoring the ordinary forwarded employee request; the genuine discount quote does not establish fraud.",
+    "email_id": "184b9f8291b26b991ea22870910e1c508ad3bd4cc5066afe8828c5d33035a07b",
+    "current_snapshot_sha256": "1fb354d3650de5506bfadfb928559866d4d0a454e0050c01c30f3c90912c57d5",
+    "historical_snapshot_sha256": "f365682c3407f17aed353834fadf4187f50896b624577471e5f3eb2ff7a23079"
+  },
+  {
+    "case": 30,
+    "old": [
+      2,
+      2,
+      2
+    ],
+    "new": [
+      3,
+      4,
+      2
+    ],
+    "old_comment": "Visible discounted-drug marketing is real, but personal-information theft and malicious intent are not established.",
+    "new_comment": "A source-supported sales-cue fallback avoids speculative theft claims, but does not explain the verdict beyond that cue.",
+    "email_id": "187df4ced550d228f93b43436472a906886d9dacf2974cff656ce23c96c427c9",
+    "current_snapshot_sha256": "3b8e4ecd2127a95a4c704cf65440d690e379b8c2b738ae1d311d313e2ba9a08b",
+    "historical_snapshot_sha256": "41b35b24b61d47d7a3e59913e9c4576c6ce63313fc636a4b9daf978fbc44d4c6"
+  }
+]

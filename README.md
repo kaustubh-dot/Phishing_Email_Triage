@@ -12,11 +12,13 @@ Use the `main` branch for submission. The notebook, original and defensive adapt
 - [Full presentation script and viva answers](output/presentations/P13_Phishing_Triage_Full_Presentation_Script.md): matches the saved results in the deck.
 - [Submission status](SUBMISSION_STATUS.md): verification evidence and the remaining human review requirements.
 
-The current explanations still require **30 fresh human ratings**, team review and a run on a permitted laptop or free Colab T4. The completed historical ratings are retained for their original snapshot.
+The current explanations still require **30 fresh human ratings** and team review. Full and quick execution have been verified on NVIDIA RTX 4000 Ada. The completed historical ratings are retained for their original snapshot.
+
+The [reviewed standalone notebook](Phishing_Email_Triage.ipynb), [detailed assessment](docs/SUBMISSION_ASSESSMENT.md) and [experiment archive](archive/README.md) include the approved submission improvements. See the [supporting-results guide](docs/RESULTS_AND_ARCHIVE.md) for current versus historical evidence.
 
 ## Run locally
 
-Use Python 3.12 and keep the notebook at the repository root.
+Use Python 3.12. After cloning the repository, prepare the local kernel:
 
 ```bash
 uv venv .venv
@@ -24,13 +26,13 @@ uv pip install --python .venv/bin/python -r requirements.txt
 .venv/bin/python -m ipykernel install --prefix .venv --name python3
 ```
 
-Select `.venv/bin/python` as the kernel and run all cells in order. First use needs internet for the public Hugging Face dataset and pinned base models. The saved original and defensive adapters are included. Downloads, embeddings and training checkpoints are cached locally and excluded from Git.
+Select `.venv/bin/python` as the kernel and run all cells in order. The notebook can also run by itself in an empty folder: its setup cell writes the pinned requirements and embedded helpers, then downloads missing saved assets from a fixed public GitHub commit with SHA-256 checks. First use needs internet for dependencies, assets, the public Hugging Face dataset and pinned base models. Existing saved assets and human rating entries are preserved. Outside a repository checkout, runtime files live in `p13_runtime/`; `P13_WORKSPACE` can select another writable location. Downloads, embeddings and training checkpoints are cached locally and excluded from Git.
 
 - `QUICK_RUN=True` evaluates 60 fixed test emails; `False` evaluates all 300. `P13_QUICK_RUN=1` or `0` overrides the flag. Committed outputs show the full evaluation.
 - `TRAIN=False` loads matching saved adapters or trains missing ones. `TRAIN=True` retrains. Incompatible cached metadata raises an error.
 - Both modes use the same 4,000 downloaded training emails, 400 validation emails and training-only retrieval index. Defensive training creates 8,000 derived examples from those 4,000 identities; it never trains on validation/test emails or held-out attack cases.
 
-Fresh full execution with saved adapters takes about three to four minutes on the available RTX 4000 Ada GPU; quick mode takes about 85 seconds. Defensive training took approximately 279 seconds on that GPU. Full laptop CPU/free Colab T4 timing remains unverified. A notebook-only copy needs accompanying adapters and rating snapshots or must retrain. Both helper Python files and security-fixture recipes are embedded and recreated by the notebook.
+The verified full run took **203.43 seconds** and quick mode **81.16 seconds**, including setup/kernel harness on NVIDIA RTX 4000 Ada with cached packages and Hugging Face models/data. The full run began without repository assets and downloaded and verified all 15 required saved files. Initial uncached model-download time depends on the network. Defensive training previously took approximately 279 seconds on that GPU; it was not repeated in this review. Full laptop CPU/free Colab T4 timing remains unverified. All three helper Python sources and security-fixture recipes are embedded and recreated by the notebook.
 
 ## Defensive training and decisions
 
@@ -82,6 +84,8 @@ The explainer writes a factual observation and selects an exact source span by I
 
 The original [30 completed ratings](artifacts/human_explanation_ratings.csv) remain unchanged for their historical explanation snapshot. Revised explanations need **30 fresh human ratings**. The active fingerprinted sheet is identified by `human_rating_sheet` in [run_summary.json](artifacts/results/full/run_summary.json). Rate correctness, grounding and usefulness from 1 to 5 and record the rater's name; rerun to validate matching text. Historical ratings are never transferred to changed explanations.
 
+A separate [supplementary Codex assessment](output/submission/explanation_review/README.md) records all 30 historical/current pairs and their case notes. Its AI-generated scores are explicitly separate from human ratings and do not complete that requirement.
+
 ## MCP server and demo
 
 [mcp_indicator_server.py](mcp_indicator_server.py) exposes `extract_urls`, `check_domain_lookalike` and `extract_sender_headers` through the official MCP SDK 1.28.0 over stdio:
@@ -101,10 +105,10 @@ After Run All, `ask(email)` prints original/workflow verdicts, defence changes, 
 .venv/bin/python -m pip check
 ```
 
-Fourteen regression checks cover MCP, URL/header handling, two-view preservation, label-balanced augmentation, holdout separation, negated security reminders and explanation validation. Saved training fingerprints and frozen selection records are under `artifacts/adapters/defended-r8/`; all evaluation evidence is under `artifacts/results/full/`.
+The original fourteen regression checks cover MCP, URL/header handling, two-view preservation, label-balanced augmentation, holdout separation, negated security reminders and explanation validation. Ten additional setup/rating-integrity checks bring the reviewed suite to **24 passing tests**. Saved training fingerprints and frozen selection records are under `artifacts/adapters/defended-r8/`; evaluation evidence is under `artifacts/results/full/`, with fresh execution checks under `output/submission/verification/`.
 
 The public dataset includes ambiguous spam labels and near-duplicate campaigns. One bounded classifier input overlaps training/testing; the same 299-email sensitivity table is retained. Fixed context limits can hide evidence. Local tools do not authenticate headers or establish website reputation. Checkpoints and simulated quarantine logs disappear on restart.
 
-Before submission, complete the current human ratings, review the AI-assisted changes as a team, and verify execution on a permitted laptop or free Colab T4. Contributions, references, ethics, failure analyses and presentation walkthrough remain in the notebook.
+Before submission, complete the current human ratings and review the AI-assisted changes as a team. Runtime statements describe the successfully tested RTX 4000 Ada device; no laptop/free Colab T4 result is claimed. Contributions, references, ethics, failure analyses and presentation walkthrough remain in the notebook.
 
 The earlier [injection audit](INJECTION_DEFENCE_REVIEW.md) is historical evidence behind this implementation. `scripts/audit_injection_defences.py` reproduces those original-adapter ablations against fixed reference actions; the notebook evaluates the latest defence. The scope remains text-email triage plus the named MCP stretch goal.

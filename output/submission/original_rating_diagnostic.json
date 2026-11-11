@@ -1,0 +1,17 @@
+{
+  "unchanged_immutable_fields_out_of_30": {
+    "reason": 0,
+    "quote": 12,
+    "verdict": 28
+  },
+  "no_sheet_present": {
+    "result": "error",
+    "type": "FileNotFoundError",
+    "message": "[Errno 2] No such file or directory: '<temporary workspace>/artifacts/human_explanation_ratings.csv'"
+  },
+  "historical_sheet_present": {
+    "result": "completed",
+    "counted_ratings": 30,
+    "exact_snapshot_match": false
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "reviewer": "Codex",
+  "reviewer_type": "AI",
+  "human_ratings": false,
+  "date": "2026-11-11",
+  "paired_emails": 30,
+  "assessed_explanations": 60,
+  "blind_review": false,
+  "independent_human_review": false,
+  "selection_policy": "Both snapshots and every case are retained. These test-case judgments are not used to retune or select the classifier/security policy.",
+  "score_scale": "1 to 5; dimensions reported separately, not combined into an overall mark",
+  "means": {
+    "historical": {
+      "correctness": 2.8333333333333335,
+      "grounding": 2.8,
+      "usefulness": 1.9666666666666666
+    },
+    "current": {
+      "correctness": 3.1666666666666665,
+      "grounding": 3.6666666666666665,
+      "usefulness": 2.3666666666666667
+    }
+  },
+  "paired_comparisons": {
+    "correctness": {
+      "mean_difference_current_minus_historical": 0.3333333333333333,
+      "current_higher": 12,
+      "tied": 14,
+      "current_lower": 4
+    },
+    "grounding": {
+      "mean_difference_current_minus_historical": 0.8666666666666667,
+      "current_higher": 16,
+      "tied": 12,
+      "current_lower": 2
+    },
+    "usefulness": {
+      "mean_difference_current_minus_historical": 0.4,
+      "current_higher": 11,
+      "tied": 16,
+      "current_lower": 3
+    }
+  },
+  "source_files_sha256": {
+    "artifacts/human_explanation_ratings.csv": "63134ebd9e832b316864f7881385d8fbe44cc665584486e3f771f6b9007520c8",
+    "artifacts/human_explanation_ratings_9b10d09848942b57.csv": "732052ff9b48844d84eae9d7dfe74806c5b8ea50e7d8f70759f37a9200ceb62f"
+  },
+  "human_ratings_provided_by_this_assessment": 0,
+  "limitations": [
+    "Single non-blinded AI reviewer; subjective scores, not human ratings.",
+    "Two workflow verdicts differ between snapshots; this is not an isolated explainer-method experiment.",
+    "The same 30 saved test cases were inspected; no new generalization or significance claim.",
+    "Historical human means use a different reviewer process and are not directly comparable to these AI means."
+  ]
+}

@@ -7,3 +7,4 @@ artifacts/checkpoints/
 artifacts/embeddings/
 artifacts/executed-notebook.log
 artifacts/results/quick/
+output/submission/*.ipynb

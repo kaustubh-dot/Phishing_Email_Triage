@@ -2,6 +2,9 @@
   "device": "cuda",
   "dtype": "torch.bfloat16",
   "quick_run": false,
+  "artifact_repository": "kaustubh-dot/Phishing_Email_Triage",
+  "artifact_revision": "044821a93fc84c4b1165caea57ca8c7f63bfb414",
+  "setup_seconds": 2.88,
   "gpu": "NVIDIA RTX 4000 Ada Generation",
   "gpu_vram_gb": 19.54,
   "versions": {

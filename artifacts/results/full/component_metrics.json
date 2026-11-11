@@ -25,5 +25,8 @@
   "indicator_views_truncated_for_model": 4,
   "max_explanation_prompt_tokens": 1561,
   "human_ratings_completed": 0,
+  "human_rating_sheet": "artifacts/human_explanation_ratings_9b10d09848942b57.csv",
+  "human_rating_snapshot_verified": true,
+  "human_rater_counts": {},
   "mean_human_ratings": {}
 }

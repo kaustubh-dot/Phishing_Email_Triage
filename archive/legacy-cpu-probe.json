@@ -1,0 +1,41 @@
+{
+  "status": "Historical two-case probe of the earlier implementation; not verification of the current defence or a full permitted-device run.",
+  "source_commit": "3197e8b6ab0dea5b193f39a53261cf496fa01b19",
+  "source_path": "artifacts/submission_checks/cpu_probe_after_fix.json",
+  "source_sha256": "221ae13ac39d92afda6f242251191d7e6c1ba9d99f554f42b638fc30e5cfaa39",
+  "result": {
+    "kind": "targeted real-model CPU compatibility probe, not a full benchmark or laptop timing",
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "elapsed_seconds": 33.55,
+    "examples": [
+      {
+        "rating_row": 1,
+        "email_id": "0392c8a7a5d000ace973797f994e3ace15f353387d0de73d5f4f61224329459e",
+        "cpu_verdict": "phishing",
+        "gpu_verdict": "phishing",
+        "changed_explanation_fields": [],
+        "paused": true
+      },
+      {
+        "rating_row": 2,
+        "email_id": "03a60ed58cefdce3ab952f0bc1b407ada8f0dbc83610b4fc91c36bb8e353c019",
+        "cpu_verdict": "phishing",
+        "gpu_verdict": "phishing",
+        "changed_explanation_fields": [
+          "reason"
+        ],
+        "paused": true
+      }
+    ],
+    "existing_rating_snapshot_blocks_rerun": false,
+    "rating_error": null,
+    "simulated_quarantines_executed": 0,
+    "synthetic_rating_fixtures_not_human_scores": true,
+    "existing_sheet_and_fixture_score_preserved": true,
+    "old_scores_not_transferred_to_changed_cpu_explanation": true,
+    "new_snapshot_sheet_created": true,
+    "reordered_matching_rows_accepted": true,
+    "immutable_snapshot_tampering_rejected": true
+  }
+}
