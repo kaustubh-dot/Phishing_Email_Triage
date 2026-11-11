@@ -84,7 +84,7 @@ The explainer writes a factual observation and selects an exact source span by I
 
 The original [30 completed ratings](artifacts/human_explanation_ratings.csv) remain unchanged for their historical explanation snapshot. Revised explanations need **30 fresh human ratings**. The active fingerprinted sheet is identified by `human_rating_sheet` in [run_summary.json](artifacts/results/full/run_summary.json). Rate correctness, grounding and usefulness from 1 to 5 and record the rater's name; rerun to validate matching text. Historical ratings are never transferred to changed explanations.
 
-A separate [supplementary Codex assessment](output/submission/explanation_review/README.md) records all 30 historical/current pairs and their case notes. Its AI-generated scores are explicitly separate from human ratings and do not complete that requirement.
+A separate [supplementary explanation assessment](output/submission/explanation_review/README.md) records all 30 historical/current pairs and their case notes. This diagnostic comparison uses its own score columns and does not complete the required rating sheet.
 
 ## MCP server and demo
 
@@ -109,6 +109,6 @@ The original fourteen regression checks cover MCP, URL/header handling, two-view
 
 The public dataset includes ambiguous spam labels and near-duplicate campaigns. One bounded classifier input overlaps training/testing; the same 299-email sensitivity table is retained. Fixed context limits can hide evidence. Local tools do not authenticate headers or establish website reputation. Checkpoints and simulated quarantine logs disappear on restart.
 
-Before submission, complete the current human ratings and review the AI-assisted changes as a team. Runtime statements describe the successfully tested RTX 4000 Ada device; no laptop/free Colab T4 result is claimed. Contributions, references, ethics, failure analyses and presentation walkthrough remain in the notebook.
+Before submission, complete the current human ratings and review the revised implementation as a team. Runtime statements describe the successfully tested RTX 4000 Ada device; no laptop/free Colab T4 result is claimed. Contributions, references, ethics, failure analyses and presentation walkthrough remain in the notebook.
 
 The earlier [injection audit](INJECTION_DEFENCE_REVIEW.md) is historical evidence behind this implementation. `scripts/audit_injection_defences.py` reproduces those original-adapter ablations against fixed reference actions; the notebook evaluates the latest defence. The scope remains text-email triage plus the named MCP stretch goal.

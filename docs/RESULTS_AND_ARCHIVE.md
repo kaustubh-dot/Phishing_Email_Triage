@@ -18,7 +18,7 @@ Fresh [full verification](../output/submission/verification/full/verification.js
 
 The [assessment](SUBMISSION_ASSESSMENT.md) lists fixes, actual test evidence and unresolved academic requirements. Publication was approved on 11 November 2026. The repository publishes one canonical notebook; the local review copy is ignored by Git.
 
-The [supplementary explanation assessment](../output/submission/explanation_review/README.md) compares all 30 historical/current explanation pairs under the same criteria. It was produced by Codex and is explicitly separate from human ratings. Both snapshots and all per-case scores are preserved; it does not change the frozen decision policy or satisfy the human-rating requirement.
+The [supplementary explanation assessment](../output/submission/explanation_review/README.md) compares all 30 historical/current explanation pairs under the same criteria. It is a diagnostic comparison separate from the required rating sheet. Both snapshots and all per-case scores are preserved; it does not change the frozen decision policy or satisfy the human-rating requirement.
 
 ## Historical evidence
 

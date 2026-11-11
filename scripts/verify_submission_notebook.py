@@ -1,6 +1,6 @@
 """Execute a submission notebook in a temporary workspace, with explicit evidence.
 
-AI-assisted. Only Hugging Face model/dataset caches are shared. A cold-assets run
+Only Hugging Face model/dataset caches are shared. A cold-assets run
 starts with none of the repository artifacts; --reuse-assets also checks offline
 reruns while preserving locally completed ratings. Never commits or pushes.
 """

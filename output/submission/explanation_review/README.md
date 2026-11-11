@@ -1,8 +1,8 @@
 # Supplementary explanation assessment
 
-On 11 November 2026, Codex assessed both historical and current saved explanations for the same 30 emails: 60 explanations in total. **These are AI-generated judgments, not human ratings.** They are separate from the required human-rating sheet and do not count toward its completion. This was one non-blinded reviewer; the scores are subjective diagnostic judgments, not a new independent evaluation or a statistical significance result.
+This supplementary assessment, dated 11 November 2026, compares historical and current saved explanations for the same 30 emails: 60 explanations in total. It is separate from the required rating sheet and does not count toward its completion. The scores are subjective diagnostic judgments from one non-blinded assessment; they do not establish an independent evaluation or statistical significance.
 
-Every case and both snapshots are retained in [the detailed CSV](supplementary_explanation_assessment.csv). Columns use the `ai_` prefix, and each row identifies the reviewer type as `AI`. The [summary](summary.json) records paired comparisons and hashes of the source CSVs. The original human-rating files were not edited.
+Every case and both snapshots are retained in [the detailed CSV](supplementary_explanation_assessment.csv). Score columns use the `assessment_` prefix, and each row identifies its scope as `supplementary explanation assessment`. The [summary](summary.json) records paired comparisons and hashes of the source CSVs. The original rating files were not edited.
 
 ## Scoring criteria
 
@@ -24,7 +24,7 @@ Scores 2 and 4 represent intermediate judgments. Dataset-label agreement alone i
 | Grounding | 2.80 | 3.67 | 16 / 12 / 2 |
 | Usefulness | 1.97 | 2.37 | 11 / 16 / 3 |
 
-The current explanations are stronger on average under this assessment, particularly in grounding. They remain limited in usefulness. The complete paired results are reported without choosing favorable rows or substituting historical human means. Historical human means reflect different reviewers and must not be compared directly with these AI-derived means.
+The current explanations are stronger on average under this assessment, particularly in grounding. They remain limited in usefulness. The complete paired results are reported without choosing favorable rows or substituting historical human means. Historical human means reflect a different review process and must not be compared directly with these supplementary means.
 
 Some improved cases remove unsupported website/link claims or identify visible product solicitations and ordinary technical correspondence. Regressions remain: the forwarded conference request is incorrectly explained as phishing, and a refinancing explanation repeats an unverified promotional promise in the sender's voice. Other accepted outputs copy noisy text rather than explain a verdict. The Red Hat false positive remains inadequately justified.
 

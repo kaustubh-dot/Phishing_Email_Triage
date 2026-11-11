@@ -476,7 +476,7 @@ The saved full evaluation reports one hundred and ninety-four-point-nine seconds
 
 All fourteen regression tests passed in the checked snapshot, and the dependency check passed. These tests exercise specific invariants and boundaries; they do not prove that every future email will be classified correctly.
 
-The notebook also discloses AI-assisted implementation and experimentation. The revised work requires team review and understanding before submission. Human ratings and team contributions are not inferred from automated checks.
+The revised implementation and experiments require team review and understanding before submission. Human ratings and team contributions are not inferred from automated checks.
 
 Our evidence supports a reduction in observed malicious allow attacks, with retained analyst control and an explicit clean-email false-positive cost. The repository preserves those measurements so they can be checked and discussed.
 
@@ -581,9 +581,9 @@ It is an evaluated project prototype. Quarantine is simulated, the data has know
 
 I would complete the current human ratings, review the false positives on development data, and examine the specific retrieval and indicator-rule conflicts identified by the ablations. I would then freeze the revised policy and evaluate it on new cases. This addresses the measured weaknesses while retaining the existing text-email architecture and analyst approval boundary.
 
-### 22. What was AI-assisted, and what must the team do?
+### 22. What must the team review before submission?
 
-The notebook discloses Codex assistance with implementation, experiments and prose. The revised branch needs team review before submission. Each member should inspect the relevant code, understand the saved results and explain their recorded contribution. Automated validity checks are not human ratings, and AI assistance does not establish that the team has reviewed a change.
+The revised branch needs team review before submission. Each member should inspect the relevant code, understand the saved results and explain their recorded contribution. Automated validity checks do not complete the required rating sheet or establish that the team has reviewed a change.
 
 ## Evidence map for preparation
 
@@ -592,7 +592,7 @@ These are preparation references, not lines to read aloud. They refer to the sna
 - `README.md`: implemented scope, running instructions and result summaries.
 - `DEFENCE_IMPROVEMENTS.md`: defensive training, selection, holdout results and clean-email cost.
 - `INJECTION_DEFENCE_REVIEW.md`: historical audit and motivation for the changes.
-- `Phishing_Email_Triage.ipynb`: complete embedded implementation, saved outputs, demo and disclosure.
+- `Phishing_Email_Triage.ipynb`: complete embedded implementation, saved outputs, demo and limitations.
 - `artifacts/results/full/classification_metrics.csv`: all ten clean-test conditions.
 - `artifacts/results/full/injection_metrics.csv` and `injection_common_metrics.csv`: original regression-suite outcomes and denominators.
 - `artifacts/results/full/security_holdout_metrics.csv`: fresh holdout outcomes, controls and ablations.

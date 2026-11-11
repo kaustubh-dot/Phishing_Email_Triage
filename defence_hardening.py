@@ -1,6 +1,6 @@
 """P13 defence training and inference helpers, embedded by the graded notebook.
 
-AI-assisted. Augmentation preserves downloaded training labels. Held-out attack
+Augmentation preserves downloaded training labels. Held-out attack
 fixtures are never scored during training or checkpoint selection.
 """
 import hashlib

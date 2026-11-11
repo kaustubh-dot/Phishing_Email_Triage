@@ -10,5 +10,25 @@
   "unchanged_system_cell_count": 15,
   "approval_date": "2026-11-11",
   "published_notebook_path": "Phishing_Email_Triage.ipynb",
-  "review_copy_committed": false
+  "review_copy_committed": false,
+  "current_notebook_sha256": "8a3296831998481321bf03afb115564c1394e8c86db8fae1f2da2a1e47a46316",
+  "current_source_cells_sha256": "00cb8d1f7c855e91533b54a0e4f85a3529ae4e6252085366a71c99ed45d63d76",
+  "attribution_cleanup": {
+    "date": "2026-11-11",
+    "base_commit": "9c84cc2ca1be9c111cc4c871e2fa1dd5ea0dbaa6",
+    "scope": "Neutral attribution wording in commentary, diagnostic output, assessment metadata and score columns. Scores, rating entries, email snapshots, predictions, model weights and security policy are preserved.",
+    "changed_source_cells": [
+      0,
+      3,
+      13,
+      19,
+      31,
+      32,
+      35,
+      36
+    ],
+    "model_inference_rerun": false,
+    "historical_records": "Original reviewed_sha256, source_cells_sha256, preserved_system_sources.json and full/quick verification source hashes describe the pre-cleanup notebook. Attribution labels in historical diff text and execution-log headings have been normalized.",
+    "notebook_file_hash_convention": "SHA-256 of UTF-8 notebook bytes with LF line endings, matching the Git blob."
+  }
 }

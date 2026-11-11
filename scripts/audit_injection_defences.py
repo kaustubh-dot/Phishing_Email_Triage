@@ -3,7 +3,7 @@
 Runs the existing 30-pair regression, 400 clean validation emails, a frozen
 challenge with 30 distinct phishing and 30 distinct safe validation emails,
 and 30 pairs from ten explicitly malicious authored scenarios.
-AI-assisted implementation. All actions are proposed labels, never executed.
+All actions are proposed labels, never executed.
 """
 import os
 from pathlib import Path

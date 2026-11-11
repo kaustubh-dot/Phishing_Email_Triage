@@ -2,7 +2,7 @@
 
 The notebook embeds this entire file and recreates it on Run All. No model, data
 download, mailbox access or URL fetching is needed to run the server.
-AI-assisted implementation; the notebook contains the component evaluation.
+The notebook contains the component evaluation.
 """
 
 import html

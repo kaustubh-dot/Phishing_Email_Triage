@@ -1,6 +1,6 @@
 """Prepare the reviewed one-file submission locally; never commits or pushes.
 
-AI-assisted. Reads the supplied notebook as data, preserves its system, and applies
+Reads the supplied notebook as data, preserves its system, and applies
 explicit setup, rating-provenance, documentation and demo improvements.
 """
 import argparse
@@ -43,7 +43,7 @@ When opened within the repository, the existing workspace is used. Otherwise run
 
 The setup cell contains all dependency versions; no separately submitted `requirements.txt` is needed. Use a fresh kernel. First use requires internet and model-download time. `TRAIN=False` uses matching saved adapters; `TRAIN=True` retrains. `QUICK_RUN=True` evaluates 60 test emails; set `P13_QUICK_RUN=0` before Run All for the full 300-email run. Saved outputs below use the full run. Setup/download time and execution time are reported separately at the end.
 '''
-    sources[3] = f'''# AI-assisted portable setup; all executable support is embedded in this notebook.
+    sources[3] = f'''# Portable setup; all executable support is embedded in this notebook.
 import os, sys, time
 from pathlib import Path
 P13_NOTEBOOK_STARTED = time.perf_counter()

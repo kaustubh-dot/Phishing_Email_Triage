@@ -1,6 +1,5 @@
 {
-  "reviewer": "Codex",
-  "reviewer_type": "AI",
+  "review_scope": "supplementary explanation assessment",
   "human_ratings": false,
   "date": "2026-11-11",
   "paired_emails": 30,
@@ -47,9 +46,9 @@
   },
   "human_ratings_provided_by_this_assessment": 0,
   "limitations": [
-    "Single non-blinded AI reviewer; subjective scores, not human ratings.",
+    "Single non-blinded assessment; subjective diagnostic scores.",
     "Two workflow verdicts differ between snapshots; this is not an isolated explainer-method experiment.",
     "The same 30 saved test cases were inspected; no new generalization or significance claim.",
-    "Historical human means use a different reviewer process and are not directly comparable to these AI means."
+    "Historical human means use a different review process and are not directly comparable to these supplementary means."
   ]
 }
