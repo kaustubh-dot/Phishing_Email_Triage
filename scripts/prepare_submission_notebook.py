@@ -1,169 +1,98 @@
-"""Prepare the reviewed one-file submission locally; never commits or pushes.
+"""Package the current notebook and embedded helpers into a standalone copy.
 
-Reads the supplied notebook as data, preserves its system, and applies
-explicit setup, rating-provenance, documentation and demo improvements.
+Preserves current implementation and policy instead of replaying historical
+patches. Never commits, pushes, overwrites the source or fabricates ratings.
 """
 import argparse
-from hashlib import sha256
+import ast
+import hashlib
 import json
 from pathlib import Path
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-REPOSITORY = 'kaustubh-dot/Phishing_Email_Triage'
-REVISION = '044821a93fc84c4b1165caea57ca8c7f63bfb414'
+HELPERS = {'SUBMISSION_SUPPORT_SOURCE': 'submission_support.py',
+           'MCP_SERVER_SOURCE': 'mcp_indicator_server.py',
+           'DEFENCE_SOURCE': 'defence_hardening.py'}
+
+
+def assignments(source):
+    cleaned = '\n'.join('pass' if line.lstrip().startswith('%') else line
+                        for line in source.splitlines())
+    return {node.targets[0].id: node for node in ast.parse(cleaned).body
+            if isinstance(node, ast.Assign) and len(node.targets) == 1
+            and isinstance(node.targets[0], ast.Name)}
+
+
+def replace_assignment(source, node, value):
+    lines = source.splitlines(keepends=True)
+    return ''.join(lines[:node.lineno-1]) + value + '\n' + ''.join(lines[node.end_lineno:])
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source', type=Path, required=True)
+    parser.add_argument('--source', type=Path, default=ROOT/'Phishing_Email_Triage.ipynb')
     parser.add_argument('--output', type=Path, default=ROOT/'output/submission/P13_Phishing_Email_Triage.ipynb')
+    parser.add_argument('--asset-revision', help='Immutable local Git commit containing the published runtime assets.')
+    parser.add_argument('--ratings', type=Path, action='append', default=[],
+                        help='Additional rated snapshot under artifacts; requires --asset-revision.')
     args = parser.parse_args()
-    notebook = json.loads(args.source.read_text())
-    assert len(notebook['cells']) == 38, 'Review a structural change before applying these patches.'
-    cells = notebook['cells']
-    sources = [''.join(cell['source']) for cell in cells]
-    support = (ROOT/'submission_support.py').read_text()
-    assets = ['artifacts/revisions.json']
-    for rank in ['r4', 'r8', 'defended-r8']:
-        assets.extend(f'artifacts/adapters/{rank}/{name}' for name in
-                      ['adapter_config.json', 'adapter_model.safetensors', 'training_metadata.json'])
-    assets.extend(str(p.relative_to(ROOT)) for p in sorted((ROOT/'artifacts').glob('human_explanation_ratings*.csv')))
-    assets.extend(['artifacts/security/development_specs.json', 'artifacts/security/heldout_specs.json'])
-    manifest = {name: sha256((ROOT/name).read_bytes()).hexdigest() for name in assets}
-    pins = (ROOT/'requirements.txt').read_text()
-    revisions = json.loads((ROOT/'artifacts/revisions.json').read_text())
-
-    sources[0] = sources[0].replace('on this branch need team review', 'need team review')
-    sources[0] += '\n\n**Project repository:** [kaustubh-dot/Phishing_Email_Triage](https://github.com/kaustubh-dot/Phishing_Email_Triage). For the presentation, supporting results, archived experiments and further implementation details, check the repository. The required system, evaluation, saved outputs and demo remain in this notebook. Saved runtime assets are fetched from the pinned snapshot identified in Setup.\n\n**Current validation status:** automated correctness and quote checks are separate from human explanation quality. Only ratings of the exact current explanations count. Full and quick executions have completed successfully on NVIDIA RTX 4000 Ada; these execution checks do not imply perfect classification or verified performance on another device. Team review remains required.\n'
-    sources[2] = '''## 2. Setup
-
-This notebook can start in an empty folder with Python 3.12 and internet access. It writes its pinned dependency list and support module, then fetches only missing saved adapters, revision records, frozen fixtures and rating sheets from a fixed public GitHub commit. Every downloaded file is checked against an embedded SHA-256 manifest. Existing local files and human entries are preserved. Public base models and the specified dataset are still loaded from Hugging Face in the cells below.
-
-When opened within the repository, the existing workspace is used. Otherwise runtime files live in `p13_runtime/` beneath the current working directory. `P13_WORKSPACE` can set an explicit writable location. The GitHub artifact snapshot is pinned independently of the latest repository notebook, so later repository edits cannot silently change these saved weights.
-
-The setup cell contains all dependency versions; no separately submitted `requirements.txt` is needed. Use a fresh kernel. First use requires internet and model-download time. `TRAIN=False` uses matching saved adapters; `TRAIN=True` retrains. `QUICK_RUN=True` evaluates 60 test emails; set `P13_QUICK_RUN=0` before Run All for the full 300-email run. Saved outputs below use the full run. Setup/download time and execution time are reported separately at the end.
-'''
-    sources[3] = f'''# Portable setup; all executable support is embedded in this notebook.
-import os, sys, time
-from pathlib import Path
-P13_NOTEBOOK_STARTED = time.perf_counter()
-if sys.version_info < (3, 12):
-    raise RuntimeError('Use Python 3.12 or newer for the pinned NumPy environment; Python 3.12 was tested.')
-cwd = Path.cwd()
-default_workspace = cwd if (cwd/'artifacts/revisions.json').exists() else cwd/'p13_runtime'
-P13_ROOT = Path(os.environ.get('P13_WORKSPACE', str(default_workspace))).expanduser().resolve()
-P13_ROOT.mkdir(parents=True, exist_ok=True)
-PINNED_REQUIREMENTS = {pins!r}
-requirements_path = P13_ROOT/'requirements.txt'
-requirements_path.write_text(PINNED_REQUIREMENTS, encoding='utf-8')
-%pip install -q -r "{{requirements_path}}"
-
-SUBMISSION_SUPPORT_SOURCE = {support!r}
-support_path = P13_ROOT/'submission_support.py'
-support_path.write_text(SUBMISSION_SUPPORT_SOURCE, encoding='utf-8')
-submission_support = {{'__name__':'p13_submission_support'}}
-exec(compile(SUBMISSION_SUPPORT_SOURCE, str(support_path), 'exec'), submission_support)
-ASSET_REPOSITORY = {REPOSITORY!r}
-ASSET_REVISION = {REVISION!r}
-SAVED_ASSET_MANIFEST = {json.dumps(manifest, indent=4)}
-asset_setup = submission_support['ensure_submission_assets'](
-    P13_ROOT, SAVED_ASSET_MANIFEST, ASSET_REPOSITORY, ASSET_REVISION)
-P13_SETUP_SECONDS = time.perf_counter()-P13_NOTEBOOK_STARTED
-print('Workspace:', P13_ROOT)
-print('Saved asset snapshot:', ASSET_REVISION)
-print('Existing files preserved:', asset_setup['existing_files_preserved'],
-      '| downloaded and checksum-verified:', len(asset_setup['downloaded_files']))
-'''
-    sources[3] = sources[3].replace(f"PINNED_REQUIREMENTS = {pins!r}", 'PINNED_REQUIREMENTS = """'+pins+'"""')
-    sources[3] = sources[3].replace(f"SUBMISSION_SUPPORT_SOURCE = {support!r}", "SUBMISSION_SUPPORT_SOURCE = r\'\'\'"+support+"\'\'\'")
-    sources[4] = sources[4].replace('ROOT = Path.cwd()', 'ROOT = P13_ROOT')
-    begin = sources[4].index('from huggingface_hub import HfApi')
-    end = sources[4].index('\nenvironment = ', begin)
-    sources[4] = sources[4][:begin] + f'''# Exact model/data revisions remain fixed even when only the notebook is supplied.
-PINNED_REVISIONS = {revisions!r}
-revision_path = ART/'revisions.json'
-REVISIONS = json.loads(revision_path.read_text()) if revision_path.exists() else PINNED_REVISIONS.copy()
-if REVISIONS != PINNED_REVISIONS:
-    raise RuntimeError('Local revisions differ from the reviewed snapshot. Use a fresh P13_WORKSPACE.')
-save_json(revision_path, REVISIONS)
-''' + sources[4][end:]
-    sources[4] = sources[4].replace("'device': DEVICE, 'dtype': str(DTYPE), 'quick_run': QUICK_RUN,", "'device': DEVICE, 'dtype': str(DTYPE), 'quick_run': QUICK_RUN,\n    'artifact_repository':ASSET_REPOSITORY, 'artifact_revision':ASSET_REVISION,\n    'setup_seconds':round(P13_SETUP_SECONDS,2),")
-
-    sources[5] += '\n\nThe 4,000-email training cap is a fixed compute budget for the rank and defence comparisons, not a claim that the remaining emails are invalid. Stratified sampling preserves the approximately 62.7% safe / 37.3% phishing distribution. There is no learning-curve experiment establishing that 4,000 is optimal.\n'
-    sources[9] += '''\n\n### Design decisions and simpler alternatives
-
-| Decision | Simpler alternative and evidence |
-| --- | --- |
-| LoRA on a small open classifier | Compare unchanged zero-shot Qwen, keyword rules and kNN on the identical fixed test subset. The combined table reports both rank 4 and rank 8. |
-| Training-only semantic retrieval | Compare k = 1, 3 and 5; choose k using validation F1. Retrieved labels are evidence, not verified campaign identity. |
-| Fixed supervisor with separate roles | A sequential function pipeline would be sufficient for basic classification. LangGraph makes shared evidence, checkpointed approval and trace inspection explicit. We do not claim that the graph itself improves accuracy or implement autonomous planning. |
-| Defence training plus two views and review rules | The security tables compare the original path, previous defence and current policy, with component ablations. Security gains have a measured clean-email false-positive cost. |
-| Source-span selection in explanations | Compare against the original quote-copying method on the same validation emails. Exact quote checks are limited automatic checks; human quality still requires ratings. |
-'''
-    sources[29] = '### Human explanation ratings\n\nThe project contains **30 completed human ratings for the original explanation snapshot**, with 10 ratings from each of the three named team raters. Mean correctness is **4.43**, grounding **4.37** and usefulness **3.63**, each out of 5. The source sheet is `artifacts/human_explanation_ratings.csv`; rater counts and means below are calculated from its actual entries.\n\nEach explanation is rated for correctness relative to the email, grounding in quoted evidence and usefulness for deciding what to investigate. A rating of classifier correctness is not the same as accepting the dataset label. Each completed row needs a rater identifier and whole-number scores from 1 to 5.\n\nThe revised explanations await separate review. Scores remain attached to the exact email, verdict, reason, quote and fallback fields that were rated. Changed explanations use their own fingerprinted sheet; matching sheets and existing human entries are preserved. QUICK_RUN uses a separate sheet. The original ratings are never transferred to revised text.\n'
-    begin = sources[30].index('rating_path = ')
-    loop_begin = sources[30].index('rating_rows = []')
-    loop_end = sources[30].index('expected_ratings = pd.DataFrame(rating_rows)')
-    loop = sources[30][loop_begin:loop_end]
-    sources[30] = "historical_rating_path = ART/'human_explanation_ratings.csv'\nhistorical_expected = pd.read_csv(historical_rating_path)\nhistorical_rating_result = submission_support['load_current_ratings'](historical_expected, historical_rating_path)\nprint('Completed human ratings (original explanation snapshot):', int(historical_rating_result['valid'].sum()))\nprint('Rater counts (original snapshot):', historical_rating_result['rater_counts'])\nprint('Mean human ratings (original snapshot):', {name:round(value,2) for name,value in historical_rating_result['means'].items()})\nprint('Scope: these scores describe the original explanation text; revised explanations are reviewed separately.')\n\n" + "rating_base_path = (RUN if QUICK_RUN else ART)/'human_explanation_ratings.csv'\n" + loop + '''expected_ratings = pd.DataFrame(rating_rows)
-rating_result = submission_support['load_current_ratings'](expected_ratings, rating_base_path)
-rating_path = rating_result['path']
-ratings, numeric_ratings, valid = (rating_result[name] for name in ['ratings','numeric','valid'])
-print('Current rating sheet:', rating_path.relative_to(ROOT).as_posix())
-if int(valid.sum()) >= 30:
-    print(f'Completed valid CURRENT human ratings: {int(valid.sum())}/{len(ratings)}')
-    print('Rater counts from valid current rows:', rating_result['rater_counts'])
-    display(pd.Series(rating_result['means'], name='mean_current_human_rating'))
-else:
-    print('Current explanation ratings: pending separate review.')
-component_metrics['human_ratings_status'] = 'complete' if int(valid.sum()) >= 30 else 'pending real human input'
-component_metrics['human_ratings_completed'] = int(valid.sum())
-component_metrics['human_rating_sheet'] = str(rating_path.relative_to(ROOT))
-component_metrics['human_rating_snapshot_verified'] = True
-component_metrics['human_rater_counts'] = rating_result['rater_counts']
-component_metrics['mean_human_ratings'] = rating_result['means']
-save_json(RUN/'component_metrics.json', component_metrics)
-'''
-    # Show score provenance and choose an informative observed success for the demo,
-    # without changing any test outcome or using it for model/policy selection.
-    sources[34] = sources[34].replace("    print('Reason:',output['explanation']['reason'])", "    print('Scores (uncalibrated A/B): original=',round(output['phishing_score'],4),\n          'structured=',round(output['structured_defence_score'],4),\n          'plain=',round(output['plain_defence_score'],4))\n    print('Explanation uses a visible template fallback:',output['explanation']['fallback_used'])\n    print('Reason:',output['explanation']['reason'])")
-    old = "correct_indices = np.flatnonzero(PREDICTIONS['Full system (defended)']==truth)\nprint('Dataset label:',test_df.iloc[int(correct_indices[0])].label_name)\ndemo_success_thread = ask(test_df.iloc[int(correct_indices[0])].text)"
-    new = '''correct_indices = np.flatnonzero(PREDICTIONS['Full system (defended)']==truth)
-# Presentation selection only: prefer a true positive with a model explanation,
-# no identical bounded training input, and no almost-identical retrieved example.
-preferred_successes = [int(i) for i in correct_indices if truth[i] == 1
-    and not input_overlap_mask[i] and not system_outputs[i]['explanation']['fallback_used']
-    and max((e['similarity'] for e in system_outputs[i]['evidence']), default=0.) < .98]
-phishing_successes = [int(i) for i in correct_indices if truth[i] == 1]
-demo_success_index = (preferred_successes or phishing_successes or correct_indices.tolist())[0]
-print('Selection: first observed correct phishing example with verified model quote and no near-copy, when available.')
-print('This choice illustrates a result; it does not change the benchmark or tune the policy.')
-print('Dataset label:',test_df.iloc[demo_success_index].label_name)
-demo_success_thread = ask(test_df.iloc[demo_success_index].text)'''
-    assert old in sources[34]
-    sources[34] = sources[34].replace(old,new)
-    sources[33] += '\n\nThe success example is chosen after evaluation only for presentation: prefer a correctly flagged phishing-labelled email with a nonfallback exact quote, no identical bounded training input and no retrieved similarity of 0.98 or more. The failure remains an observed full-system error. This presentation choice does not alter test membership, model weights, thresholds or reported metrics. The earlier deck illustrates its saved historical examples; live examples can differ under this explicit selection rule.\n'
-    sources[35] += '\n- The submission setup retrieves pinned saved artifacts from the linked public repository and checks downloaded bytes. A first run still needs internet for dependencies, assets, the dataset and base models. Existing local files are preserved, and their adapter metadata is validated by the training/loading cells. The reviewed one-file workflow is tested separately from any permitted-device runtime claim.\n'
-    sources[36] += '\n- Supporting results and presentation: [project GitHub repository](https://github.com/kaustubh-dot/Phishing_Email_Triage). Runtime assets are pinned to commit `'+REVISION+'`, with per-file SHA-256 values in Setup. The repository documents historical experiments separately from the current evaluation.\n'
-    sources[37] = sources[37].replace('runtime_seconds = time.perf_counter()-STARTED', 'runtime_seconds = time.perf_counter()-STARTED\ntotal_runtime_seconds = time.perf_counter()-P13_NOTEBOOK_STARTED')
-    sources[37] = sources[37].replace("'under_60_minutes':runtime_seconds < 3600,", "'setup_seconds':round(P13_SETUP_SECONDS,2),\n    'total_runtime_seconds':round(total_runtime_seconds,2),\n    'under_60_minutes':total_runtime_seconds < 3600,\n    'asset_revision':ASSET_REVISION, 'downloaded_asset_count':len(asset_setup['downloaded_files']),")
-    sources[37] = sources[37].replace("'human_ratings_required':30,", "'human_ratings_required':30,'human_rating_snapshot_verified':True,\n    'human_rater_counts':rating_result['rater_counts'],")
-    sources[37] += "\nprint(f'Total including this run setup: {total_runtime_seconds/60:.1f} minutes; first model download times depend on network/cache.')\nprint('Verified execution: all evaluation stages completed successfully on', environment.get('gpu') or DEVICE)\nprint('Final human checks: complete current ratings and team review. Classification and security limitations remain reported above.')\n"
-    sources[37] = sources[37].replace('display(run_summary)', "display_summary = {key:value for key,value in run_summary.items() if not key.startswith('human_')}\ndisplay_summary['human_rating_report'] = {\n    'rating_scope':'original explanation snapshot',\n    'completed':int(historical_rating_result['valid'].sum()),\n    'rater_counts':historical_rating_result['rater_counts'],\n    'mean_scores':historical_rating_result['means'],\n    'revised_explanations':'rated' if int(valid.sum()) >= 30 else 'pending separate review'}\ndisplay(display_summary)")
-    for cell,source in zip(cells,sources):
+    if args.source.resolve() == args.output.resolve():
+        parser.error('Use a separate output file; the canonical source is preserved.')
+    if args.ratings and not args.asset_revision:
+        parser.error('--ratings requires the immutable --asset-revision containing those entries.')
+    notebook = json.loads(args.source.read_text(encoding='utf-8'))
+    revision = None
+    if args.asset_revision:
+        revision = subprocess.check_output(['git', 'rev-parse', args.asset_revision+'^{commit}'],
+                                           cwd=ROOT, text=True).strip()
+    embedded = set()
+    for cell in notebook['cells']:
+        if cell['cell_type'] != 'code':
+            continue
+        source = ''.join(cell['source'])
+        nodes = assignments(source)
+        changes = []
+        for variable, filename in HELPERS.items():
+            if variable in nodes:
+                text = (ROOT/filename).read_text(encoding='utf-8')
+                changes.append((nodes[variable], variable+' = '+repr(text)))
+                embedded.add(filename)
+        if 'PINNED_REQUIREMENTS' in nodes:
+            changes.append((nodes['PINNED_REQUIREMENTS'],
+                            'PINNED_REQUIREMENTS = '+repr((ROOT/'requirements.txt').read_text(encoding='utf-8'))))
+        if revision and 'SAVED_ASSET_MANIFEST' in nodes:
+            manifest = ast.literal_eval(nodes['SAVED_ASSET_MANIFEST'].value)
+            for path in args.ratings:
+                relative = path.resolve().relative_to(ROOT.resolve()).as_posix()
+                if not relative.startswith('artifacts/') or path.suffix != '.csv':
+                    raise ValueError('Additional rating snapshots must be CSVs under artifacts/.')
+                manifest[relative] = ''
+            manifest = {name: hashlib.sha256(subprocess.check_output(
+                ['git', 'show', revision+':'+name], cwd=ROOT)).hexdigest() for name in manifest}
+            changes.extend([(nodes['ASSET_REVISION'], 'ASSET_REVISION = '+repr(revision)),
+                            (nodes['SAVED_ASSET_MANIFEST'], 'SAVED_ASSET_MANIFEST = '+repr(manifest))])
+        for node, value in sorted(changes, key=lambda item: item[0].lineno, reverse=True):
+            source = replace_assignment(source, node, value)
         cell['source'] = source.splitlines(keepends=True)
-        if cell['cell_type']=='code':
-            cell['execution_count']=None
-            cell['outputs']=[]
-    args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps(notebook,indent=1,ensure_ascii=False)+'\n')
-    (args.output.parent/'source_provenance.json').write_text(json.dumps({
-        'original_filename':args.source.name,'original_sha256':sha256(args.source.read_bytes()).hexdigest(),
-        'reviewed_filename':args.output.name,'runtime_asset_revision':REVISION,
-        'runtime_asset_count':len(manifest),'github_push_authorized':False,
-    },indent=2)+'\n')
+        cell['execution_count'] = None
+        cell['outputs'] = []
+    if embedded != set(HELPERS.values()):
+        raise ValueError('The notebook is missing an expected embedded helper.')
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps(notebook, indent=1, ensure_ascii=False)+'\n'
+    args.output.write_text(payload, encoding='utf-8', newline='\n')
+    provenance = {'source': str(args.source.resolve()),
+        'source_sha256': hashlib.sha256(args.source.read_bytes()).hexdigest(),
+        'packaged_sha256': hashlib.sha256(payload.encode()).hexdigest(),
+        'source_cells_sha256': hashlib.sha256(json.dumps(
+            [''.join(c['source']) for c in notebook['cells']]).encode()).hexdigest(),
+        'embedded_helpers': sorted(embedded), 'outputs_cleared': True,
+        'asset_revision_updated': revision}
+    args.output.with_suffix('.provenance.json').write_text(json.dumps(provenance, indent=2)+'\n',
+                                                        encoding='utf-8', newline='\n')
     print(args.output)
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

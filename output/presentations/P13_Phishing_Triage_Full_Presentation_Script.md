@@ -1,3 +1,5 @@
+> Numerical tables in this script and deck describe the saved GPU reference. The revised explanation guards and Windows fixes require a completed Run All before presentation. Demo examples follow the actual live notebook output. CPU training and partial execution evidence are separately scoped in SUBMISSION_STATUS.md.
+
 # Phishing Email Triage: full presentation script
 
 For **P13_Phishing_Triage_Updated.pptx**, 24 slides, repository snapshot **955885c**, 5 November 2026.
@@ -202,63 +204,21 @@ The final verdict incorporates these flags, and the responder follows that contr
 
 The state retains the original prediction, defensive-view scores and contributing overrides, so the analyst can inspect which parts of the policy changed the decision.
 
-## Slide 12: A success: search-engine spam
+## Slide 12: A success from the current notebook
 
-[For a live demo, open notebook section 8 and create a fresh success-demo thread. Otherwise, describe the saved terminal panel on the slide.]
+Switch to notebook Section 8. Obtain a fresh thread with `demo_success_thread = ask(test_df.iloc[demo_success_index].text)` using the selected held-out message.
 
-This first example is a search-engine submission sales message. The dataset labels it phishing, and our workflow predicts phishing, so it is a correct prediction against the dataset label.
+Show its actual dataset label, verdict, retrieved labels/similarities, tool results, reason, exact source quote and fallback flag. Do not promise a particular email, similarity or explanation. A correct classification and a nonfallback flag do not establish useful reasoning.
 
-The message offers to submit a website to hundreds of search engines for a monthly fee. We describe it as spam-like promotional content because that is what the example contains. A correct dataset prediction here does not establish that it is a verified credential-theft attempt.
+Run `review(demo_success_thread, 'approve')` on the pending thread. It records one simulated quarantine after the analyst decision. The email and model cannot approve the action, and a completed approval cannot be replayed.
 
-Calling ask on the email runs the same graph used in the evaluation. The output includes the verdict, proposed action, indicators, explanation, retrieved evidence and workflow trace.
+## Slide 13: An actual error from the current notebook
 
-The nearest training email has a similarity of zero-point-nine-nine-nine-two and the same phishing label. That is strong similarity evidence, but it also exposes a near-copy limitation in the dataset. This similarity is not a ninety-nine-point-nine-two-percent probability that the email is malicious.
+Show the first observed full-system error from notebook Section 8. Compare its dataset label with the workflow verdict and inspect the evidence. Explain the mismatch without inventing phishing evidence or changing the benchmark.
 
-The local tools find no URLs and no sender headers in this example. Their absence is reported directly. It does not prove that an email is safe.
+If the false-positive proposal is pending, reject a fresh thread with `review(demo_failure_thread, 'reject')`. If the error is an allow, explain the missed alert; do not claim that an approval interrupt exists. Create a fresh thread with `ask(...)` if the previous demonstration already completed it.
 
-The current generated explanation fails validation, so the workflow displays a visible template fallback with a verified source quote. We do not present the fallback as a successful model-generated explanation.
-
-The action remains pending until the analyst decides. The saved example shows approval followed by a simulated quarantine. The classification and attack evaluations themselves do not approve pending quarantine proposals.
-
-[If demonstrating approval live, run the following once on the fresh pending success thread:]
-
-```python
-review(demo_success_thread, 'approve')
-```
-
-[Wait for the completed output before reading the next paragraph.]
-
-The approved thread now records one simulated quarantine. A second approval on this completed thread is rejected, so the same proposal cannot be replayed as another action.
-
-The next example shows why the analyst must retain the ability to reject the system's recommendation.
-
-## Slide 13: A failure: a legitimate newsletter flagged
-
-[Create a fresh failure-demo thread in notebook section 8, or describe the saved panel. Do not reuse a completed approval thread.]
-
-This is the safe-labelled Red Hat Linux eight-point-zero release promotion. It advertises a paid subscription, including a sixty-dollar annual price and purchase-related URLs.
-
-The workflow incorrectly predicts phishing and proposes quarantine. This is an actual false positive from the evaluated data.
-
-Both original LoRA ranks and the defensive classifier views flag this message. The selected kNN classifier is correct, and all five retrieved neighbours are safe-labelled. The retrieved evidence therefore gives the analyst useful context that conflicts with the model's conclusion.
-
-Our deployed retrieval guard is one-sided. Unanimous phishing neighbours can request review, but unanimous safe neighbours do not automatically cancel a phishing prediction. That design helps retain detection in some attack cases, while allowing false positives like this one to remain.
-
-The message contains promotional wording that may be confusable with spam. The reviewed email does not contain a credential request. We treat this as an evidence-based explanation of a possible failure pattern, rather than claiming that we proved the model's internal cause.
-
-The current explanation describes subscription benefits, but it does not give a convincing security rationale for the phishing verdict. It can pass limited output checks while still being unhelpful. An exact quote and valid structure do not establish correct reasoning.
-
-The analyst can reject the proposal. That leaves the message without a simulated quarantine action.
-
-[For the live rejection, run the following once on the fresh pending failure thread:]
-
-```python
-review(demo_failure_thread, 'reject')
-```
-
-[After the rejection output appears:]
-
-The thread is rejected and no quarantine is recorded for it. This rejection controls the current action. It does not retrain the adapter or add the analyst's override to FAISS. Online feedback learning remains outside our implemented scope.
+The deck's numerical tables are the labelled saved GPU benchmark. The notebook and CPU verification record report the actual final CPU execution separately. Use the timed runbook for a ten-minute presentation.
 
 ## Slide 14: Stronger defence has a false-positive cost
 
@@ -302,7 +262,9 @@ These are results for the combined defence. They do not isolate adversarial trai
 
 The test rows also contain correlated payloads and authored scenarios. We have evidence of improvement on these evaluated cases, with one remaining regression-suite bypass and benign-direction errors. We do not claim general injection immunity.
 
-## Slide 16: 223 explanations pass; new ratings are pending
+## Slide 16: Saved explanation checks and human review
+
+The 223 accepted outputs and 77 fallbacks are the saved GPU reference under its earlier checks. The final notebook reports the CPU results and added copy/word-budget guards separately.
 
 The explanation evaluation separates automatic validity checks from human judgment.
 

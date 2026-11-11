@@ -8,3 +8,4 @@ artifacts/embeddings/
 artifacts/executed-notebook.log
 artifacts/results/quick/
 output/submission/*.ipynb
+output/submission/verification/*/executed.ipynb

@@ -1,67 +1,33 @@
 # Submission status
 
-Verified and approved for publication on 11 November 2026.
+Engineering fixes are implemented on `fix/review-data-attribution`. **Evaluation readiness remains conditional on a completed run of the revised source, current human explanation ratings and confirmation of the separate judging guidelines.** This review is not faculty approval or a predicted grade.
 
-The reviewed standalone [Phishing_Email_Triage.ipynb](Phishing_Email_Triage.ipynb) is the canonical submission notebook. It includes all saved full-run outputs and the project repository link. Supporting code, detailed checks and historical evidence are included. **30 completed human ratings** are recorded for the original explanation snapshot. Revised explanations await separate review.
+## Verified changes
 
-## Submission contents
+- **34 regression tests pass**, including a real Windows notebook-kernel MCP launch, command-line MCP integration, explanation-copy/word-budget guards, safe rating entry and completed-rating acceptance.
+- The isolated Python 3.12 environment passes `pip check`. Windows and Linux commands use the correct interpreter paths.
+- The CPU training check completed one optimizer step on eight downloaded training emails, observed a LoRA update, saved/reloaded the adapter and left benchmark adapters unchanged. It took 92.84 seconds; full retraining was not repeated.
+- A partial CPU notebook run completed 14 code cells through validation explanation comparison. Seven baseline rows on all 300 test emails were independently recomputed. Rank-8 CPU inference differs from the GPU reference on one email. The full-system run was stopped during slow explanation generation; no completed CPU full run or final timing is claimed.
+- The verifier is portable, accepts genuine completed ratings, records backend differences and shuts down its kernel on failure. The packager preserves current source and can pin subsequently published rated assets.
+- The presentation and speaker notes follow the live demo and label numerical tables as GPU references. Its appendix table fits above the footer. Package/layout checks pass; native PowerPoint visual rendering was unavailable.
 
-| Item | Location |
-| --- | --- |
-| Complete implementation, saved outputs and demo | [Phishing_Email_Triage.ipynb](Phishing_Email_Triage.ipynb) |
-| Setup and running instructions | [README.md](README.md) and [requirements.txt](requirements.txt) |
-| Detailed assessment and remaining requirements | [docs/SUBMISSION_ASSESSMENT.md](docs/SUBMISSION_ASSESSMENT.md) |
-| Current versus historical evidence guide | [docs/RESULTS_AND_ARCHIVE.md](docs/RESULTS_AND_ARCHIVE.md) |
-| Original and defensive LoRA adapters | [artifacts/adapters](artifacts/adapters/) |
-| Full classification, security and component results | [artifacts/results/full](artifacts/results/full/) |
-| Frozen development and held-out attack specifications | [artifacts/security](artifacts/security/) |
-| Defence changes and measured tradeoffs | [DEFENCE_IMPROVEMENTS.md](DEFENCE_IMPROVEMENTS.md) |
-| Historical injection audit | [INJECTION_DEFENCE_REVIEW.md](INJECTION_DEFENCE_REVIEW.md) |
-| MCP indicator server | [mcp_indicator_server.py](mcp_indicator_server.py) |
-| Portable setup and exact rating validation | [submission_support.py](submission_support.py) |
-| Regression tests | [tests](tests/) |
-| Completed human-rating summary, original snapshot | [human_rating_summary.json](artifacts/results/full/human_rating_summary.json) |
-| Archived supporting experiments | [archive/README.md](archive/README.md) |
-| Completed presentation, 24 slides | [P13_Phishing_Triage_Updated.pptx](output/presentations/P13_Phishing_Triage_Updated.pptx) |
-| Presentation script and viva answers | [P13_Phishing_Triage_Full_Presentation_Script.md](output/presentations/P13_Phishing_Triage_Full_Presentation_Script.md) |
+## Saved results and human ratings
 
-## Automated verification
+The earlier full/quick RTX 4000 Ada runs completed all 21 code cells in 203.43/81.16 seconds with caches. Their exact source hashes remain preserved; they do not validate the newly added explanation guards. The GPU reference full workflow has 13 false positives, 3 false negatives and F1 0.9316 on 300 emails. See [the archive](archive/gpu-reference-2026-11-11/README.md).
 
-- All **24 regression tests** pass, including actual MCP stdio discovery, calls and invalid-argument rejection, frozen holdout separation, label-preserving augmentation, exact rating snapshots, missing-sheet creation and rejection of unrelated score columns. Normal subprocess access is required for the MCP integration test.
-- The full notebook completed **21/21 code cells**, **300 test emails** and **0 execution-error outputs** in **203.43 seconds** including setup/kernel harness on NVIDIA RTX 4000 Ada. No repository assets were prepopulated: the notebook downloaded and SHA-256 verified all 15 missing saved files. Packages and Hugging Face model/data caches were reused.
-- QUICK_RUN completed **21/21 code cells**, **60 test emails** and **0 execution-error outputs** in **81.16 seconds**, reusing verified assets and offline Hugging Face caches.
-- Full and quick predictions exactly reproduce their pre-review references. Independent checks recompute all ten classification rows, all 60 original off/on attack rows and all 900 held-out policy/case rows, including the common-eligible denominators.
-- Both execution records share the source hash of the notebook before the attribution wording cleanup. The original hashes and the current notebook hashes are recorded in [source_provenance.json](output/submission/source_provenance.json); the cleanup does not represent a new model run. Embedded MCP, defence and submission-support sources match the standalone files.
-- `pip check` reports no broken requirements. The pinned environment is Python 3.12. First-use uncached model download time depends on the network.
-- Training, validation and full test email identities are disjoint. One bounded classifier-input overlap remains disclosed with a common 299-email sensitivity table.
-- All three existing rating CSVs are preserved. The original sheet contains **30 completed human ratings**, with 10 per named rater. Current-snapshot scores remain pending separate review.
+The original explanation snapshot has **30 completed human ratings**, 10 from each named rater. Revised explanations need separate actual scores. The notebook displays the historical 30-rating summary and reports revised review as pending. Use [human review instructions](docs/HUMAN_REVIEW.md); scores are never copied onto changed explanations.
 
-Detailed run provenance is under [output/submission/verification](output/submission/verification/); the source/input hashes are in [source_provenance.json](output/submission/source_provenance.json).
+## Remaining evaluation steps
 
-Reproduce the regression and dependency checks from the repository root:
+1. Complete Run All of the final notebook on the presentation machine or permitted free Colab T4. Full mode evaluates 300 fixed emails; quick mode evaluates 60. CPU generation can take several hours. Outputs are cleared to avoid presenting earlier explanations as newly verified outputs.
+2. Have people rate the exact final 30-case explanation sheet printed by that run, then rerun the rating/summary cells. If standalone users must download those ratings, publish them and update the immutable asset manifest with the packager.
+3. Confirm the professor's separate **Group Project Guidelines & Judging** document. The supplied four-page brief names it but supplies no numerical marking weights.
+4. Review contributions and rehearse the ten-minute talk plus five-minute Q&A using fresh approval threads.
 
-```bash
-.venv/bin/python -m unittest discover -s tests -v
-.venv/bin/python -m pip check
-.venv/bin/python scripts/verify_submission_results.py artifacts/results/full
-```
+## Deliverables and evidence
 
-The optional notebook execution verifier requires populated local Hugging Face caches:
+- [Canonical notebook](Phishing_Email_Triage.ipynb), [requirements](requirements.txt) and [detailed assessment](docs/SUBMISSION_ASSESSMENT.md).
+- [Presentation](output/presentations/P13_Phishing_Triage_Updated.pptx), [script](output/presentations/P13_Phishing_Triage_Full_Presentation_Script.md) and [timed runbook](output/presentations/TEN_MINUTE_RUNBOOK.md).
+- [Partial CPU execution](output/submission/verification/laptop-cpu-partial/verification.json), [CPU training check](output/submission/verification/cpu_training_smoke.json), [local checks](output/submission/verification/local_checks.json) and [source provenance](output/submission/source_provenance.json).
 
-```bash
-.venv/bin/python scripts/verify_submission_notebook.py --notebook Phishing_Email_Triage.ipynb --mode full --save-executed
-```
-
-## Remaining human validation and measured scope
-
-1. **Complete 30 current explanation ratings.** The active sheet is [human_explanation_ratings_9b10d09848942b57.csv](artifacts/human_explanation_ratings_9b10d09848942b57.csv), as recorded in [run_summary.json](artifacts/results/full/run_summary.json). Edit only `rater`, `correctness_1_to_5`, `grounding_1_to_5`, `usefulness_1_to_5` and `comment`. Use whole-number scores from 1 to 5 and the actual rater's name. Preserve email, verdict, reason, quote and fallback fields. Historical ratings describe their original snapshot and are not transferred.
-2. **Review the revised implementation as a team.** Confirm the contributions and understand the evaluation, security policy and approval boundary. The completed presentation is preserved; the review does not establish that the team has reviewed the revised code.
-3. **Keep runtime claims scoped to the tested device.** Full and quick execution succeeded on RTX 4000 Ada. No laptop/free Colab T4 run is claimed, and no additional device test is being pursued at the user's request.
-
-After genuine ratings are entered, rerun with the same backend to validate the exact snapshot and refresh its summary. If those rated assets are published, advance the immutable artifact revision/manifest so a fresh grader workspace retrieves that same rated snapshot.
-
-The full defended workflow still has **13 false positives and 3 false negatives** on the fixed test set. Some injection attacks still succeed. Quarantine is simulated and requires explicit analyst approval. Successful execution does not mean perfect classification or general injection immunity.
-
-## Repository organization
-
-One canonical notebook is published on `main`. The improvement branch's history is preserved on `main`; the merged feature branch was removed locally and from GitHub. Only the primary project checkout remains, with no additional Git worktrees. The duplicate local review notebook, model caches, virtual environment, rebuildable embeddings and intermediate checkpoints are ignored by Git.
+No thresholds or benchmark adapters were changed in response to test outcomes. Classification errors, ambiguous labels, bounded-input overlap, successful attacks and simulated quarantine remain disclosed.

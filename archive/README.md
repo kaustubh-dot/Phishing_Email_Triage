@@ -1,6 +1,8 @@
 # Experiment archive
 
-This directory preserves supporting evidence and explains which implementation it describes. The active benchmark is [artifacts/results/full](../artifacts/results/full/). The approved reviewed notebook is [Phishing_Email_Triage.ipynb](../Phishing_Email_Triage.ipynb), with its execution provenance under [output/submission](../output/submission/).
+This directory preserves supporting evidence and explains which implementation it describes. The saved GPU benchmark is [artifacts/results/full](../artifacts/results/full/). The revised notebook is [Phishing_Email_Triage.ipynb](../Phishing_Email_Triage.ipynb), with its execution provenance under [output/submission](../output/submission/). Its outputs are cleared pending a complete run of the latest source.
+
+The [saved GPU reference](gpu-reference-2026-11-11/README.md) preserves the complete prior 300-email evaluation and execution records with per-file checksums. Presentation reference tables retain this snapshot; live examples follow the current notebook.
 
 | Evidence | Scope | How to interpret it |
 | --- | --- | --- |
@@ -8,7 +10,8 @@ This directory preserves supporting evidence and explains which implementation i
 | [Legacy CPU probe](legacy-cpu-probe.json) | Two examples on CPU, before the later MCP/defence changes | Tests an earlier rating-snapshot correction and CPU compatibility only. Its 33.55-second timing does not establish current full CPU/laptop/T4 runtime. The exact source commit, source path and original file hash are retained. |
 | [Injection-development audit](../artifacts/results/injection_audit/) | Original adapters and fixed development cases | Diagnostic evidence motivating the current defence. The [audit report](../INJECTION_DEFENCE_REVIEW.md) predates adversarial LoRA training. |
 | [Historical human ratings](../artifacts/human_explanation_ratings.csv) | 30 rated explanations from the original snapshot | Describes those exact old reasons/quotes/verdicts. None of the 30 current reasons is identical; these ratings must not be presented as evaluation of the revised explanations. |
-| [Current full-run rating sheet](../artifacts/human_explanation_ratings_9b10d09848942b57.csv) | Current full-run explanation snapshot | Contains blank human fields until real ratings are supplied. The notebook counts a sheet only when case identities and all immutable explanation fields match. |
+| [GPU reference rating sheet](../artifacts/human_explanation_ratings_9b10d09848942b57.csv) | Earlier GPU full-run explanation snapshot | Contains blank human fields. The final run may create a different fingerprinted sheet; use the exact path it prints. |
+| [Latest partial CPU run](../output/submission/verification/laptop-cpu-partial/verification.json) | Baselines on 300 emails and validation explanations; full-system generation incomplete | Contains no completed full CPU evaluation or injection result. One rank-8 prediction differs from the GPU reference. |
 
 The raw quick-run JSON retains its original workspace-relative paths. This archive contains a compact metrics/prediction subset, not all email bodies, rating sheets or intermediate run files. Those paths describe the historical run and should not be interpreted as files newly produced by the reviewed notebook.
 

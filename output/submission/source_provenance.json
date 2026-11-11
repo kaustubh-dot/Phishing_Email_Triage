@@ -11,8 +11,8 @@
   "approval_date": "2026-11-11",
   "published_notebook_path": "Phishing_Email_Triage.ipynb",
   "review_copy_committed": false,
-  "current_notebook_sha256": "803702fd1d210195536bdbeb18e8b091012d97439889c065502ce23575646dab",
-  "current_source_cells_sha256": "052fdb8c1b0fab852cea3833fb5f268352bce2d6f7b4df4f574b6a373e7cf938",
+  "current_notebook_sha256": "bae099301e946357e6fa6b41da39c6a6d9fd8517fb95ba8abcd676152f848794",
+  "current_source_cells_sha256": "ee2818888d2aabfcd62ecbd208b4924f5a18307ee3a78b3bd4fdf29f8987f3dc",
   "attribution_cleanup": {
     "date": "2026-11-11",
     "base_commit": "9c84cc2ca1be9c111cc4c871e2fa1dd5ea0dbaa6",
@@ -43,5 +43,18 @@
     "supplementary_assessment_removed": true,
     "model_inference_rerun": false,
     "saved_output_update": "Rating-cell output recomputed from the original and current saved CSVs; final summary display reformatted to report original-snapshot ratings. Current-snapshot counts in raw execution evidence remain unchanged."
-  }
+  },
+  "engineering_verification": {
+    "date": "2026-11-11",
+    "regression_tests_passed": 34,
+    "partial_cpu_record": "output/submission/verification/laptop-cpu-partial/verification.json",
+    "cpu_training_smoke": "output/submission/verification/cpu_training_smoke.json",
+    "full_current_source_execution_completed": false,
+    "outputs_cleared": true,
+    "code_cells_unchanged_since_partial_cpu_run": true,
+    "human_ratings_transferred": false,
+    "grading_guidelines_confirmed": false,
+    "historical_gpu_archive": "archive/gpu-reference-2026-11-11/archive_manifest.json"
+  },
+  "historical_field_scope": "Original/reviewed hashes, unchanged_system_cell_count and approval_date describe the earlier publication, not faculty approval or current execution."
 }

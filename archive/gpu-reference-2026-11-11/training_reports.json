@@ -1,0 +1,130 @@
+[
+  {
+    "dataset_fingerprint": "bdf9eb11f390807556c809288bc7dc3e8308edb3aacd03adf09519088f68b926",
+    "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "prompt_fingerprint": "9388040e9b5bbf1b8a93648f691e27144868fc4c326811ba247c65bf54934560",
+    "rank": 8,
+    "seed": 42,
+    "epochs": 1,
+    "learning_rate": 0.0002,
+    "email_tokens": 320,
+    "input_char_cap": 12000,
+    "train_size": 4000,
+    "batch_size": 8,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ],
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "training_seconds": 157.11,
+    "training_metrics": {
+      "train_runtime": 156.9859,
+      "train_samples_per_second": 25.48,
+      "train_steps_per_second": 3.185,
+      "train_loss": 0.12474472332000733,
+      "epoch": 1.0
+    },
+    "validation_metrics": [
+      {
+        "eval_loss": 0.08323860913515091,
+        "eval_runtime": 6.304,
+        "eval_samples_per_second": 63.452,
+        "eval_steps_per_second": 7.931,
+        "epoch": 1.0,
+        "step": 500
+      }
+    ],
+    "trainable_parameters": 540672,
+    "dataset_revision": "34085a032c123ca237f314a01a67909cdea35e34",
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "train_token_fingerprint": "dc9c64246ee5232298e7ae191ea544575b6dc0960f03b77726e8a9ecddcf4723",
+    "validation_token_fingerprint": "1683c973435dbffd8041c1af7ae05f91a711a6f613932a8eeae01b788d8966ae",
+    "validation_size": 400,
+    "label_token_ids": [
+      32,
+      33
+    ],
+    "eos_token_id": 151645,
+    "objective": "label_plus_eos",
+    "training_padding_side": "right",
+    "gradient_accumulation_steps": 1,
+    "optimizer": "adamw_torch",
+    "lr_scheduler_type": "linear",
+    "weight_decay": 0.0,
+    "warmup_ratio": 0.0,
+    "max_grad_norm": 1.0,
+    "training_dtype": "torch.bfloat16",
+    "training_versions": {
+      "torch": "2.8.0",
+      "transformers": "4.57.1",
+      "peft": "0.17.1",
+      "accelerate": "1.10.1"
+    },
+    "phase3_review_metadata_note": "Input fingerprints and explicit training defaults were reconstructed and verified during Phase 3 review; adapter weights were not changed."
+  },
+  {
+    "dataset_fingerprint": "bdf9eb11f390807556c809288bc7dc3e8308edb3aacd03adf09519088f68b926",
+    "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "prompt_fingerprint": "9388040e9b5bbf1b8a93648f691e27144868fc4c326811ba247c65bf54934560",
+    "rank": 4,
+    "seed": 42,
+    "epochs": 1,
+    "learning_rate": 0.0002,
+    "email_tokens": 320,
+    "input_char_cap": 12000,
+    "train_size": 4000,
+    "batch_size": 8,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ],
+    "lora_alpha": 8,
+    "lora_dropout": 0.05,
+    "training_seconds": 157.62,
+    "training_metrics": {
+      "train_runtime": 157.4932,
+      "train_samples_per_second": 25.398,
+      "train_steps_per_second": 3.175,
+      "train_loss": 0.1380090446472168,
+      "epoch": 1.0
+    },
+    "validation_metrics": [
+      {
+        "eval_loss": 0.09447694569826126,
+        "eval_runtime": 6.3089,
+        "eval_samples_per_second": 63.403,
+        "eval_steps_per_second": 7.925,
+        "epoch": 1.0,
+        "step": 500
+      }
+    ],
+    "trainable_parameters": 270336,
+    "dataset_revision": "34085a032c123ca237f314a01a67909cdea35e34",
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "train_token_fingerprint": "dc9c64246ee5232298e7ae191ea544575b6dc0960f03b77726e8a9ecddcf4723",
+    "validation_token_fingerprint": "1683c973435dbffd8041c1af7ae05f91a711a6f613932a8eeae01b788d8966ae",
+    "validation_size": 400,
+    "label_token_ids": [
+      32,
+      33
+    ],
+    "eos_token_id": 151645,
+    "objective": "label_plus_eos",
+    "training_padding_side": "right",
+    "gradient_accumulation_steps": 1,
+    "optimizer": "adamw_torch",
+    "lr_scheduler_type": "linear",
+    "weight_decay": 0.0,
+    "warmup_ratio": 0.0,
+    "max_grad_norm": 1.0,
+    "training_dtype": "torch.bfloat16",
+    "training_versions": {
+      "torch": "2.8.0",
+      "transformers": "4.57.1",
+      "peft": "0.17.1",
+      "accelerate": "1.10.1"
+    },
+    "phase3_review_metadata_note": "Input fingerprints and explicit training defaults were reconstructed and verified during Phase 3 review; adapter weights were not changed."
+  }
+]

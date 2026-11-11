@@ -1,19 +1,18 @@
 # Submission verification evidence
 
-The approved reviewed notebook is published once at [Phishing_Email_Triage.ipynb](../../Phishing_Email_Triage.ipynb). This directory contains supporting evidence, not a second graded notebook.
+The canonical implementation is [Phishing_Email_Triage.ipynb](../../Phishing_Email_Triage.ipynb). Its revised outputs are cleared pending Run All; historical execution records remain preserved.
 
-| File or directory | Purpose |
+| Evidence | Scope |
 | --- | --- |
-| [source_provenance.json](source_provenance.json) | Original input and reviewed notebook hashes, current notebook hashes, canonical published path, artifact snapshot, approval date and attribution cleanup scope. |
-| [source_changes.diff](source_changes.diff) | Historical source-only comparison between the supplied notebook and reviewed version, with attribution wording normalized. |
-| [preserved_system_sources.json](preserved_system_sources.json) | Historical hashes for the 15 system implementation cells preserved in the pre-cleanup reviewed notebook. |
-| [original_rating_diagnostic.json](original_rating_diagnostic.json) | Reproduces the supplied rating cell's missing-file failure and historical-score mismatch. |
-| [verification/full](verification/full/) | Full 300-email run, pre-cleanup source hash, metrics, execution log and independent numerical checks. |
-| [verification/quick](verification/quick/) | QUICK_RUN on 60 emails with the pre-cleanup source hash, verified saved assets and offline Hugging Face caches. |
-| [Human-rating summary](../../artifacts/results/full/human_rating_summary.json) | 30 completed human ratings, rater counts and mean scores for the original explanation snapshot. |
+| [Source provenance](source_provenance.json) | Original/current hashes and explicit scope of subsequent compatibility changes. |
+| [Historical source diff](source_changes.diff) and [cell hashes](preserved_system_sources.json) | Earlier reviewed implementation; not a diff for the current changes. |
+| [Original rating diagnostic](original_rating_diagnostic.json) | Earlier missing-file and explanation-snapshot mismatch. |
+| [GPU full](verification/full/verification.json) / [GPU quick](verification/quick/verification.json) | Earlier complete 21-cell runs, 300/60 emails, 203.43/81.16 seconds on RTX 4000 Ada. |
+| [Partial CPU](verification/laptop-cpu-partial/verification.json) | Fourteen completed code cells, seven baseline rows independently checked on 300 emails, validation explanation comparison; full-system run incomplete. |
+| [CPU training smoke](verification/cpu_training_smoke.json) | One actual optimizer step, LoRA update and save/reload; no full retraining. |
+| [Local checks](verification/local_checks.json) | 34 regression tests, pip check and presentation package/layout checks. |
+| [Original human-rating summary](../../artifacts/results/full/human_rating_summary.json) | Thirty completed ratings, names and means for the original explanation snapshot. |
 
-The full run completed in 203.43 seconds and quick mode in 81.16 seconds on NVIDIA RTX 4000 Ada, including the setup/kernel harness. Both executed all 21 code cells without error outputs. Installed packages and Hugging Face caches were reused; the full run downloaded and checked all 15 missing repository assets.
+Earlier GPU runs reuse packages/model/data caches and the full run downloaded/verified 15 missing repository assets. They predate the current copy/word-budget guards. CPU inference shows one rank-8 prediction difference; arithmetic is not assumed identical across devices.
 
-The subsequent attribution cleanup changes commentary and diagnostic labels. Execution-log headings and historical diff wording are normalized as well. The separate supplementary assessment was removed. The human-rating section reports the 30 completed ratings for their original explanation snapshot. Original execution hashes remain preserved; these edits do not claim a new inference run or transfer ratings to revised explanations.
-
-The [detailed assessment](../../docs/SUBMISSION_ASSESSMENT.md) describes the methodology and remaining human-rating requirement. The [results guide](../../docs/RESULTS_AND_ARCHIVE.md) and [archive index](../../archive/README.md) distinguish current, supplementary and historical evidence.
+No incomplete run is reported as successful and no ratings are transferred onto changed explanations. Complete Run All on a permitted backend, rate its exact 30-case sheet, and confirm the separate judging guidelines before evaluation. See [the assessment](../../docs/SUBMISSION_ASSESSMENT.md).
