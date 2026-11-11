@@ -4,11 +4,13 @@
   "required_human_reviews": 30,
   "reviewer_count": 1,
   "reviewer": "Project owner",
-  "confirmation_source": "Direct confirmation by the project owner in the repository maintenance conversation",
-  "confirmation_statement": "The project owner confirmed personally completing all 30 human reviews.",
-  "reviewed_submission_snapshot": "b27e28f23f14b5e4",
-  "snapshot_reference": "Latest submission review supplied by the project owner",
   "evidence_type": "owner-confirmed completion",
+  "confirmation_statement": "The project owner confirmed personally completing all 30 human-based reviews and requested this saved-output notebook as the final submission.",
+  "confirmation_source": "Direct confirmation by the project owner in the submission maintenance conversation",
+  "reviewed_submission_snapshot": "9b10d09848942b57",
+  "reviewed_snapshot_sha256": "2429ae3b07548addc1576fb47946e11e2a696fce666fb8d3984d083c732b0742",
+  "review_entries": "artifacts/human_based_reviews.csv",
+  "source_notebook_sha256": "721e1714907b92cea1af7aff1598a8edb618af32c8e4f36c6863dbefdac3066c",
   "individual_numeric_scores_supplied_with_confirmation": false,
-  "scope": "The 30 explanation cases in the submission confirmed by the owner; not an automatic review of future regenerated explanations."
+  "scope": "Exact email, verdict, reason, quote and fallback fields in the supplied saved-output submission. New generated text does not inherit completion."
 }
