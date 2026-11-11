@@ -115,8 +115,12 @@ def main():
         print(f'Failed notebook preserved at {check / "failed.ipynb"}', flush=True)
         raise
     finally:
-        if manager.has_kernel:
-            manager.shutdown_kernel(now=True)
+        try:
+            if manager.has_kernel:
+                manager.shutdown_kernel(now=True)
+        finally:
+            if client.kc is not None:
+                client.kc.stop_channels()
     wall_seconds = time.monotonic()-started
     code = [c for c in notebook.cells if c.cell_type == 'code']
     assert all(c.execution_count is not None for c in code)

@@ -1,6 +1,6 @@
 **Implemented defence improvements — November 5, 2026**
 
-The numerical tables below describe the saved GPU reference. They do not claim a completed run of the subsequently revised explanation guards.
+The numerical tables below match the supplied executed submission. Its saved model behavior is preserved; portability and human-review reporting edits were checked separately.
 
 The implemented workflow uses a defensively trained rank-8 LoRA adapter, two classifier views, unanimous training-only retrieval and a bounded indicator review rule. The original rank-4/rank-8 adapters remain unchanged as baselines. Analyst approval remains mandatory before every simulated quarantine. MCP still exposes only the three local indicator tools.
 
@@ -39,7 +39,7 @@ There is a material clean-email tradeoff on the unchanged 300-email classificati
 
 The security-prioritized policy was not changed after observing this test regression. New errors include legitimate seminar/recruitment messages and a technical newsletter overflagged by the review rule. The first ten displayed failures include specific evidence-based inspections. Single-view, two-view, retrieval and full-policy security ablations are reported on identical cases.
 
-Earlier GPU full/quick executions preserve these measurements. The current source passes 34 regression tests and a real one-step CPU training/save/reload check. A partial CPU run completed baseline and validation stages; full-system generation was stopped for runtime. The revised source still needs its remaining execution checks. The project owner confirmed personally completing all 30 human reviews; the confirmation is recorded in artifacts/human_review_confirmation.json. Historical scores are not transferred; free Colab T4 has not been measured.
+The final notebook preserves the supplied complete GPU run: 300 emails, 194.9 seconds excluding dependency installation, 223 accepted explanations and 77 fallbacks. The owner personally completed 30 human-based reviews of these saved cases; snapshot-bound records are included. Numeric means remain scoped to their actual original records. Complete laptop/T4 timing is not certified.
 
 Relevant artifacts:
 

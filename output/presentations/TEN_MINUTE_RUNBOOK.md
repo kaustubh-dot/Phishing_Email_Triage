@@ -1,6 +1,6 @@
 # Ten-minute presentation and five-minute Q&A
 
-Finish Run All before the talk. Keep the notebook kernel and its cached outputs open. The main deck is slides 1–18; slides 19–24 are for Q&A. Numerical deck tables are the labelled saved GPU benchmark. The notebook and CPU verification record report the actual final CPU execution separately.
+Finish Run All before the talk. Keep the notebook kernel and its cached outputs open. Use TEN_MINUTE_SCRIPT.md for the spoken delivery. The main deck is slides 1–18; slides 19–24 are for Q&A. Numerical deck tables are the labelled saved GPU benchmark. The notebook preserves the supplied complete GPU run. CPU evidence is separately scoped; a complete laptop/T4 timing is not certified.
 
 | Clock | Slides | Show and explain |
 | --- | --- | --- |
@@ -56,7 +56,7 @@ If the error is an allowed phishing-labelled message, explain the missed alert i
 
 ## Claims to keep precise
 
-- The project owner confirmed personally completing all 30 human reviews of the submitted explanation cases. The completion record states that source; historical numeric means retain their original snapshot scope.
+- The project owner confirmed personally completing all 30 human-based reviews of the submitted explanation cases. The completion record states that source; historical numeric means retain their original snapshot scope.
 - Source-matching quotes and valid JSON do not prove semantic correctness. The copy and word-budget guards reject specific weak outputs and retain visible fallbacks.
 - The original injection suite contains 30 variants over 10 base scenarios. It does not represent 30 independent campaigns.
 - Security improvements have a clean-email false-positive cost. No threshold or policy is selected on the scored holdout.

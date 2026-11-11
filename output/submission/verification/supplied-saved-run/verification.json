@@ -1,0 +1,40 @@
+{
+  "status": "preserved_owner_supplied_execution",
+  "executed_code_cells": 21,
+  "error_outputs": 0,
+  "evaluated_test_emails": 300,
+  "notebook_runtime_seconds_excluding_dependency_installation": 194.9,
+  "device": "cuda",
+  "gpu": "NVIDIA RTX 4000 Ada Generation",
+  "source_notebook_sha256": "721e1714907b92cea1af7aff1598a8edb618af32c8e4f36c6863dbefdac3066c",
+  "supplied_source_cells_sha256": "5c374cff49c56c066f8ca89c4e11cc944ec77a891dc704ae8744003545738cc0",
+  "final_source_cells_sha256": "f0171629f3a63ea33986c951a40e4e2449ba89f5b6b4a85a2b77e8a51e91c907",
+  "model_cell_ast_sha256": {
+    "6": "cd47ebbb2812c1b2dfbfe16eabe0735eb0e508685378e0ec89d2c663e2bda9ea",
+    "8": "ffb67b91b5fda309cc6a95bcead8159ebfce6905da3cbf2b9cedb258ea26ff52",
+    "10": "a259fafbce6134695b2c86be95f80f5dd91adfda2c4dafa3397fde0e7a5e2f5b",
+    "11": "80621e2636cc84705925515c0cdbb8e3c95c8f26cd5b92e523c5ed6eb17d4964",
+    "16": "57736592e6ae81bc2627736af0c3d18b44c86910e0fab76f1457c7788665cd38",
+    "17": "1f12b22dea84f6c54c0bbf91a631eb02ba4bfa65219f7f2c0457fdfb765652c7",
+    "21": "49cf1326665698a2fff3878ae271546819f1a598d83cbe3bc30cd77235c5da1e",
+    "22": "cd3ca10b9deac97cd21e9fee934cbbf9f37bf0c7c3bf440f5475c87f3d07763e",
+    "24": "58c8a35579abf899f9e4c87c27fe094d7f8d3de2997af86190aedb299c077f42",
+    "26": "dbc484331f1c2e9db796311a15ba3f55e3a0eace27f76ef30e6d2a68423ce2d9",
+    "28": "2ff55820358457e828c4e3eb680fd203fe44172745c480e5a617f037654f2f65",
+    "20": "b23cfcb2efdad6307c058d1ef78c234a9e027a58f0f69f980469dfd1ee332d88"
+  },
+  "model_logic_matches_supplied_execution": true,
+  "fresh_full_model_execution_claimed": false,
+  "human_based_reviews_completed": 30,
+  "human_review_snapshot_verified": true,
+  "human_review_records": "artifacts/human_based_reviews.csv",
+  "asset_revision": "071f1fe39cc1f09675f783b25d28f260445726d9",
+  "post_execution_changes": [
+    "Portable standalone bootstrap",
+    "Windows MCP event loop",
+    "Snapshot-bound human-review reporting",
+    "Corrected URL-analysis prose",
+    "Nonblocking quality warnings"
+  ],
+  "target_device_full_execution_verified": false
+}

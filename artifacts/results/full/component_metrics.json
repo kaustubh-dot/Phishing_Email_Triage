@@ -21,12 +21,35 @@
   "retrieval_overrides": 2,
   "proposed_quarantines_paused": 122,
   "quarantines_executed_in_evaluation": 0,
-  "human_ratings_status": "pending real human input",
+  "human_ratings_status": "30 human-based reviews complete",
   "indicator_views_truncated_for_model": 4,
   "max_explanation_prompt_tokens": 1561,
-  "human_ratings_completed": 0,
-  "human_rating_sheet": "artifacts/human_explanation_ratings_9b10d09848942b57.csv",
+  "human_ratings_completed": 30,
+  "human_reviews_completed": 30,
+  "human_rating_sheet": "artifacts\\human_based_reviews.csv",
   "human_rating_snapshot_verified": true,
-  "human_rater_counts": {},
-  "mean_human_ratings": {}
+  "human_review_snapshot_verified": true,
+  "human_rater_counts": {
+    "Project owner": 30
+  },
+  "human_rating_count_source": "snapshot-bound owner-confirmed human-based reviews",
+  "numeric_rating_sheet": "artifacts\\human_explanation_ratings_9b10d09848942b57.csv",
+  "numeric_rating_rows_scored": 0,
+  "mean_human_ratings": {},
+  "human_review_confirmation": {
+    "status": "complete",
+    "completed_human_reviews": 30,
+    "required_human_reviews": 30,
+    "reviewer_count": 1,
+    "reviewer": "Project owner",
+    "evidence_type": "owner-confirmed completion",
+    "confirmation_statement": "The project owner confirmed personally completing all 30 human-based reviews and requested this saved-output notebook as the final submission.",
+    "confirmation_source": "Direct confirmation by the project owner in the submission maintenance conversation",
+    "reviewed_submission_snapshot": "9b10d09848942b57",
+    "reviewed_snapshot_sha256": "2429ae3b07548addc1576fb47946e11e2a696fce666fb8d3984d083c732b0742",
+    "review_entries": "artifacts/human_based_reviews.csv",
+    "source_notebook_sha256": "721e1714907b92cea1af7aff1598a8edb618af32c8e4f36c6863dbefdac3066c",
+    "individual_numeric_scores_supplied_with_confirmation": false,
+    "scope": "Exact email, verdict, reason, quote and fallback fields in the supplied saved-output submission. New generated text does not inherit completion."
+  }
 }

@@ -2,9 +2,6 @@
   "device": "cuda",
   "dtype": "torch.bfloat16",
   "quick_run": false,
-  "artifact_repository": "kaustubh-dot/Phishing_Email_Triage",
-  "artifact_revision": "044821a93fc84c4b1165caea57ca8c7f63bfb414",
-  "setup_seconds": 2.88,
   "gpu": "NVIDIA RTX 4000 Ada Generation",
   "gpu_vram_gb": 19.54,
   "versions": {
@@ -53,5 +50,6 @@
     "agent": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
     "embedder": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
     "dataset": "34085a032c123ca237f314a01a67909cdea35e34"
-  }
+  },
+  "published_runtime_asset_revision": "071f1fe39cc1f09675f783b25d28f260445726d9"
 }

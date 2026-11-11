@@ -1,7 +1,8 @@
 """Package the current notebook and embedded helpers into a standalone copy.
 
 Preserves current implementation and policy instead of replaying historical
-patches. Never commits, pushes, overwrites the source or fabricates ratings.
+patches. Equivalent source keeps saved outputs; changed helper/pin behavior
+clears them. Never commits, pushes, overwrites the source or fabricates ratings.
 """
 import argparse
 import ast
@@ -36,6 +37,7 @@ def main():
     parser.add_argument('--asset-revision', help='Immutable local Git commit containing the published runtime assets.')
     parser.add_argument('--ratings', type=Path, action='append', default=[],
                         help='Additional rated snapshot under artifacts; requires --asset-revision.')
+    parser.add_argument('--clear-outputs', action='store_true', help='Prepare an explicitly unexecuted copy.')
     args = parser.parse_args()
     if args.source.resolve() == args.output.resolve():
         parser.error('Use a separate output file; the canonical source is preserved.')
@@ -47,6 +49,7 @@ def main():
         revision = subprocess.check_output(['git', 'rev-parse', args.asset_revision+'^{commit}'],
                                            cwd=ROOT, text=True).strip()
     embedded = set()
+    behavior_changed = False
     for cell in notebook['cells']:
         if cell['cell_type'] != 'code':
             continue
@@ -74,11 +77,17 @@ def main():
                             (nodes['SAVED_ASSET_MANIFEST'], 'SAVED_ASSET_MANIFEST = '+repr(manifest))])
         for node, value in sorted(changes, key=lambda item: item[0].lineno, reverse=True):
             source = replace_assignment(source, node, value)
+        behavior_changed |= ast.dump(ast.parse('\n'.join(
+            'pass' if line.lstrip().startswith('%') else line for line in ''.join(cell['source']).splitlines()))) != ast.dump(
+                ast.parse('\n'.join('pass' if line.lstrip().startswith('%') else line for line in source.splitlines())))
         cell['source'] = source.splitlines(keepends=True)
-        cell['execution_count'] = None
-        cell['outputs'] = []
     if embedded != set(HELPERS.values()):
         raise ValueError('The notebook is missing an expected embedded helper.')
+    clear_outputs = args.clear_outputs or behavior_changed
+    if clear_outputs:
+        for cell in notebook['cells']:
+            if cell['cell_type'] == 'code':
+                cell['execution_count'], cell['outputs'] = None, []
     args.output.parent.mkdir(parents=True, exist_ok=True)
     payload = json.dumps(notebook, indent=1, ensure_ascii=False)+'\n'
     args.output.write_text(payload, encoding='utf-8', newline='\n')
@@ -87,7 +96,8 @@ def main():
         'packaged_sha256': hashlib.sha256(payload.encode()).hexdigest(),
         'source_cells_sha256': hashlib.sha256(json.dumps(
             [''.join(c['source']) for c in notebook['cells']]).encode()).hexdigest(),
-        'embedded_helpers': sorted(embedded), 'outputs_cleared': True,
+        'embedded_helpers': sorted(embedded), 'outputs_cleared': clear_outputs,
+        'packaging_changed_code_behavior': behavior_changed,
         'asset_revision_updated': revision}
     args.output.with_suffix('.provenance.json').write_text(json.dumps(provenance, indent=2)+'\n',
                                                         encoding='utf-8', newline='\n')

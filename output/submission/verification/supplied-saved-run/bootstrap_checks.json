@@ -1,0 +1,29 @@
+{
+  "repository": "kaustubh-dot/Phishing_Email_Triage",
+  "revision": "071f1fe39cc1f09675f783b25d28f260445726d9",
+  "existing_files_preserved": 0,
+  "downloaded_files": [
+    "artifacts/revisions.json",
+    "artifacts/adapters/r4/adapter_config.json",
+    "artifacts/adapters/r4/adapter_model.safetensors",
+    "artifacts/adapters/r4/training_metadata.json",
+    "artifacts/adapters/r8/adapter_config.json",
+    "artifacts/adapters/r8/adapter_model.safetensors",
+    "artifacts/adapters/r8/training_metadata.json",
+    "artifacts/adapters/defended-r8/adapter_config.json",
+    "artifacts/adapters/defended-r8/adapter_model.safetensors",
+    "artifacts/adapters/defended-r8/training_metadata.json",
+    "artifacts/human_explanation_ratings.csv",
+    "artifacts/human_explanation_ratings_9b10d09848942b57.csv",
+    "artifacts/human_explanation_ratings_d3a1f535c3f5db32.csv",
+    "artifacts/security/development_specs.json",
+    "artifacts/security/heldout_specs.json",
+    "artifacts/human_based_reviews.csv",
+    "artifacts/human_review_confirmation.json"
+  ],
+  "status": "pass",
+  "source": "local immutable Git archive with canonical LF bytes",
+  "cold_workspace": true,
+  "human_based_reviews_completed": 30,
+  "human_review_snapshot_verified": true
+}

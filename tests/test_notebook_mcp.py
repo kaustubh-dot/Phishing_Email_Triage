@@ -34,12 +34,17 @@ class NotebookMCPTests(unittest.TestCase):
             nb = nbformat.v4.new_notebook(cells=[nbformat.v4.new_code_cell(setup+source)])
             manager = KernelManager(kernel_name='p13-mcp-test',
                 kernel_spec_manager=KernelSpecManager(kernel_dirs=[str(work/'kernels')]))
+            client = NotebookClient(nb, km=manager, timeout=60,
+                resources={'metadata': {'path': str(work)}})
             try:
-                NotebookClient(nb, km=manager, timeout=60,
-                    resources={'metadata': {'path': str(work)}}).execute()
+                client.execute()
             finally:
-                if manager.has_kernel:
-                    manager.shutdown_kernel(now=True)
+                try:
+                    if manager.has_kernel:
+                        manager.shutdown_kernel(now=True)
+                finally:
+                    if client.kc is not None:
+                        client.kc.stop_channels()
             result = json.loads((work/'mcp_checks.json').read_text(encoding='utf-8'))
             self.assertEqual(result['parity_cases_passed'], 3)
             self.assertTrue(result['invalid_arguments_rejected'])

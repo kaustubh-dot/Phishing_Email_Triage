@@ -1,18 +1,15 @@
-# Submission verification evidence
+# Submission evidence
 
-The canonical implementation is [Phishing_Email_Triage.ipynb](../../Phishing_Email_Triage.ipynb). Its revised outputs are cleared pending Run All; historical execution records remain preserved.
+The canonical [notebook](../../Phishing_Email_Triage.ipynb) preserves the supplied complete 300-email GPU run and reports **30 completed human-based reviews** bound to its saved cases.
 
 | Evidence | Scope |
 | --- | --- |
-| [Source provenance](source_provenance.json) | Original/current hashes and explicit scope of subsequent compatibility changes. |
-| [Historical source diff](source_changes.diff) and [cell hashes](preserved_system_sources.json) | Earlier reviewed implementation; not a diff for the current changes. |
-| [Original rating diagnostic](original_rating_diagnostic.json) | Earlier missing-file and explanation-snapshot mismatch. |
-| [GPU full](verification/full/verification.json) / [GPU quick](verification/quick/verification.json) | Earlier complete 21-cell runs, 300/60 emails, 203.43/81.16 seconds on RTX 4000 Ada. |
-| [Partial CPU](verification/laptop-cpu-partial/verification.json) | Fourteen completed code cells, seven baseline rows independently checked on 300 emails, validation explanation comparison; full-system run incomplete. |
-| [CPU training smoke](verification/cpu_training_smoke.json) | One actual optimizer step, LoRA update and save/reload; no full retraining. |
-| [Local checks](verification/local_checks.json) | 34 regression tests, pip check and presentation package/layout checks. |
-| [Original human-rating summary](../../artifacts/results/full/human_rating_summary.json) | Thirty completed ratings, names and means for the original explanation snapshot. |
+| [Supplied-run record](verification/supplied-saved-run/verification.json) | Source file hash, 21 executed cells, no saved errors, 194.9 seconds on RTX 4000 Ada; post-execution edits identified. |
+| [Artifact verification](verification/supplied-saved-run/artifact_checks.json) | Saved tables, unchanged model-code hashes, recomputed metrics and exact review snapshot. |
+| [Source provenance](source_provenance.json) | Current and historical hashes; immutable asset revision and editing scope. |
+| [Review records](../../artifacts/human_based_reviews.csv) | 30 completed human-based reviews, personally completed by the owner. |
+| [Human-rating summary](../../artifacts/results/full/human_rating_summary.json) | Historical numeric means and separately verified current review completion. |
+| [CPU training check](verification/cpu_training_smoke.json) | One real optimizer update, adapter save/reload and unchanged benchmark weights. |
+| [Local checks](verification/local_checks.json) | Regression, dependency and presentation checks with their actual scope. |
 
-Earlier GPU runs reuse packages/model/data caches and the full run downloaded/verified 15 missing repository assets. They predate the current copy/word-budget guards. CPU inference shows one rank-8 prediction difference; arithmetic is not assumed identical across devices.
-
-No incomplete run is reported as successful and no ratings are transferred onto changed explanations. The project owner confirmed completing all 30 human reviews; see [the completion record](../../artifacts/human_review_confirmation.json). Complete the remaining permitted-device execution checks and confirm the separate judging guidelines before evaluation. See [the assessment](../../docs/SUBMISSION_ASSESSMENT.md).
+Earlier `full`, `quick`, source-diff and CPU-partial records describe their own historical sources. They are retained as evidence, not relabelled as final target-device runs. Complete laptop/T4 timing is not certified. See [the final review](../../docs/FINAL_SUBMISSION_REVIEW.md).

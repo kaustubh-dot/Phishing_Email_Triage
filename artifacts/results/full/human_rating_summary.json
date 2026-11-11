@@ -13,6 +13,15 @@
     "grounding_1_to_5": 4.366666666666666,
     "usefulness_1_to_5": 3.6333333333333333
   },
-  "current_explanation_ratings_status": "pending separate review",
-  "scope_note": "These ratings describe the original saved explanations. Scores are not transferred to revised explanations."
+  "current_human_based_reviews": {
+    "status": "complete",
+    "completed": 30,
+    "reviewer_counts": {
+      "Project owner": 30
+    },
+    "snapshot_verified": true,
+    "evidence_type": "owner-confirmed completion",
+    "records": "artifacts/human_based_reviews.csv"
+  },
+  "scope_note": "Numeric means describe the original saved explanations. The submitted snapshot has 30 owner-confirmed human-based reviews; numeric scores are not transferred between snapshots."
 }

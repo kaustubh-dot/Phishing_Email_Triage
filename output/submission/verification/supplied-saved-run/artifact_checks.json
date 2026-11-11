@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "notebook_sha256": "5755da652977ccfa54eb2ba9e5ff96c8f7b0c65ff724a41d69532dcc76a8174c",
+  "source_cells_sha256": "f0171629f3a63ea33986c951a40e4e2449ba89f5b6b4a85a2b77e8a51e91c907",
+  "supplied_execution_code_cells": 21,
+  "saved_error_outputs": 0,
+  "model_code_matches_supplied_execution": true,
+  "saved_classification_rows_checked": 10,
+  "human_based_reviews_completed": 30,
+  "human_review_snapshot_verified": true,
+  "fresh_model_execution_performed": false,
+  "numeric_results": {
+    "classification_conditions_recomputed": 10,
+    "test_emails": 300,
+    "regression_attack_pairs_checked": 60,
+    "holdout_policy_cases_checked": 900,
+    "holdout_groups_checked": 30,
+    "raw_errors_and_common_eligible_denominators_checked": true,
+    "parent_adapter_hash_matches": true,
+    "canonical_frozen_holdout_hash_matches": true,
+    "status": "pass"
+  }
+}

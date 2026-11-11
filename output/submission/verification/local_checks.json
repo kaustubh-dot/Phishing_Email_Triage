@@ -2,10 +2,13 @@
   "date": "2026-11-11",
   "python_environment": ".venv (Python 3.12)",
   "regression_tests": {
-    "passed": 34,
-    "total": 34,
-    "seconds": 8.85,
-    "real_notebook_mcp_test": true
+    "passed": 40,
+    "total": 40,
+    "seconds": 5.594,
+    "real_notebook_mcp_test": true,
+    "review_snapshot_tests": 4,
+    "saved_output_packaging_tests": 2,
+    "notebook_channels_closed": true
   },
   "dependency_check": {
     "passed": true,
@@ -17,12 +20,27 @@
     "layout_findings": 0,
     "layout_warnings": 0,
     "scope": "Existing text and speaker notes aligned with live notebook; appendix table fitted above footer. Other geometry, font sizes and reference tables preserved. No native PowerPoint visual rendering was available.",
-    "artifact_tool_import_and_native_visual_render": "Unavailable in this environment; package and geometry checks only."
+    "artifact_tool_import_and_native_visual_render": "Unavailable in this environment; package and geometry checks only.",
+    "spoken_delivery_script_words": 1053
   },
-  "source_cells_sha256": "5e7653d4ee36ffb4551e2e4ec41b5be2a150710c71074a39301f5d879511fcf8",
+  "source_cells_sha256": "f0171629f3a63ea33986c951a40e4e2449ba89f5b6b4a85a2b77e8a51e91c907",
   "owner_review_reporting_smoke": {
     "passed": true,
     "confirmed_human_reviews": 30,
     "no_numeric_scores_created_or_transferred": true
+  },
+  "saved_submission": {
+    "executed_code_cells": 21,
+    "saved_outputs": 65,
+    "saved_error_outputs": 0,
+    "human_based_reviews_completed": 30,
+    "exact_review_snapshot_verified": true,
+    "model_behavior_matches_supplied_run": true,
+    "fresh_full_model_execution_performed": false
+  },
+  "asset_bootstrap": {
+    "status": "pass",
+    "cold_workspace_files_verified": 17,
+    "source": "immutable Git archive with canonical LF bytes"
   }
 }

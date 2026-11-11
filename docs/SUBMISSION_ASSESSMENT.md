@@ -1,40 +1,25 @@
-# Evaluation readiness assessment
+# Assessment against the supplied P13 brief
 
-Reviewed against all four pages of the supplied P13 Phishing Email Triage brief. **The technical components are implemented and 30/30 human reviews are complete, confirmed by the project owner. Remaining execution evidence is assessed separately.** The separate Group Project Guidelines & Judging document was not supplied, so numerical weights and a final grade are not asserted.
+The final notebook contains the required implementation and the owner's complete saved-output run. The owner confirmed completing **30 human-based reviews**, now recorded against the exact saved cases.
 
-| Requirement in the brief | Evidence and status |
+| Requirement | Evidence |
 | --- | --- |
-| One self-contained notebook | Implemented; embedded helpers/dependency pins and checksum-verified runtime assets. Revised outputs are cleared pending Run All. |
-| Required downloaded dataset and fixed stratified subsets | Implemented; seed 42, 4,000/400/300 identities, class-balance inspection and disjoint train/validation/test IDs. |
-| Qwen LoRA, zero-shot and training-only MiniLM/FAISS retrieval | Implemented; rank-4/rank-8 adapters, masked loss, saved/reloaded weights and validation-only k selection. |
-| Keyword baseline and combined comparison/ablations | Ten conditions on one fixed 300-email GPU reference subset, requested phishing-positive metrics and a common 299-email overlap sensitivity table. CPU baseline rows separately measured. |
-| LangGraph roles and tools | Implemented; classifier, extractor, explainer, responder and deterministic supervisor with trace and evidence. |
-| Analyst interrupt before quarantine | Approval/rejection, malformed decisions, replay and thread reuse tested. Quarantine is simulated. |
-| Thirty prompt-injection variants and defence comparison | Complete GPU reference evidence, with control/attacked outcomes, eligible denominators and common-pair comparisons, plus a separate frozen holdout. The original variants share ten base scenarios. |
-| At least ten analysed failures | Case-specific notes, failed conditions, labels, evidence and validation follow-ups retained. |
-| Lab adaptations/references | Documented in relevant sections. The brief does not require every optional technique in each lab. |
-| Laptop CPU or free Colab T4 | CPU training/save/reload passes a one-step check; partial CPU inference completes baseline and validation stages. Full CPU execution is incomplete, and T4 has not been measured. Complete this hardware requirement before evaluation. |
-| Thirty human explanation ratings | **30/30 human reviews complete**, personally completed by the project owner; see the owner-confirmed completion record. Individual numeric scores were not supplied with that confirmation. |
-| Ten-minute talk and five-minute Q&A | Deck, script and timed runbook prepared; live rehearsal and team understanding remain human tasks. |
-| MCP stretch goal | Actual stdio discovery/calls/parity/error handling passes inside a Windows notebook and subprocess tests. |
+| One notebook | Self-contained bootstrap, helpers, saved tables/figures, error analysis and demo. |
+| Downloaded public dataset | Pinned `load_dataset`, seed 42, cleaning/class balance, 4,000/400/300 fixed identities. |
+| LoRA, zero-shot, kNN and keyword baseline | Ten same-subset conditions; rank-4/rank-8 and k=1/3/5 ablations. |
+| Training-only RAG | MiniLM/FAISS index built only from downloaded training emails. |
+| Specialist LangGraph team | Classifier, tool extractor, explainer, responder and deterministic supervisor. |
+| Analyst approval | Actual interrupt before simulated quarantine; reject/replay/thread cases checked. |
+| Prompt injection | Thirty variants over ten base scenarios; defence off/on, controls, conditional denominators and additional frozen holdout. |
+| Explanation quality | 30 owner-confirmed human-based reviews bound to saved text; historical numeric quality means retain their original scope. |
+| At least ten failure cases | Detailed evidence and follow-ups; stale URL-normalization claim corrected. |
+| Lab reuse and sources | Adaptations and references in relevant notebook sections; assistance disclosure retained. |
+| MCP stretch | Real stdio discovery/calls/parity and invalid-argument rejection, including Windows notebook integration. |
+| Ten-minute talk and Q&A | Deck, abbreviated spoken script and timed runbook; extended study/Q&A notes separate. |
+| Laptop CPU/free T4 | CPU training/save/reload and partial execution evidence exist; complete target-device timing remains unverified. |
 
-## Fixes and checks
+The supplied run is an RTX 4000 Ada measurement: 194.9 seconds excluding dependency installation, 300 emails, no saved errors. Model-code lineage and saved numerical results are checked independently. Portable setup, Windows handling and review reporting were edited after that run; no new full model execution is claimed.
 
-The notebook MCP launch now uses a subprocess-capable worker event loop on Windows and a real stderr file. An actual notebook-kernel regression reproduces that path. The execution verifier uses the active interpreter, handles Windows paths without symlinks, compares CSV values across line endings, records backend prediction differences and accepts completed rating sheets.
+The core package is prepared for evaluation. Before certifying all course-wide conditions, check the final runtime on the required presentation device and confirm the separate Group Project Guidelines & Judging document. The supplied four-page brief provides no numerical grading weights. Live team understanding and rehearsal remain human responsibilities.
 
-The explainer now requests evidence supporting or conflicting with the verdict. Pure source copying and reasons above the declared 30-word limit produce visible fallbacks. These checks do not establish improved human-rated quality. The rating-entry tool preserves exact case text and other reviewers' work, and the packager updates current source without replaying historical patches.
-
-All 34 regression tests and the isolated dependency check pass. A real CPU optimizer step updated LoRA parameters and saved/reloaded successfully in 92.84 seconds without modifying benchmark adapters. The partial CPU run completed 14 code cells through validation explanation comparison. Seven baseline rows were independently recomputed for 300 emails; rank-8 differs from the GPU reference on one email. Slow full-system generation was stopped, so no final CPU runtime or full-run success is reported.
-
-Earlier GPU full/quick evidence remains archived with its source hashes. It does not validate the new explanation guards. The revised canonical notebook has cleared outputs to avoid mixing these snapshots. No experimental quantization was adopted.
-
-Presentation text and speaker notes now follow actual notebook demo selection, use fresh approval threads, and label saved numerical results as GPU references. Package/layout checks pass. Native PowerPoint visual rendering was unavailable and is still advisable before presenting.
-
-## Remaining evaluation work
-
-1. Complete the revised notebook on the actual presentation backend or free Colab T4 and retain its outputs.
-2. Preserve [the completed 30-review confirmation](../artifacts/human_review_confirmation.json) with the submitted snapshot. Numeric score entry, if added, must use actual judgments for those cases.
-3. Confirm the separate judging guidelines. The supplied brief contains no numerical grading weights.
-4. Review team contributions, inspect the deck in PowerPoint and rehearse the timed demo/Q&A.
-
-The GPU reference workflow has 13 false positives and 3 false negatives. Some attacks remain successful. Quoting, automated checks and implementation coverage cannot certify useful reasoning or a final grade. See [submission status](../SUBMISSION_STATUS.md) and [the evidence guide](RESULTS_AND_ARCHIVE.md).
+See [the final review](FINAL_SUBMISSION_REVIEW.md) for exact corrections and [submission status](../SUBMISSION_STATUS.md) for current evidence.

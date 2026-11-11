@@ -27,7 +27,8 @@ definitions = ast.parse(source_containing('def decision_from_score('))
 selected = [item for item in definitions.body
             if isinstance(item, (ast.FunctionDef, ast.ClassDef)) and item.name in {
                 'decision_from_score', 'Explanation', 'EvidenceExplanation', 'quote_candidates',
-                'validate_legacy_explanation', 'validate_explanation', 'explanation_claim_error'}]
+                'validate_legacy_explanation', 'validate_explanation', 'explanation_claim_error',
+                'explanation_quality_warnings'}]
 exec(compile(ast.Module(body=selected, type_ignores=[]), '<notebook functions>', 'exec'), NAMESPACE)
 
 
@@ -80,19 +81,14 @@ class ExplanationValidationTests(unittest.TestCase):
                 self.assertIn('validation_error', result)
                 self.assertIn(result['quote'], self.state['email'])
 
-    def test_copying_the_email_is_not_accepted_as_a_reason(self):
+    def test_source_copying_is_flagged_for_human_quality_review(self):
         self.state['email'] = 'The weekly meeting agenda is ready for discussion tomorrow morning.'
-        result = NAMESPACE['validate_explanation'](json.dumps({
-            'reason': self.state['email'], 'quote_id': 0}), self.state)
-        self.assertTrue(result['fallback_used'])
-        self.assertEqual(result['validation_error'], 'copied_email_without_reasoning')
-        self.assertIn(result['quote'], self.state['email'])
+        warnings = NAMESPACE['explanation_quality_warnings'](self.state['email'], self.state)
+        self.assertIn('copied_email_without_reasoning', warnings)
 
-    def test_reasons_must_obey_the_declared_word_budget(self):
-        result = NAMESPACE['validate_explanation'](json.dumps({
-            'reason': 'An ordinary meeting agenda ' * 9, 'quote_id': 0}), self.state)
-        self.assertTrue(result['fallback_used'])
-        self.assertEqual(result['validation_error'], 'reason_exceeds_word_limit')
+    def test_long_reasons_are_flagged_for_human_quality_review(self):
+        warnings = NAMESPACE['explanation_quality_warnings']('An ordinary meeting agenda ' * 9, self.state)
+        self.assertIn('reason_exceeds_word_limit', warnings)
 
 
 if __name__ == '__main__':

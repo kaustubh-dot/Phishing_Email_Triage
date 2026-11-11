@@ -1,9 +1,13 @@
-# Human review status
+# Project orientation
 
-The project owner confirmed personally completing **30/30 human reviews** of the submitted explanation cases. The current completion record is `artifacts/human_review_confirmation.json`; its evidence source is the owner's confirmation.
+The canonical deliverable is `Phishing_Email_Triage.ipynb`. It preserves the owner's supplied executed 300-email GPU run. `docs/FINAL_SUBMISSION_REVIEW.md` and `output/submission/verification/supplied-saved-run/` identify the exact model-code lineage and the later portability/reporting edits.
 
-Report that completed review status in submission summaries. Empty per-case numeric fields in an exported CSV measure recorded numeric scores, not whether the owner performed the reviews. Do not describe those empty fields as "0/30 human reviews" or list completing those reviews as outstanding.
+## Human-based review evidence
 
-Keep evidence sources explicit. Calculate numeric means only from actual numeric entries. Preserve the historical rating CSVs, their original reviewers and their snapshot scope. The confirmation supplies no per-case scores and does not authorize creating them or copying historical scores to different explanations. A future regenerated snapshot needs its own review status.
+The owner confirmed personally completing 30 human-based reviews. The actual case records are `artifacts/human_based_reviews.csv`; their confirmation and snapshot hash are in `artifacts/human_review_confirmation.json`. `submission_support.load_human_reviews` validates completion against the exact email/verdict/reason/quote/fallback fields. Future generated text does not inherit the reviews.
 
-Execution evidence is independent of review completion. Keep device, source and runtime claims tied to their actual execution records. Changes on a separate agent's local checkout are not automatically available here or pushed to GitHub.
+Review completion and numeric scores are separate evidence. Preserve the original numeric CSVs, reviewers and scope. Calculate means only from actual score entries. Do not create per-case scores or copy historical scores onto different explanations.
+
+## Validation
+
+Run the regression suite and `scripts/verify_saved_submission.py` after changes. Repackaging equivalent code preserves saved outputs; changed helper/pin behavior clears them. Any change to protected model logic requires new execution evidence. Keep source, runtime, device and cache claims tied to actual records. Complete laptop/T4 timing remains unverified.

@@ -18,6 +18,43 @@ IMMUTABLE_RATING_COLUMNS = [
 RATING_COLUMNS = ['correctness_1_to_5', 'grounding_1_to_5', 'usefulness_1_to_5']
 
 
+def human_review_snapshot(frame):
+    """Identify exact reviewed cases, allowing CSV newlines and row reordering."""
+    data = frame[IMMUTABLE_RATING_COLUMNS].copy().sort_values('email_id')
+    for column in IMMUTABLE_RATING_COLUMNS:
+        data[column] = data[column].fillna('').astype(str).str.replace('\r\n', '\n', regex=False)
+    return sha256(data.to_json(orient='records', force_ascii=False).encode('utf-8')).hexdigest()
+
+
+def load_human_reviews(expected, entries_path, confirmation):
+    """Count owner-confirmed reviews only for their exact exported explanations.
+
+    Review completion is separate from per-dimension numeric scores. This
+    loader supplies no scores and never changes the submitted case text.
+    """
+    import pandas as pd
+
+    if len(expected) != 30 or not expected.email_id.is_unique:
+        raise ValueError('Human review requires 30 distinct explanation cases.')
+    entries = pd.read_csv(entries_path)
+    required = set(IMMUTABLE_RATING_COLUMNS + ['reviewer', 'review_status', 'confirmation_source'])
+    if not required.issubset(entries.columns) or len(entries) != 30 or not entries.email_id.is_unique:
+        raise ValueError('Invalid human-review completion records.')
+    if human_review_snapshot(entries) != confirmation['reviewed_snapshot_sha256']:
+        raise ValueError('Human-review records differ from their confirmed snapshot.')
+    valid = entries.review_status.eq('complete') & entries.reviewer.fillna('').astype(str).str.strip().ne('')
+    valid &= entries.confirmation_source.fillna('').astype(str).str.strip().ne('')
+    confirmed_count = int(valid.sum())
+    if confirmed_count != confirmation['completed_human_reviews']:
+        raise ValueError('Human-review confirmation and completed records disagree.')
+    matches = human_review_snapshot(expected) == confirmation['reviewed_snapshot_sha256']
+    return {'completed': confirmed_count if matches else 0,
+            'confirmed_submission_reviews': confirmed_count,
+            'snapshot_matches': matches,
+            'rater_counts': entries.loc[valid, 'reviewer'].value_counts().to_dict() if matches else {},
+            'evidence_type': confirmation['evidence_type'], 'entries_path': str(entries_path)}
+
+
 def ensure_submission_assets(root, manifest, repository, revision, *, opener=None):
     """Download missing, checksum-verified assets without replacing local files."""
     root = Path(root).resolve()

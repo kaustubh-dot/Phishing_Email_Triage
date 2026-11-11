@@ -1,6 +1,6 @@
 # Experiment archive
 
-This directory preserves supporting evidence and explains which implementation it describes. The saved GPU benchmark is [artifacts/results/full](../artifacts/results/full/). The revised notebook is [Phishing_Email_Triage.ipynb](../Phishing_Email_Triage.ipynb), with its execution provenance under [output/submission](../output/submission/). Its outputs are cleared pending a complete run of the latest source.
+This directory preserves supporting evidence and explains which implementation it describes. The active saved submission is [Phishing_Email_Triage.ipynb](../Phishing_Email_Triage.ipynb), with the owner's complete supplied GPU outputs and [30 completed human-based review records](../artifacts/human_based_reviews.csv). Its execution lineage is under [output/submission](../output/submission/). Archived measurements retain their original source, device and numeric-rating scope.
 
 The [saved GPU reference](gpu-reference-2026-11-11/README.md) preserves the complete prior 300-email evaluation and execution records with per-file checksums. Presentation reference tables retain this snapshot; live examples follow the current notebook.
 

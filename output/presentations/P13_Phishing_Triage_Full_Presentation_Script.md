@@ -1,12 +1,8 @@
-> Human review completion update: the project owner confirmed personally completing all 30 human reviews of the submitted explanation cases. This supersedes earlier pending-review wording below. Individual numeric means remain scoped to their original spreadsheet records.
-
-> Numerical tables in this script and deck describe the saved GPU reference. The revised explanation guards and Windows fixes require a completed Run All before presentation. Demo examples follow the actual live notebook output. CPU training and partial execution evidence are separately scoped in SUBMISSION_STATUS.md.
-
 # Phishing Email Triage: full presentation script
 
-For **P13_Phishing_Triage_Updated.pptx**, 24 slides, repository snapshot **955885c**, 5 November 2026.
+Study guide for the 24-slide deck and the supplied complete 300-email GPU run. The project owner completed 30 human-based reviews, bound to its exact saved cases.
 
-This is the extended, word-for-word rehearsal version. Read the paragraphs aloud. Text in square brackets is a presenter action and should not be spoken. Slides 1 to 18 form the main presentation; slides 19 to 24 are the technical appendix. The full version deliberately contains more explanation than the notebook's ten-minute presentation plan.
+This is extended study and Q&A material. Use [TEN_MINUTE_SCRIPT.md](TEN_MINUTE_SCRIPT.md) and the timed runbook for the actual talk. Slides 1-18 are the main deck; slides 19-24 are the technical appendix. Do not read this extended guide verbatim within the ten-minute slot.
 
 The script describes the saved results shown in the deck. During a live demonstration, wait until the relevant output appears before describing an action as completed. The demonstration instructions are included under slides 12 and 13. A viva answer bank follows slide 24.
 
