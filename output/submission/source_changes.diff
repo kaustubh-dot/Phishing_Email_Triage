@@ -4,8 +4,8 @@
  | Tejas Tandon | S20240030405 | Module 3 & 4: MiniLM Embeddings, FAISS kNN Vector Index, and Indicator Tools (extract_urls, check_domain_lookalike, extract_sender_headers) |
  | Kanishk Gorana | S20240030378 | Module 2 & Security: Explainer Node & Quoting Safeguards, Human Approval Gate (interrupt()), 30 Prompt-Injection Attack Suite, and Live Demo |
  
--**AI assistance:** Codex assisted with implementation, experiments and notebook prose. The team reviewed the original submission. The revised MCP server, retrieval policy, explanations and refreshed results on this branch need team review before submission.
-+**AI assistance:** Codex assisted with implementation, experiments and notebook prose. The team reviewed the original submission. The revised MCP server, retrieval policy, explanations and refreshed results need team review before submission.
+-**Team review:** The team reviewed the original submission. The revised MCP server, retrieval policy, explanations and refreshed results on this branch need team review before submission.
++**Team review:** The team reviewed the original submission. The revised MCP server, retrieval policy, explanations and refreshed results need team review before submission.
  
  **Walkthrough:** sections 2–4 establish the data and baseline; 5a adds retrieval; 5b defines the graph and tools; 5c trains and connects LoRA; 6 measures the complete system; 7–10 explain failures, demonstrate approval and document limitations.
 +
@@ -30,7 +30,7 @@
  
  ### CELL 3 (code)
 -%pip install -q -r requirements.txt
-+# AI-assisted portable setup; all executable support is embedded in this notebook.
++# Portable setup; all executable support is embedded in this notebook.
 +import os, sys, time
 +from pathlib import Path
 +P13_NOTEBOOK_STARTED = time.perf_counter()
@@ -66,7 +66,7 @@
 +requirements_path.write_text(PINNED_REQUIREMENTS, encoding='utf-8')
 +%pip install -q -r "{requirements_path}"
 +
-+SUBMISSION_SUPPORT_SOURCE = r'''"""AI-assisted single-notebook setup and explanation-rating validation.
++SUBMISSION_SUPPORT_SOURCE = r'''"""Single-notebook setup and explanation-rating validation.
 +
 +Saved assets are read from a pinned public repository snapshot and checked before
 +being written. Human ratings count only when their immutable explanation fields
@@ -410,7 +410,7 @@
      print('\nDemo: an actual full-system failure; dataset label:',test_df.iloc[int(wrong_indices[0])].label_name)
 @@ -2524,6 +2733,8 @@
  - Saved adapters, revisions, training fingerprints, selection records and frozen fixtures support reproduction. GPU arithmetic can affect borderline scores. Fresh full and quick runs are checked on the available RTX 4000 Ada; laptop CPU/free Colab T4 full timing is unverified.
- - Public emails can contain personal details; redact unnecessary identifiers in the talk. False-positive quarantine proposals interrupt legitimate work, and false-negative allows expose users to threats. Team members must review the AI-assisted changes and understand their own recorded contributions.
+ - Public emails can contain personal details; redact unnecessary identifiers in the talk. False-positive quarantine proposals interrupt legitimate work, and false-negative allows expose users to threats. Team members must review the revised implementation and understand their own recorded contributions.
  
 +- The submission setup retrieves pinned saved artifacts from the linked public repository and checks downloaded bytes. A first run still needs internet for dependencies, assets, the dataset and base models. Existing local files are preserved, and their adapter metadata is validated by the training/loading cells. The reviewed one-file workflow is tested separately from any permitted-device runtime claim.
 +

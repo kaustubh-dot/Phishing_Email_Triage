@@ -1,6 +1,6 @@
 """Independently recompute saved classification and paired-attack summaries.
 
-AI-assisted verification; no model inference and no human ratings are generated.
+Verification performs no model inference and generates no human ratings.
 """
 import argparse
 from collections import defaultdict

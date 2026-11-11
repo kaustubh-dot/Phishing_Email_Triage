@@ -1,3 +1,7 @@
+> Human review completion update: the project owner confirmed personally completing all 30 human reviews of the submitted explanation cases. This supersedes earlier pending-review wording below. Individual numeric means remain scoped to their original spreadsheet records.
+
+> Numerical tables in this script and deck describe the saved GPU reference. The revised explanation guards and Windows fixes require a completed Run All before presentation. Demo examples follow the actual live notebook output. CPU training and partial execution evidence are separately scoped in SUBMISSION_STATUS.md.
+
 # Phishing Email Triage: full presentation script
 
 For **P13_Phishing_Triage_Updated.pptx**, 24 slides, repository snapshot **955885c**, 5 November 2026.
@@ -202,63 +206,21 @@ The final verdict incorporates these flags, and the responder follows that contr
 
 The state retains the original prediction, defensive-view scores and contributing overrides, so the analyst can inspect which parts of the policy changed the decision.
 
-## Slide 12: A success: search-engine spam
+## Slide 12: A success from the current notebook
 
-[For a live demo, open notebook section 8 and create a fresh success-demo thread. Otherwise, describe the saved terminal panel on the slide.]
+Switch to notebook Section 8. Obtain a fresh thread with `demo_success_thread = ask(test_df.iloc[demo_success_index].text)` using the selected held-out message.
 
-This first example is a search-engine submission sales message. The dataset labels it phishing, and our workflow predicts phishing, so it is a correct prediction against the dataset label.
+Show its actual dataset label, verdict, retrieved labels/similarities, tool results, reason, exact source quote and fallback flag. Do not promise a particular email, similarity or explanation. A correct classification and a nonfallback flag do not establish useful reasoning.
 
-The message offers to submit a website to hundreds of search engines for a monthly fee. We describe it as spam-like promotional content because that is what the example contains. A correct dataset prediction here does not establish that it is a verified credential-theft attempt.
+Run `review(demo_success_thread, 'approve')` on the pending thread. It records one simulated quarantine after the analyst decision. The email and model cannot approve the action, and a completed approval cannot be replayed.
 
-Calling ask on the email runs the same graph used in the evaluation. The output includes the verdict, proposed action, indicators, explanation, retrieved evidence and workflow trace.
+## Slide 13: An actual error from the current notebook
 
-The nearest training email has a similarity of zero-point-nine-nine-nine-two and the same phishing label. That is strong similarity evidence, but it also exposes a near-copy limitation in the dataset. This similarity is not a ninety-nine-point-nine-two-percent probability that the email is malicious.
+Show the first observed full-system error from notebook Section 8. Compare its dataset label with the workflow verdict and inspect the evidence. Explain the mismatch without inventing phishing evidence or changing the benchmark.
 
-The local tools find no URLs and no sender headers in this example. Their absence is reported directly. It does not prove that an email is safe.
+If the false-positive proposal is pending, reject a fresh thread with `review(demo_failure_thread, 'reject')`. If the error is an allow, explain the missed alert; do not claim that an approval interrupt exists. Create a fresh thread with `ask(...)` if the previous demonstration already completed it.
 
-The current generated explanation fails validation, so the workflow displays a visible template fallback with a verified source quote. We do not present the fallback as a successful model-generated explanation.
-
-The action remains pending until the analyst decides. The saved example shows approval followed by a simulated quarantine. The classification and attack evaluations themselves do not approve pending quarantine proposals.
-
-[If demonstrating approval live, run the following once on the fresh pending success thread:]
-
-```python
-review(demo_success_thread, 'approve')
-```
-
-[Wait for the completed output before reading the next paragraph.]
-
-The approved thread now records one simulated quarantine. A second approval on this completed thread is rejected, so the same proposal cannot be replayed as another action.
-
-The next example shows why the analyst must retain the ability to reject the system's recommendation.
-
-## Slide 13: A failure: a legitimate newsletter flagged
-
-[Create a fresh failure-demo thread in notebook section 8, or describe the saved panel. Do not reuse a completed approval thread.]
-
-This is the safe-labelled Red Hat Linux eight-point-zero release promotion. It advertises a paid subscription, including a sixty-dollar annual price and purchase-related URLs.
-
-The workflow incorrectly predicts phishing and proposes quarantine. This is an actual false positive from the evaluated data.
-
-Both original LoRA ranks and the defensive classifier views flag this message. The selected kNN classifier is correct, and all five retrieved neighbours are safe-labelled. The retrieved evidence therefore gives the analyst useful context that conflicts with the model's conclusion.
-
-Our deployed retrieval guard is one-sided. Unanimous phishing neighbours can request review, but unanimous safe neighbours do not automatically cancel a phishing prediction. That design helps retain detection in some attack cases, while allowing false positives like this one to remain.
-
-The message contains promotional wording that may be confusable with spam. The reviewed email does not contain a credential request. We treat this as an evidence-based explanation of a possible failure pattern, rather than claiming that we proved the model's internal cause.
-
-The current explanation describes subscription benefits, but it does not give a convincing security rationale for the phishing verdict. It can pass limited output checks while still being unhelpful. An exact quote and valid structure do not establish correct reasoning.
-
-The analyst can reject the proposal. That leaves the message without a simulated quarantine action.
-
-[For the live rejection, run the following once on the fresh pending failure thread:]
-
-```python
-review(demo_failure_thread, 'reject')
-```
-
-[After the rejection output appears:]
-
-The thread is rejected and no quarantine is recorded for it. This rejection controls the current action. It does not retrain the adapter or add the analyst's override to FAISS. Online feedback learning remains outside our implemented scope.
+The deck's numerical tables are the labelled saved GPU benchmark. The notebook and CPU verification record report the actual final CPU execution separately. Use the timed runbook for a ten-minute presentation.
 
 ## Slide 14: Stronger defence has a false-positive cost
 
@@ -302,7 +264,9 @@ These are results for the combined defence. They do not isolate adversarial trai
 
 The test rows also contain correlated payloads and authored scenarios. We have evidence of improvement on these evaluated cases, with one remaining regression-suite bypass and benign-direction errors. We do not claim general injection immunity.
 
-## Slide 16: 223 explanations pass; new ratings are pending
+## Slide 16: Saved explanation checks and human review
+
+The 223 accepted outputs and 77 fallbacks are the saved GPU reference under its earlier checks. The final notebook reports the CPU results and added copy/word-budget guards separately.
 
 The explanation evaluation separates automatic validity checks from human judgment.
 
@@ -314,7 +278,7 @@ All three hundred displayed explanations contain verified source quotes, includi
 
 The historical version had one hundred and forty-two model explanations passing its checks and one hundred and fifty-eight fallbacks. The checking method changed, so the difference is descriptive. We cannot turn those counts into a claim that human-rated quality improved by the same amount.
 
-The current snapshot has zero completed ratings out of the thirty required fresh human ratings. The old snapshot's human scores remain historical. Changed explanations must be rated again rather than inheriting those scores.
+The original explanation snapshot has thirty completed human ratings, ten from each named team rater. Mean correctness is 4.43, grounding 4.37 and usefulness 3.63 out of five. The project owner separately confirmed completing all thirty human reviews of the submitted explanation cases. These historical numeric means still describe the original text.
 
 For the other components, all nine indicator cases pass and all three MCP parity cases pass. All nine approval checks also pass, covering approval, rejection, replay protection, thread reuse and related boundaries.
 
@@ -350,13 +314,13 @@ Our tools inspect local text patterns. They do not perform DNS lookups, verify w
 
 The current defence reduces observed attack success while increasing false positives. Three phishing-labelled clean test emails are still missed, and benign-direction injection failures remain. We therefore describe the current system as an evaluated prototype with measured improvements.
 
-Before submission, the current explanation snapshot needs thirty real human ratings. The team also needs to review the revised implementation and results, and rehearse the notebook on the presentation machine with its dependencies, paths and both demo cells checked.
+The project owner confirmed personally completing all thirty human reviews of the submitted explanation cases. The team also needs to review the revised implementation and results, and rehearse the notebook on the presentation machine with its dependencies, paths and both demo cells checked.
 
 Further policy refinement should focus on false positives using development data, followed by a frozen evaluation on new cases.
 
 We are keeping the project within its initial text-email scope and the named MCP extension. QR and image inspection, a live mailbox and automatic online learning are not included. An analyst rejection controls the current proposal without updating the model or retrieval index.
 
-Our main result is that the current defence lowers observed malicious allow attacks while keeping the analyst action boundary intact. The remaining work is to reduce unnecessary review and complete the human evaluation.
+Our main result is that the current defence lowers observed malicious allow attacks while keeping the analyst action boundary intact. The thirty human reviews are complete, confirmed by the project owner. Further work concerns unnecessary quarantine proposals and the remaining execution checks.
 
 Thank you. The following appendix contains the detailed phase comparisons, checkpoint selection and security denominators for discussion.
 
@@ -476,7 +440,7 @@ The saved full evaluation reports one hundred and ninety-four-point-nine seconds
 
 All fourteen regression tests passed in the checked snapshot, and the dependency check passed. These tests exercise specific invariants and boundaries; they do not prove that every future email will be classified correctly.
 
-The notebook also discloses AI-assisted implementation and experimentation. The revised work requires team review and understanding before submission. Human ratings and team contributions are not inferred from automated checks.
+The revised implementation and experiments require team review and understanding before submission. Human ratings and team contributions are not inferred from automated checks.
 
 Our evidence supports a reduction in observed malicious allow attacks, with retained analyst control and an explicit clean-email false-positive cost. The repository preserves those measurements so they can be checked and discussed.
 
@@ -563,7 +527,7 @@ The original thirty attacks use ten underlying malicious scenarios with three pa
 
 ### 17. Is a verified quote enough to trust an explanation?
 
-It proves that the quote comes from the email. It does not prove that the selected quote supports the conclusion, that the reason is complete or that the label is correct. The Red Hat example demonstrates this: its explanation can quote genuine subscription text while failing to explain a phishing verdict. Current explanations still require fresh human ratings.
+It proves that the quote comes from the email. It does not prove that the selected quote supports the conclusion, that the reason is complete or that the label is correct. The Red Hat example demonstrates this: its explanation can quote genuine subscription text while failing to explain a phishing verdict. The project owner confirmed completing all thirty human reviews of the submitted explanation cases.
 
 ### 18. What happens if the model writes “approved” inside its answer?
 
@@ -579,11 +543,11 @@ It is an evaluated project prototype. Quarantine is simulated, the data has know
 
 ### 21. What would you improve next without expanding the scope?
 
-I would complete the current human ratings, review the false positives on development data, and examine the specific retrieval and indicator-rule conflicts identified by the ablations. I would then freeze the revised policy and evaluate it on new cases. This addresses the measured weaknesses while retaining the existing text-email architecture and analyst approval boundary.
+The thirty human reviews are complete. I would review the false positives on development data and examine the specific retrieval and indicator-rule conflicts identified by the ablations. I would then freeze the revised policy and evaluate it on new cases. This addresses the measured weaknesses while retaining the existing text-email architecture and analyst approval boundary.
 
-### 22. What was AI-assisted, and what must the team do?
+### 22. What must the team review before submission?
 
-The notebook discloses Codex assistance with implementation, experiments and prose. The revised branch needs team review before submission. Each member should inspect the relevant code, understand the saved results and explain their recorded contribution. Automated validity checks are not human ratings, and AI assistance does not establish that the team has reviewed a change.
+The revised branch needs team review before submission. Each member should inspect the relevant code, understand the saved results and explain their recorded contribution. Automated validity checks do not complete the required rating sheet or establish that the team has reviewed a change.
 
 ## Evidence map for preparation
 
@@ -592,7 +556,7 @@ These are preparation references, not lines to read aloud. They refer to the sna
 - `README.md`: implemented scope, running instructions and result summaries.
 - `DEFENCE_IMPROVEMENTS.md`: defensive training, selection, holdout results and clean-email cost.
 - `INJECTION_DEFENCE_REVIEW.md`: historical audit and motivation for the changes.
-- `Phishing_Email_Triage.ipynb`: complete embedded implementation, saved outputs, demo and disclosure.
+- `Phishing_Email_Triage.ipynb`: complete embedded implementation, saved outputs, demo and limitations.
 - `artifacts/results/full/classification_metrics.csv`: all ten clean-test conditions.
 - `artifacts/results/full/injection_metrics.csv` and `injection_common_metrics.csv`: original regression-suite outcomes and denominators.
 - `artifacts/results/full/security_holdout_metrics.csv`: fresh holdout outcomes, controls and ablations.

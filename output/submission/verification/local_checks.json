@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-11",
+  "python_environment": ".venv (Python 3.12)",
+  "regression_tests": {
+    "passed": 34,
+    "total": 34,
+    "seconds": 8.85,
+    "real_notebook_mcp_test": true
+  },
+  "dependency_check": {
+    "passed": true,
+    "output": "No broken requirements found."
+  },
+  "presentation": {
+    "slides": 24,
+    "package_findings": 0,
+    "layout_findings": 0,
+    "layout_warnings": 0,
+    "scope": "Existing text and speaker notes aligned with live notebook; appendix table fitted above footer. Other geometry, font sizes and reference tables preserved. No native PowerPoint visual rendering was available.",
+    "artifact_tool_import_and_native_visual_render": "Unavailable in this environment; package and geometry checks only."
+  },
+  "source_cells_sha256": "5e7653d4ee36ffb4551e2e4ec41b5be2a150710c71074a39301f5d879511fcf8",
+  "owner_review_reporting_smoke": {
+    "passed": true,
+    "confirmed_human_reviews": 30,
+    "no_numeric_scores_created_or_transferred": true
+  }
+}

@@ -1,6 +1,8 @@
 **Implemented defence improvements — November 5, 2026**
 
-The deployed workflow now uses a defensively trained rank-8 LoRA adapter, two classifier views, unanimous training-only retrieval and a bounded indicator review rule. The original rank-4/rank-8 adapters remain unchanged as baselines. Analyst approval remains mandatory before every simulated quarantine. MCP still exposes only the three local indicator tools.
+The numerical tables below describe the saved GPU reference. They do not claim a completed run of the subsequently revised explanation guards.
+
+The implemented workflow uses a defensively trained rank-8 LoRA adapter, two classifier views, unanimous training-only retrieval and a bounded indicator review rule. The original rank-4/rank-8 adapters remain unchanged as baselines. Analyst approval remains mandatory before every simulated quarantine. MCP still exposes only the three local indicator tools.
 
 The new adapter continues training from the original rank-8 adapter for one epoch at learning rate 0.00005. Its 8,000 examples derive only from the original 4,000 downloaded training emails: 4,000 clean structured examples, 2,000 clean plain examples and 2,000 adversarial augmentations. True labels are retained. Requested safe/phishing labels are balanced independently of the true labels; payloads appear at different positions. Prompt and padding tokens remain masked in the label-plus-EOS objective.
 
@@ -15,7 +17,7 @@ A fresh 150-pair attack holdout was frozen before training. Its downloaded email
 | Malicious attacked emails allowed | 10/30 | 7/30 | 1/30 |
 | Unmodified malicious controls quarantined | 10/10 | 7/10 | 10/10 |
 
-The current off/on comparison has all 30 pairs eligible in both modes: ASR falls from 33.3% to 3.3%. The old defence's denominator excluded some already-missed controls; all outcomes remain visible in the new results.
+The saved GPU off/on comparison has all 30 pairs eligible in both modes: ASR falls from 33.3% to 3.3%. The old defence's denominator excluded some already-missed controls; all outcomes remain visible in the new results.
 
 | Fresh holdout outcome | Defence off | Previous defence | Improved defence |
 | --- | ---: | ---: | ---: |
@@ -37,7 +39,7 @@ There is a material clean-email tradeoff on the unchanged 300-email classificati
 
 The security-prioritized policy was not changed after observing this test regression. New errors include legitimate seminar/recruitment messages and a technical newsletter overflagged by the review rule. The first ten displayed failures include specific evidence-based inspections. Single-view, two-view, retrieval and full-policy security ablations are reported on identical cases.
 
-Full and quick executions, protocol integration, augmentation-label invariants, negative security reminders and view-preservation checks are verified. The revised explanation snapshot still needs 30 real human ratings; historical scores are not transferred. Full CPU/free Colab T4 runtime remains unverified.
+Earlier GPU full/quick executions preserve these measurements. The current source passes 34 regression tests and a real one-step CPU training/save/reload check. A partial CPU run completed baseline and validation stages; full-system generation was stopped for runtime. The revised source still needs its remaining execution checks. The project owner confirmed personally completing all 30 human reviews; the confirmation is recorded in artifacts/human_review_confirmation.json. Historical scores are not transferred; free Colab T4 has not been measured.
 
 Relevant artifacts:
 

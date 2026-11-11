@@ -1,0 +1,3 @@
+method,split,n,valid_model_explanations,fallbacks,seconds,note
+Original quote-copying JSON,validation,16,6,10,945.474,Format/quote checks do not establish semantic correctness; revised method also rejects limited factual contradictions.
+Verified span selection + factual checks,validation,16,6,10,684.6,Format/quote checks do not establish semantic correctness; revised method also rejects limited factual contradictions.

@@ -1,0 +1,14 @@
+{
+  "status": "complete",
+  "completed_human_reviews": 30,
+  "required_human_reviews": 30,
+  "reviewer_count": 1,
+  "reviewer": "Project owner",
+  "confirmation_source": "Direct confirmation by the project owner in the repository maintenance conversation",
+  "confirmation_statement": "The project owner confirmed personally completing all 30 human reviews.",
+  "reviewed_submission_snapshot": "b27e28f23f14b5e4",
+  "snapshot_reference": "Latest submission review supplied by the project owner",
+  "evidence_type": "owner-confirmed completion",
+  "individual_numeric_scores_supplied_with_confirmation": false,
+  "scope": "The 30 explanation cases in the submission confirmed by the owner; not an automatic review of future regenerated explanations."
+}

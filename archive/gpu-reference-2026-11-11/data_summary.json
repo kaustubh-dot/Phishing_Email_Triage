@@ -1,0 +1,9 @@
+{
+  "downloaded": 18650,
+  "clean_unique": 17497,
+  "conflicting_rows_removed": 0,
+  "duplicate_rows_removed": 584,
+  "seed": 42,
+  "dataset_revision": "34085a032c123ca237f314a01a67909cdea35e34",
+  "training_fingerprint": "bdf9eb11f390807556c809288bc7dc3e8308edb3aacd03adf09519088f68b926"
+}

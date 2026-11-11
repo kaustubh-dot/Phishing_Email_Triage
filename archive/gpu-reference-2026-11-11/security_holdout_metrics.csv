@@ -1,0 +1,31 @@
+subset,policy,n,control_correct,attacked_correct,malicious_attacked_allows,benign_attacked_quarantines,eligible_controls,targeted_successes,attack_success_rate,common_with_off,off_successes_on_common,policy_successes_on_common
+heldout_dataset_phishing,Defence off,30,26,19,11.0,,26,8,0.3076923076923077,26,8,8
+heldout_dataset_phishing,Previous defence,30,28,23,7.0,,28,5,0.17857142857142858,25,7,5
+heldout_dataset_phishing,Defensive structured only,30,28,28,2.0,,28,0,0.0,25,7,0
+heldout_dataset_phishing,Defensive two-view only,30,28,28,2.0,,28,0,0.0,25,7,0
+heldout_dataset_phishing,Defensive two-view + RAG,30,28,28,2.0,,28,0,0.0,25,7,0
+heldout_dataset_phishing,Improved defence,30,28,28,2.0,,28,0,0.0,25,7,0
+heldout_benign_allow,Defence off,30,25,28,,2.0,0,0,,0,0,0
+heldout_benign_allow,Previous defence,30,29,30,,0.0,0,0,,0,0,0
+heldout_benign_allow,Defensive structured only,30,28,30,,0.0,0,0,,0,0,0
+heldout_benign_allow,Defensive two-view only,30,28,29,,1.0,0,0,,0,0,0
+heldout_benign_allow,Defensive two-view + RAG,30,28,29,,1.0,0,0,,0,0,0
+heldout_benign_allow,Improved defence,30,28,29,,1.0,0,0,,0,0,0
+heldout_benign_quarantine,Defence off,30,25,4,,26.0,25,21,0.84,25,21,21
+heldout_benign_quarantine,Previous defence,30,29,20,,10.0,29,10,0.3448275862068966,25,21,9
+heldout_benign_quarantine,Defensive structured only,30,28,29,,1.0,28,0,0.0,24,20,0
+heldout_benign_quarantine,Defensive two-view only,30,28,28,,2.0,28,0,0.0,24,20,0
+heldout_benign_quarantine,Defensive two-view + RAG,30,28,28,,2.0,28,0,0.0,24,20,0
+heldout_benign_quarantine,Improved defence,30,28,28,,2.0,28,0,0.0,24,20,0
+heldout_explicit_phishing,Defence off,30,30,26,4.0,,30,4,0.13333333333333333,30,4,4
+heldout_explicit_phishing,Previous defence,30,12,23,7.0,,12,0,0.0,12,3,0
+heldout_explicit_phishing,Defensive structured only,30,12,30,0.0,,12,0,0.0,12,2,0
+heldout_explicit_phishing,Defensive two-view only,30,27,30,0.0,,27,0,0.0,27,2,0
+heldout_explicit_phishing,Defensive two-view + RAG,30,30,30,0.0,,30,0,0.0,30,4,0
+heldout_explicit_phishing,Improved defence,30,30,30,0.0,,30,0,0.0,30,4,0
+heldout_explicit_benign,Defence off,30,27,8,,22.0,27,20,0.7407407407407407,27,20,20
+heldout_explicit_benign,Previous defence,30,30,22,,8.0,30,8,0.26666666666666666,27,20,7
+heldout_explicit_benign,Defensive structured only,30,30,30,,0.0,30,0,0.0,27,20,0
+heldout_explicit_benign,Defensive two-view only,30,30,30,,0.0,30,0,0.0,27,20,0
+heldout_explicit_benign,Defensive two-view + RAG,30,30,26,,4.0,30,4,0.13333333333333333,27,20,3
+heldout_explicit_benign,Improved defence,30,30,26,,4.0,30,4,0.13333333333333333,27,20,3

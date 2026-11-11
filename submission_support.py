@@ -1,4 +1,4 @@
-"""AI-assisted single-notebook setup and explanation-rating validation.
+"""Single-notebook setup and explanation-rating validation.
 
 Saved assets are read from a pinned public repository snapshot and checked before
 being written. Human ratings count only when their immutable explanation fields

@@ -1,3 +1,5 @@
 # Preserve exact quoted source text and unified-diff context in review evidence.
-output/submission/explanation_review/supplementary_explanation_assessment.csv -text -whitespace
+artifacts/human_explanation_ratings*.csv -text
+archive/gpu-reference-2026-11-11/* -text
+archive/gpu-reference-2026-11-11/*.csv -whitespace
 output/submission/source_changes.diff -text -whitespace

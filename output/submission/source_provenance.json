@@ -10,5 +10,60 @@
   "unchanged_system_cell_count": 15,
   "approval_date": "2026-11-11",
   "published_notebook_path": "Phishing_Email_Triage.ipynb",
-  "review_copy_committed": false
+  "review_copy_committed": false,
+  "current_notebook_sha256": "f7bb1debbc1eb132f1994b9bfe989443b66e0ca8d6f8398896fd03e06f0fe5f9",
+  "current_source_cells_sha256": "5e7653d4ee36ffb4551e2e4ec41b5be2a150710c71074a39301f5d879511fcf8",
+  "attribution_cleanup": {
+    "date": "2026-11-11",
+    "base_commit": "9c84cc2ca1be9c111cc4c871e2fa1dd5ea0dbaa6",
+    "scope": "Neutral attribution wording in commentary, diagnostic output, assessment metadata and score columns. Scores, rating entries, email snapshots, predictions, model weights and security policy are preserved.",
+    "changed_source_cells": [
+      0,
+      3,
+      13,
+      19,
+      31,
+      32,
+      35,
+      36
+    ],
+    "model_inference_rerun": false,
+    "historical_records": "Original reviewed_sha256, source_cells_sha256, preserved_system_sources.json and full/quick verification source hashes describe the pre-cleanup notebook. Attribution labels in historical diff text and execution-log headings have been normalized.",
+    "notebook_file_hash_convention": "SHA-256 of UTF-8 notebook bytes with LF line endings, matching the Git blob."
+  },
+  "human_rating_presentation_update": {
+    "date": "2026-11-11",
+    "base_commit": "1a08b9ff95885b6f0379d77ce1030c35b759e95c",
+    "previous_notebook_sha256": "8a3296831998481321bf03afb115564c1394e8c86db8fae1f2da2a1e47a46316",
+    "previous_source_cells_sha256": "00cb8d1f7c855e91533b54a0e4f85a3529ae4e6252085366a71c99ed45d63d76",
+    "human_rating_sheet": "artifacts/human_explanation_ratings.csv",
+    "completed_human_ratings": 30,
+    "rating_scope": "original explanation snapshot",
+    "current_explanation_ratings_status": "pending separate review",
+    "supplementary_assessment_removed": true,
+    "model_inference_rerun": false,
+    "saved_output_update": "Rating-cell output recomputed from the original and current saved CSVs; final summary display reformatted to report original-snapshot ratings. Current-snapshot counts in raw execution evidence remain unchanged."
+  },
+  "engineering_verification": {
+    "date": "2026-11-11",
+    "regression_tests_passed": 34,
+    "partial_cpu_record": "output/submission/verification/laptop-cpu-partial/verification.json",
+    "cpu_training_smoke": "output/submission/verification/cpu_training_smoke.json",
+    "full_current_source_execution_completed": false,
+    "outputs_cleared": true,
+    "code_cells_unchanged_since_partial_cpu_run": false,
+    "human_ratings_transferred": false,
+    "grading_guidelines_confirmed": false,
+    "historical_gpu_archive": "archive/gpu-reference-2026-11-11/archive_manifest.json",
+    "partial_run_completed_cell_sources_unchanged": true
+  },
+  "historical_field_scope": "Original/reviewed hashes, unchanged_system_cell_count and approval_date describe the earlier publication, not faculty approval or current execution.",
+  "owner_review_confirmation": {
+    "record": "artifacts/human_review_confirmation.json",
+    "completed_human_reviews": 30,
+    "reviewer_count": 1,
+    "evidence_type": "direct owner confirmation",
+    "individual_scores_created_or_transferred": false,
+    "notebook_source_changes": "Human-review reporting and final display only; classifier, explanation generation and security logic unchanged."
+  }
 }

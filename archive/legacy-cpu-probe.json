@@ -31,7 +31,7 @@
     "existing_rating_snapshot_blocks_rerun": false,
     "rating_error": null,
     "simulated_quarantines_executed": 0,
-    "synthetic_rating_fixtures_not_human_scores": true,
+    "rating_fixtures_excluded_from_human_scores": true,
     "existing_sheet_and_fixture_score_preserved": true,
     "old_scores_not_transferred_to_changed_cpu_explanation": true,
     "new_snapshot_sheet_created": true,

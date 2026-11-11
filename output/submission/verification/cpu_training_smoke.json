@@ -1,0 +1,47 @@
+{
+  "device": "cpu",
+  "dtype": "torch.float32",
+  "training_examples": 8,
+  "validation_examples": 4,
+  "batch_size": 8,
+  "optimizer_steps": 1,
+  "lora_update_observed": true,
+  "checkpoint_reload_succeeded": true,
+  "full_retraining_performed": false,
+  "configuration_overrides": {
+    "max_steps": 1,
+    "eval_strategy": "no"
+  },
+  "scope": "CPU forward/backward, optimizer update, adapter save and reload using notebook code; not a full benchmark retraining.",
+  "source_cells_sha256": "54ebba8ee49bea6f0b90854f98d9f177357fd0485cd17563e53194ead1acec9d",
+  "training_email_ids": [
+    "0004db678845c6f9ab2b6505961efa8cb8db6fff51bfc5d8afbc5cc6e1e350ec",
+    "000e0e81a6315b5d3f6e962024283817b90316ca84e2cf1fc06b5efe7171b529",
+    "000f5afc188ec7f1459b10dc77b9025df32e9948aa2c6ec01b4494335d969112",
+    "001df7fdbfad5600ba1fdf54893868ec4fcda9d69037ab322a3615015f97583b",
+    "0070822304e32eb2cb64f607dd958617dae75a5454401254dfe06db4924e5b8c",
+    "0073f009b26eb91e643890c533a815cdc9fedd85f5cff563d33faaf08ac19cee",
+    "0074d3796ae4c4a8ef625e39c04fcfda8ec57ec30f19600be92d92013d9791ab",
+    "00ecaa5efcffbb3f7648a6acbbb3697a91a8e790bd9014d9cb1133a1099bf555"
+  ],
+  "versions": {
+    "torch": "2.8.0",
+    "transformers": "4.57.1",
+    "peft": "0.17.1",
+    "accelerate": "1.10.1"
+  },
+  "wall_seconds": 92.84,
+  "benchmark_adapters_unchanged": true,
+  "tested_code_cell_indices": [
+    4,
+    6,
+    11,
+    16
+  ],
+  "tested_code_cell_sha256": {
+    "4": "607e1ee6f0e85ad45b8687c23b62562a24e264aea1c7dda9ed664ecb1291431e",
+    "6": "17f45f4907f027f5a4de6aaf59bf895ceed380f1375bf51b2141be723ad91c88",
+    "11": "bde21251db0b05ecf98a4dae5ada241acdf74dc34b4856939c80131cbe33cb93",
+    "16": "ce1b07ab69c7a92d7fc68031c496f0e9520d3a1688ebb46eb0226c68b8fd5464"
+  }
+}

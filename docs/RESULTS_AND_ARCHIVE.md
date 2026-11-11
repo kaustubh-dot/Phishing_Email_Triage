@@ -1,31 +1,25 @@
 # Results and archive guide
 
-The notebook is the graded deliverable. Repository material supplies reproducible saved weights, detailed measurements, supporting experiments and the completed presentation; it does not replace required notebook sections or human ratings.
+The canonical notebook contains the implementation, evaluation code and demo. Its outputs are cleared pending a complete run of the revised explanation guards and Windows fixes.
 
-## Active published results
+## GPU reference results
 
-[artifacts/results/full](../artifacts/results/full/) contains the fixed 300-email evaluation of the defensively trained workflow. The combined [classification table](../artifacts/results/full/classification_metrics.csv) and [predictions](../artifacts/results/full/predictions.csv) use identical test identities across the ten conditions. The original rank-8 classifier has 3 false positives and 4 false negatives; the full defended workflow has 13 false positives and 3 false negatives.
+[artifacts/results/full](../artifacts/results/full/) retains the earlier fixed 300-email GPU evaluation. Ten conditions share identical test identities. Original rank-8 has 3 false positives/4 false negatives; the full defended workflow has 13/3. The original 30-attack regression and 150-pair fresh holdout retain all outcomes, eligibility and common-pair denominators. These measurements predate the new copy/word-budget explanation guards.
 
-The [original injection regression](../artifacts/results/full/injection_metrics.csv) uses 30 pairs over 10 authored malicious scenarios. The [fresh attack holdout](../artifacts/results/full/security_holdout_metrics.csv) has 150 pairs across five subsets, including benign allow-directed negative controls. The [frozen selection record](../artifacts/adapters/defended-r8/training_metadata.json) identifies the training inputs and checkpoint; the holdout was excluded from selection. Pair counts are not independent campaign counts.
+The immutable [GPU archive](../archive/gpu-reference-2026-11-11/README.md) preserves the result files, two execution records and checksums from before the compatibility changes. Historical full and quick execution completed in 203.43 and 81.16 seconds on RTX 4000 Ada. The source hashes identify their exact scope.
 
-The [component metrics](../artifacts/results/full/component_metrics.json), [approval checks](../artifacts/results/full/approval_checks.json), [MCP checks](../artifacts/results/full/mcp_checks.json), [overlap audit](../artifacts/results/full/classifier_input_overlap.json), [299-email sensitivity table](../artifacts/results/full/classification_metrics_without_input_overlap.csv) and [reviewed failures](../artifacts/results/full/reviewed_failures.csv) describe separate aspects of performance. A verified quote is not a human judgment that a reason is correct.
+## Local CPU checks
 
-## Reviewed standalone notebook
+[Partial CPU evidence](../output/submission/verification/laptop-cpu-partial/verification.json) records 14 completed code cells through validation explanation comparison. Seven baseline rows were independently checked on 300 emails; the rank-8 CPU result differs from GPU on one email. The full-system generation was stopped for runtime, so this is not a completed full evaluation.
 
-The [canonical notebook](../Phishing_Email_Triage.ipynb) is the approved reviewed version of the separately supplied submission file. It adds self-contained setup, checksum-verified asset recovery, corrected human-rating validation, explicit repository references, design explanations and clearer demo diagnostics. Classifier weights, prompts, thresholds, splits and decision policy are preserved.
+[CPU training evidence](../output/submission/verification/cpu_training_smoke.json) verifies one optimizer step on eight training emails, a real LoRA update and adapter save/reload in 92.84 seconds. Benchmark adapters were unchanged. Full training was not repeated.
 
-Fresh [full verification](../output/submission/verification/full/verification.json) and [quick verification](../output/submission/verification/quick/verification.json) retain the execution provenance. The active full-run summaries and tables mirror the verified full run, and the canonical notebook retains all full-run outputs. Its runtime assets are pinned to published commit `044821a93fc84c4b1165caea57ca8c7f63bfb414`, so it does not fetch a moving notebook implementation.
+[Local checks](../output/submission/verification/local_checks.json) record 34 passing regression tests, clean dependencies and presentation package/layout checks. No native presentation visual render was available.
 
-The [assessment](SUBMISSION_ASSESSMENT.md) lists fixes, actual test evidence and unresolved academic requirements. Publication was approved on 11 November 2026. The repository publishes one canonical notebook; the local review copy is ignored by Git.
+## Human ratings and presentation
 
-The [supplementary explanation assessment](../output/submission/explanation_review/README.md) compares all 30 historical/current explanation pairs under the same criteria. It was produced by Codex and is explicitly separate from human ratings. Both snapshots and all per-case scores are preserved; it does not change the frozen decision policy or satisfy the human-rating requirement.
+[Thirty completed human ratings](../artifacts/human_explanation_ratings.csv) cover the original explanation text, with counts/means/checksum in [the summary](../artifacts/results/full/human_rating_summary.json). The project owner has separately confirmed personally completing all **30/30 human reviews** of the submitted explanation cases; see [the confirmation](../artifacts/human_review_confirmation.json). The new confirmation supplies no numeric means. See [the review record guide](HUMAN_REVIEW.md).
 
-## Historical evidence
+The [presentation](../output/presentations/P13_Phishing_Triage_Updated.pptx) labels numerical measurements as GPU references. Demo slides and speaker notes follow live notebook selection; the [runbook](../output/presentations/TEN_MINUTE_RUNBOOK.md) plans the ten-minute talk and five-minute Q&A.
 
-See [archive/README.md](../archive/README.md) for the cached quick run, the legacy CPU compatibility probe, original human ratings and older published commit links. The [injection audit directory](../artifacts/results/injection_audit/README.md) describes the pre-hardening investigation. Historical failures and ratings are retained with their original scope instead of being silently relabelled as current outcomes.
-
-Large local caches, intermediate Trainer checkpoints and generated embeddings are reproducible execution aids and are ignored by Git. Final adapters and their training metadata remain under [artifacts/adapters](../artifacts/adapters/).
-
-## Presentation
-
-The [completed presentation](../output/presentations/P13_Phishing_Triage_Updated.pptx) and [script](../output/presentations/P13_Phishing_Triage_Full_Presentation_Script.md) refer to their stated November 5 snapshot. The reviewed notebook preserves the measured classifier/security outcomes. Its demo shows additional score/fallback diagnostics and explicitly selects an illustrative successful case; this is not a new benchmark or a change to the completed presentation.
+See [submission status](../SUBMISSION_STATUS.md), [assessment](SUBMISSION_ASSESSMENT.md) and [archive index](../archive/README.md). Large caches, embeddings, intermediate checkpoints and duplicate executed notebooks are ignored. Original and defensive adapters remain under `artifacts/adapters/`.

@@ -80,6 +80,20 @@ class ExplanationValidationTests(unittest.TestCase):
                 self.assertIn('validation_error', result)
                 self.assertIn(result['quote'], self.state['email'])
 
+    def test_copying_the_email_is_not_accepted_as_a_reason(self):
+        self.state['email'] = 'The weekly meeting agenda is ready for discussion tomorrow morning.'
+        result = NAMESPACE['validate_explanation'](json.dumps({
+            'reason': self.state['email'], 'quote_id': 0}), self.state)
+        self.assertTrue(result['fallback_used'])
+        self.assertEqual(result['validation_error'], 'copied_email_without_reasoning')
+        self.assertIn(result['quote'], self.state['email'])
+
+    def test_reasons_must_obey_the_declared_word_budget(self):
+        result = NAMESPACE['validate_explanation'](json.dumps({
+            'reason': 'An ordinary meeting agenda ' * 9, 'quote_id': 0}), self.state)
+        self.assertTrue(result['fallback_used'])
+        self.assertEqual(result['validation_error'], 'reason_exceeds_word_limit')
+
 
 if __name__ == '__main__':
     unittest.main()
