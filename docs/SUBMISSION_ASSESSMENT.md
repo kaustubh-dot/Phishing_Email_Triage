@@ -1,6 +1,6 @@
 # Evaluation readiness assessment
 
-Reviewed against all four pages of the supplied P13 Phishing Email Triage brief. **The technical components are implemented; final execution and human validation remain required.** The separate Group Project Guidelines & Judging document was not supplied, so numerical weights and a final grade are not asserted.
+Reviewed against all four pages of the supplied P13 Phishing Email Triage brief. **The technical components are implemented and 30/30 human reviews are complete, confirmed by the project owner. Remaining execution evidence is assessed separately.** The separate Group Project Guidelines & Judging document was not supplied, so numerical weights and a final grade are not asserted.
 
 | Requirement in the brief | Evidence and status |
 | --- | --- |
@@ -14,7 +14,7 @@ Reviewed against all four pages of the supplied P13 Phishing Email Triage brief.
 | At least ten analysed failures | Case-specific notes, failed conditions, labels, evidence and validation follow-ups retained. |
 | Lab adaptations/references | Documented in relevant sections. The brief does not require every optional technique in each lab. |
 | Laptop CPU or free Colab T4 | CPU training/save/reload passes a one-step check; partial CPU inference completes baseline and validation stages. Full CPU execution is incomplete, and T4 has not been measured. Complete this hardware requirement before evaluation. |
-| Thirty human explanation ratings | Thirty completed ratings cover the original text. The revised explanation snapshot requires its own actual ratings. |
+| Thirty human explanation ratings | **30/30 human reviews complete**, personally completed by the project owner; see the owner-confirmed completion record. Individual numeric scores were not supplied with that confirmation. |
 | Ten-minute talk and five-minute Q&A | Deck, script and timed runbook prepared; live rehearsal and team understanding remain human tasks. |
 | MCP stretch goal | Actual stdio discovery/calls/parity/error handling passes inside a Windows notebook and subprocess tests. |
 
@@ -33,7 +33,7 @@ Presentation text and speaker notes now follow actual notebook demo selection, u
 ## Remaining evaluation work
 
 1. Complete the revised notebook on the actual presentation backend or free Colab T4 and retain its outputs.
-2. Enter 30 actual ratings for that run's exact explanation sheet using [the human-review guide](HUMAN_REVIEW.md). Historical scores cannot be transferred.
+2. Preserve [the completed 30-review confirmation](../artifacts/human_review_confirmation.json) with the submitted snapshot. Numeric score entry, if added, must use actual judgments for those cases.
 3. Confirm the separate judging guidelines. The supplied brief contains no numerical grading weights.
 4. Review team contributions, inspect the deck in PowerPoint and rehearse the timed demo/Q&A.
 

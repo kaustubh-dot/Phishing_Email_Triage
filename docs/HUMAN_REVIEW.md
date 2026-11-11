@@ -1,9 +1,11 @@
-# Complete the explanation review
+# Human review completion and score records
 
-The original explanation snapshot has 30 completed human ratings. Revised explanations need their own entries. Scores stay attached to the email, verdict, reason, quote and fallback text that was actually reviewed.
+**30/30 human reviews are complete. The project owner confirmed personally completing all 30 reviews of the submitted explanation cases.** See [the completion record](../artifacts/human_review_confirmation.json). Individual numeric scores were not supplied with the confirmation. Empty score cells must not be described as zero completed human reviews. Historical spreadsheet means remain attached to their original snapshot.
+
+The instructions below describe recording individual scores or reviewing a future changed snapshot; they do not mark the confirmed reviews as outstanding.
 
 1. Run the final notebook on the presentation backend. Its human-rating cell prints the active fingerprinted CSV path. Use that exact file, including for a CPU run that produces different text from a GPU run.
-2. Three people can review cases 1–10, 11–20 and 21–30, respectively. Each person must read the full email, displayed reason and quote and enter their actual name and judgments.
+2. One person can review all 30 cases; multiple reviewers are optional. When entering numeric records, use the actual reviewer's name and judgments for the email, reason and quote.
 3. Use the CSV directly, editing only `rater`, `correctness_1_to_5`, `grounding_1_to_5`, `usefulness_1_to_5` and `comment`, or use the entry tool below. The entry tool preserves case text, saves each entry atomically and refuses to overwrite an existing rating by default.
 
 ```powershell

@@ -18,7 +18,7 @@ The immutable [GPU archive](../archive/gpu-reference-2026-11-11/README.md) prese
 
 ## Human ratings and presentation
 
-[Thirty completed human ratings](../artifacts/human_explanation_ratings.csv) cover the original explanation text, with counts/means/checksum in [the summary](../artifacts/results/full/human_rating_summary.json). Revised explanations require their own real scores. Use the exact fingerprinted sheet printed by the final run and follow [the review instructions](HUMAN_REVIEW.md).
+[Thirty completed human ratings](../artifacts/human_explanation_ratings.csv) cover the original explanation text, with counts/means/checksum in [the summary](../artifacts/results/full/human_rating_summary.json). The project owner has separately confirmed personally completing all **30/30 human reviews** of the submitted explanation cases; see [the confirmation](../artifacts/human_review_confirmation.json). The new confirmation supplies no numeric means. See [the review record guide](HUMAN_REVIEW.md).
 
 The [presentation](../output/presentations/P13_Phishing_Triage_Updated.pptx) labels numerical measurements as GPU references. Demo slides and speaker notes follow live notebook selection; the [runbook](../output/presentations/TEN_MINUTE_RUNBOOK.md) plans the ten-minute talk and five-minute Q&A.
 

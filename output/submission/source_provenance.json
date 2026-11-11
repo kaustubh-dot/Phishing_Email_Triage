@@ -11,8 +11,8 @@
   "approval_date": "2026-11-11",
   "published_notebook_path": "Phishing_Email_Triage.ipynb",
   "review_copy_committed": false,
-  "current_notebook_sha256": "bae099301e946357e6fa6b41da39c6a6d9fd8517fb95ba8abcd676152f848794",
-  "current_source_cells_sha256": "ee2818888d2aabfcd62ecbd208b4924f5a18307ee3a78b3bd4fdf29f8987f3dc",
+  "current_notebook_sha256": "f7bb1debbc1eb132f1994b9bfe989443b66e0ca8d6f8398896fd03e06f0fe5f9",
+  "current_source_cells_sha256": "5e7653d4ee36ffb4551e2e4ec41b5be2a150710c71074a39301f5d879511fcf8",
   "attribution_cleanup": {
     "date": "2026-11-11",
     "base_commit": "9c84cc2ca1be9c111cc4c871e2fa1dd5ea0dbaa6",
@@ -51,10 +51,19 @@
     "cpu_training_smoke": "output/submission/verification/cpu_training_smoke.json",
     "full_current_source_execution_completed": false,
     "outputs_cleared": true,
-    "code_cells_unchanged_since_partial_cpu_run": true,
+    "code_cells_unchanged_since_partial_cpu_run": false,
     "human_ratings_transferred": false,
     "grading_guidelines_confirmed": false,
-    "historical_gpu_archive": "archive/gpu-reference-2026-11-11/archive_manifest.json"
+    "historical_gpu_archive": "archive/gpu-reference-2026-11-11/archive_manifest.json",
+    "partial_run_completed_cell_sources_unchanged": true
   },
-  "historical_field_scope": "Original/reviewed hashes, unchanged_system_cell_count and approval_date describe the earlier publication, not faculty approval or current execution."
+  "historical_field_scope": "Original/reviewed hashes, unchanged_system_cell_count and approval_date describe the earlier publication, not faculty approval or current execution.",
+  "owner_review_confirmation": {
+    "record": "artifacts/human_review_confirmation.json",
+    "completed_human_reviews": 30,
+    "reviewer_count": 1,
+    "evidence_type": "direct owner confirmation",
+    "individual_scores_created_or_transferred": false,
+    "notebook_source_changes": "Human-review reporting and final display only; classifier, explanation generation and security logic unchanged."
+  }
 }

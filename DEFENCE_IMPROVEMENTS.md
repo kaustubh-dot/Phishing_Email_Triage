@@ -39,7 +39,7 @@ There is a material clean-email tradeoff on the unchanged 300-email classificati
 
 The security-prioritized policy was not changed after observing this test regression. New errors include legitimate seminar/recruitment messages and a technical newsletter overflagged by the review rule. The first ten displayed failures include specific evidence-based inspections. Single-view, two-view, retrieval and full-policy security ablations are reported on identical cases.
 
-Earlier GPU full/quick executions preserve these measurements. The current source passes 34 regression tests and a real one-step CPU training/save/reload check. A partial CPU run completed baseline and validation stages; full-system generation was stopped for runtime. The revised source still needs a completed Run All and 30 human explanation ratings. Historical scores are not transferred; free Colab T4 has not been measured.
+Earlier GPU full/quick executions preserve these measurements. The current source passes 34 regression tests and a real one-step CPU training/save/reload check. A partial CPU run completed baseline and validation stages; full-system generation was stopped for runtime. The revised source still needs its remaining execution checks. The project owner confirmed personally completing all 30 human reviews; the confirmation is recorded in artifacts/human_review_confirmation.json. Historical scores are not transferred; free Colab T4 has not been measured.
 
 Relevant artifacts:
 

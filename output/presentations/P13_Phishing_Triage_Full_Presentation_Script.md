@@ -1,3 +1,5 @@
+> Human review completion update: the project owner confirmed personally completing all 30 human reviews of the submitted explanation cases. This supersedes earlier pending-review wording below. Individual numeric means remain scoped to their original spreadsheet records.
+
 > Numerical tables in this script and deck describe the saved GPU reference. The revised explanation guards and Windows fixes require a completed Run All before presentation. Demo examples follow the actual live notebook output. CPU training and partial execution evidence are separately scoped in SUBMISSION_STATUS.md.
 
 # Phishing Email Triage: full presentation script
@@ -276,7 +278,7 @@ All three hundred displayed explanations contain verified source quotes, includi
 
 The historical version had one hundred and forty-two model explanations passing its checks and one hundred and fifty-eight fallbacks. The checking method changed, so the difference is descriptive. We cannot turn those counts into a claim that human-rated quality improved by the same amount.
 
-The original explanation snapshot has thirty completed human ratings, ten from each named team rater. Mean correctness is 4.43, grounding 4.37 and usefulness 3.63 out of five. Revised explanations await separate review; these scores describe the original explanation text.
+The original explanation snapshot has thirty completed human ratings, ten from each named team rater. Mean correctness is 4.43, grounding 4.37 and usefulness 3.63 out of five. The project owner separately confirmed completing all thirty human reviews of the submitted explanation cases. These historical numeric means still describe the original text.
 
 For the other components, all nine indicator cases pass and all three MCP parity cases pass. All nine approval checks also pass, covering approval, rejection, replay protection, thread reuse and related boundaries.
 
@@ -312,13 +314,13 @@ Our tools inspect local text patterns. They do not perform DNS lookups, verify w
 
 The current defence reduces observed attack success while increasing false positives. Three phishing-labelled clean test emails are still missed, and benign-direction injection failures remain. We therefore describe the current system as an evaluated prototype with measured improvements.
 
-Before submission, the current explanation snapshot needs thirty real human ratings. The team also needs to review the revised implementation and results, and rehearse the notebook on the presentation machine with its dependencies, paths and both demo cells checked.
+The project owner confirmed personally completing all thirty human reviews of the submitted explanation cases. The team also needs to review the revised implementation and results, and rehearse the notebook on the presentation machine with its dependencies, paths and both demo cells checked.
 
 Further policy refinement should focus on false positives using development data, followed by a frozen evaluation on new cases.
 
 We are keeping the project within its initial text-email scope and the named MCP extension. QR and image inspection, a live mailbox and automatic online learning are not included. An analyst rejection controls the current proposal without updating the model or retrieval index.
 
-Our main result is that the current defence lowers observed malicious allow attacks while keeping the analyst action boundary intact. The remaining work is to reduce unnecessary review and complete the human evaluation.
+Our main result is that the current defence lowers observed malicious allow attacks while keeping the analyst action boundary intact. The thirty human reviews are complete, confirmed by the project owner. Further work concerns unnecessary quarantine proposals and the remaining execution checks.
 
 Thank you. The following appendix contains the detailed phase comparisons, checkpoint selection and security denominators for discussion.
 
@@ -525,7 +527,7 @@ The original thirty attacks use ten underlying malicious scenarios with three pa
 
 ### 17. Is a verified quote enough to trust an explanation?
 
-It proves that the quote comes from the email. It does not prove that the selected quote supports the conclusion, that the reason is complete or that the label is correct. The Red Hat example demonstrates this: its explanation can quote genuine subscription text while failing to explain a phishing verdict. Current explanations still require fresh human ratings.
+It proves that the quote comes from the email. It does not prove that the selected quote supports the conclusion, that the reason is complete or that the label is correct. The Red Hat example demonstrates this: its explanation can quote genuine subscription text while failing to explain a phishing verdict. The project owner confirmed completing all thirty human reviews of the submitted explanation cases.
 
 ### 18. What happens if the model writes “approved” inside its answer?
 
@@ -541,7 +543,7 @@ It is an evaluated project prototype. Quarantine is simulated, the data has know
 
 ### 21. What would you improve next without expanding the scope?
 
-I would complete the current human ratings, review the false positives on development data, and examine the specific retrieval and indicator-rule conflicts identified by the ablations. I would then freeze the revised policy and evaluate it on new cases. This addresses the measured weaknesses while retaining the existing text-email architecture and analyst approval boundary.
+The thirty human reviews are complete. I would review the false positives on development data and examine the specific retrieval and indicator-rule conflicts identified by the ablations. I would then freeze the revised policy and evaluate it on new cases. This addresses the measured weaknesses while retaining the existing text-email architecture and analyst approval boundary.
 
 ### 22. What must the team review before submission?
 

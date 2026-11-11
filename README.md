@@ -13,7 +13,7 @@ This reviewed version is on `fix/review-data-attribution`. The notebook, origina
 - [Timed presentation runbook](output/presentations/TEN_MINUTE_RUNBOOK.md): ten-minute delivery, fresh approval threads and five-minute Q&A.
 - [Submission status](SUBMISSION_STATUS.md): verification evidence and the remaining human review requirements.
 
-The project includes **30 completed human ratings** for the original explanation snapshot, with 10 ratings from each of the three team raters. Revised explanations await separate review. Earlier full and quick executions were verified on NVIDIA RTX 4000 Ada. The latest source adds explanation guards and Windows compatibility fixes; its outputs are cleared pending a completed Run All.
+The project has **30/30 completed human reviews, personally completed by the project owner**, as confirmed by the owner. See [the completion record](artifacts/human_review_confirmation.json). Historical numeric scores remain attached to their original spreadsheet snapshot. Earlier full and quick executions were verified on NVIDIA RTX 4000 Ada. The latest source adds explanation guards and Windows compatibility fixes; its outputs are cleared pending a completed Run All.
 
 The [reviewed standalone notebook](Phishing_Email_Triage.ipynb), [detailed assessment](docs/SUBMISSION_ASSESSMENT.md) and [experiment archive](archive/README.md) include the submission improvements. See the [supporting-results guide](docs/RESULTS_AND_ARCHIVE.md) for current versus historical evidence.
 
@@ -95,7 +95,7 @@ The explainer writes a short reason and selects an exact source span by ID. Inva
 
 The [30 completed human ratings](artifacts/human_explanation_ratings.csv) cover the original explanation snapshot. Their mean scores are **4.43 correctness**, **4.37 grounding** and **3.63 usefulness**, each out of 5. The [human-rating summary](artifacts/results/full/human_rating_summary.json) records the count, raters, means and source checksum.
 
-The revised explanations await separate review. Their fingerprinted sheet is identified by `human_rating_sheet` in [run_summary.json](artifacts/results/full/run_summary.json). Scores count only for the exact explanation text that was rated.
+**Human review is complete: 30/30 cases reviewed by the project owner.** This completion is owner-confirmed. The confirmation did not include individual numeric scores; an empty score field must not be described as zero completed human reviews. The reviewed submission snapshot and evidence source are recorded in [human_review_confirmation.json](artifacts/human_review_confirmation.json).
 
 Use the [human-review instructions](docs/HUMAN_REVIEW.md) and `scripts/review_explanations.py` to enter actual scores without changing case text or overwriting another rater's entries. The portable verifier accepts completed ratings.
 
@@ -134,6 +134,6 @@ The public dataset includes ambiguous spam labels and near-duplicate campaigns. 
 
 The laptop CPU passed a real one-step LoRA training/save/reload check in 92.84 seconds and a partial notebook run through the baseline and validation-explanation stages. Seven baseline rows were independently recomputed on all 300 test emails; rank-8 CPU predictions differ from the GPU reference on one email. The full CPU run was stopped during slow explanation generation, so a complete run on a permitted device remains required. The attempted lower-memory agent representation was not adopted. See [partial CPU evidence](output/submission/verification/laptop-cpu-partial/verification.json) and [training evidence](output/submission/verification/cpu_training_smoke.json).
 
-Before submission, complete Run All, rate its exact 30-case explanation snapshot, review the implementation as a team, and confirm the separate Group Project Guidelines & Judging document. No free Colab T4 result or final grade is claimed. Contributions, references, ethics, failure analyses and presentation walkthrough remain in the notebook.
+The 30 human reviews are complete. Before submission, complete the remaining execution checks, review the implementation as a team, and confirm the separate Group Project Guidelines & Judging document. No free Colab T4 result or final grade is claimed. Contributions, references, ethics, failure analyses and presentation walkthrough remain in the notebook.
 
 The earlier [injection audit](INJECTION_DEFENCE_REVIEW.md) is historical evidence behind this implementation. `scripts/audit_injection_defences.py` reproduces those original-adapter ablations against fixed reference actions; the notebook evaluates the latest defence. The scope remains text-email triage plus the named MCP stretch goal.

@@ -17,7 +17,7 @@ Finish Run All before the talk. Keep the notebook kernel and its cached outputs 
 | 7:25–8:10 | 15 | Before/after injection outcomes and conditional denominators |
 | 8:10–8:40 | 16 | Quote/format limits and snapshot-specific human ratings |
 | 8:40–9:20 | 17 | At least ten distinct failures and validation follow-ups |
-| 9:20–9:50 | 18 | Tested hardware, limits and remaining human review |
+| 9:20–9:50 | 18 | Tested hardware, limits and completed human review |
 | 9:50–10:00 | — | Transition to Q&A |
 | Next five minutes | 19–24 | Use only the appendix needed for each answer |
 
@@ -56,7 +56,7 @@ If the error is an allowed phishing-labelled message, explain the missed alert i
 
 ## Claims to keep precise
 
-- The 30 original human ratings describe the original explanation text. Revised explanations need their own actual ratings; do not transfer scores between snapshots.
+- The project owner confirmed personally completing all 30 human reviews of the submitted explanation cases. The completion record states that source; historical numeric means retain their original snapshot scope.
 - Source-matching quotes and valid JSON do not prove semantic correctness. The copy and word-budget guards reject specific weak outputs and retain visible fallbacks.
 - The original injection suite contains 30 variants over 10 base scenarios. It does not represent 30 independent campaigns.
 - Security improvements have a clean-email false-positive cost. No threshold or policy is selected on the scored holdout.

@@ -15,4 +15,4 @@ The canonical implementation is [Phishing_Email_Triage.ipynb](../../Phishing_Ema
 
 Earlier GPU runs reuse packages/model/data caches and the full run downloaded/verified 15 missing repository assets. They predate the current copy/word-budget guards. CPU inference shows one rank-8 prediction difference; arithmetic is not assumed identical across devices.
 
-No incomplete run is reported as successful and no ratings are transferred onto changed explanations. Complete Run All on a permitted backend, rate its exact 30-case sheet, and confirm the separate judging guidelines before evaluation. See [the assessment](../../docs/SUBMISSION_ASSESSMENT.md).
+No incomplete run is reported as successful and no ratings are transferred onto changed explanations. The project owner confirmed completing all 30 human reviews; see [the completion record](../../artifacts/human_review_confirmation.json). Complete the remaining permitted-device execution checks and confirm the separate judging guidelines before evaluation. See [the assessment](../../docs/SUBMISSION_ASSESSMENT.md).
