@@ -1,9 +1,0 @@
-{
-  "selected_on": "validation",
-  "validation_size": 400,
-  "objective": "maximum phishing F1; ties prefer lower false-positive rate then simpler policy",
-  "minimum_phishing_votes": 5,
-  "retrieval_k": 5,
-  "lora_threshold": 0.5,
-  "test_labels_used_for_selection": false
-}

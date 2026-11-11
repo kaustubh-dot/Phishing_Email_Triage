@@ -1,4 +1,0 @@
-candidate,second_view,clean_false_positives,clean_false_negatives,clean_f1,clean_recall,authored_control_recall,malicious_attacks_allowed,malicious_attack_count,benign_attacks_quarantined,benign_attack_count,qualified
-parent_dual,raw,12,4,0.9477124183006536,0.9731543624161074,1.0,7,90,25,60,True
-checkpoint_500,plain,12,5,0.9442622950819672,0.9664429530201343,1.0,5,90,6,60,True
-checkpoint_1000,plain,12,5,0.9442622950819672,0.9664429530201343,1.0,4,90,6,60,True
