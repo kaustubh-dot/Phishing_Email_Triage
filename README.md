@@ -4,6 +4,16 @@ A text-email triage notebook built to the original P13 brief, including its MCP 
 
 The complete implementation, saved evaluation and demo are in [Phishing_Email_Triage.ipynb](Phishing_Email_Triage.ipynb). The latest changes prioritize injection resistance and preserve the original adapters as baselines. See [DEFENCE_IMPROVEMENTS.md](DEFENCE_IMPROVEMENTS.md) for the training, held-out security results and clean-email tradeoff.
 
+## Submission files and status
+
+Use the `main` branch for submission. The notebook, original and defensive adapters, frozen security fixtures, full evaluation artifacts, MCP server and regression tests are included.
+
+- [Presentation deck](output/presentations/P13_Phishing_Triage_Updated.pptx): 24 slides covering the implementation, results, demo and limitations.
+- [Full presentation script and viva answers](output/presentations/P13_Phishing_Triage_Full_Presentation_Script.md): matches the saved results in the deck.
+- [Submission status](SUBMISSION_STATUS.md): verification evidence and the remaining human review requirements.
+
+The current explanations still require **30 fresh human ratings**, team review and a run on a permitted laptop or free Colab T4. The completed historical ratings are retained for their original snapshot.
+
 ## Run locally
 
 Use Python 3.12 and keep the notebook at the repository root.
