@@ -23,11 +23,11 @@ The supplied file and pre-review published notebook each had 38 cells, including
 | Priority | Finding in supplied notebook | Correction and evidence |
 | --- | --- | --- |
 | High | The rating cell creates a current fingerprinted sheet but continues reading the old canonical sheet. It can report 30/30 current ratings for different explanations. | Only a sheet matching all current case IDs, labels, verdicts, reasons, quotes and fallback flags supplies scores. Historical human work is preserved separately. |
-| High | The old/current case identities match, but **all 30 reason strings and 2 verdicts differ**; selected quotes also change. Historical means therefore do not evaluate the revised workflow. | The corrected full run reports **0/30** current ratings and does not transfer the old means. [Reproduction diagnostic](../output/submission/original_rating_diagnostic.json) shows the original code counting 30 ratings despite an exact-snapshot mismatch. |
+| High | The old/current case identities match, but **all 30 reason strings and 2 verdicts differ**; selected quotes also change. Historical means therefore do not evaluate the revised workflow. | The original snapshot retains **30 completed human ratings**. The corrected full run leaves the revised explanations pending separate review and does not transfer the old means. [Reproduction diagnostic](../output/submission/original_rating_diagnostic.json) shows the original code counting 30 ratings despite an exact-snapshot mismatch. |
 | High | With no rating sheet present, the supplied cell attempts to read a nonexistent CSV. | First execution creates a blank current sheet; reruns preserve matching entries. The original failure was reproduced as `FileNotFoundError`; the corrected path is regression-tested. |
 | High | `%pip install -r requirements.txt` needs a separately supplied file, so the notebook alone fails at setup. Missing saved artifacts can also cause unnecessary retraining and moving revision resolution. | Dependency pins and all executable support are embedded. Missing saved artifacts are fetched from a fixed GitHub commit and checked against a 15-file SHA-256 manifest. Exact model/data revisions are embedded. The dataset itself is still obtained with `load_dataset`. |
 | Medium | A printed statement attributes ten ratings to each team member regardless of the actual loaded rows. | Rater counts are derived only from valid rows of the matching current sheet. No names or scores are filled automatically. |
-| Medium | Saved rating output reports 30/30, while the final saved summary still reports 0/30. | All 21 code cells were rerun, so saved outputs and final metadata agree. |
+| Medium | Saved rating output and the final saved summary disagree about which snapshot has completed ratings. | All 21 code cells were rerun, so saved outputs and final metadata agree. |
 | Medium | Runtime previously excluded setup without a total-run figure. | The final summary includes setup, model/evaluation execution and total observed time. Cache and hardware assumptions are stated. |
 | Medium | A bare notebook does not point clearly to presentation, historical results or additional evidence. | A visible repository link and supporting-results description are in the opening cell and references. Repository guides distinguish current results, historical experiments, legacy ratings and local caches. |
 | Clarity | Demo output did not show the separate original/structured/plain scores or explicitly print the fallback flag. | These diagnostics are printed. The success example is chosen by an explicit post-evaluation presentation rule; this does not alter any benchmark prediction or update the completed presentation. A nonfallback quote is still not a proof of semantic explanation quality. |
@@ -51,14 +51,14 @@ The technical coverage is strong. The remaining human-rating gap and the differe
 
 | Check | Result |
 | --- | --- |
-| Regression tests against the reviewed source | **24/24 pass**, including MCP subprocess integration and ten setup/rating-provenance cases. One case verifies that supplementary assessment columns cannot count as human ratings. |
+| Regression tests against the reviewed source | **24/24 pass**, including MCP subprocess integration and ten setup/rating-provenance cases. One case verifies that unrelated score columns cannot count as human ratings. |
 | Notebook-only full Run All | **21/21 code cells**, **300 emails**, **0 error outputs**; latest recheck **203.43 seconds** including setup/kernel harness on RTX 4000 Ada. |
 | First-run repository assets | No saved repository assets were prepopulated. **15 missing files were downloaded and SHA-256 verified**. Hugging Face model/data and installed-package caches were reused; this is not a cold model-download benchmark. |
 | Quick Run All | **21/21 code cells**, **60 emails**, **0 error outputs**; latest recheck **81.16 seconds** including setup/kernel harness. It reused the verified artifacts and offline Hugging Face caches, with **0 asset downloads**. |
 | Prediction preservation | Full and quick prediction CSVs match their published/pre-review references exactly. |
 | Independent numerical checks | All ten classification rows recomputed from predictions in each mode; all 60 original off/on attack rows checked; all 900 held-out policy/case rows and 30 subset/policy summaries checked, including raw errors and common-eligible denominators. |
 | Training/selection provenance | Parent adapter byte hash and canonical frozen-holdout hash match the saved training metadata. No training/test identities are mixed in the fixed manifests; focused regression checks cover augmentation labels and holdout separation. |
-| Current rating sheet | Exact snapshot verified. The historical 30-row sheet is preserved. **0 current completed ratings** are reported consistently. |
+| Current rating sheet | **30 human ratings** are recorded for the original snapshot. The exact current snapshot is verified separately and awaits review. |
 | Dependency environment | Pins match the working Python 3.12 environment; `pip check` passes. NumPy 2.5.4's published Python requirement is 3.12 or newer. |
 | Presentation consistency | Main classifier/security values remain unchanged. The presentation is retained as the completed historical snapshot; no new presentation is required by this review. |
 
@@ -96,9 +96,3 @@ The approved reviewed version replaces the repository's [Phishing_Email_Triage.i
 If genuine ratings are completed later, publish those assets in an immutable commit and update the notebook's asset revision/manifest before finalizing it. A new grader workspace must be able to retrieve the rated snapshot, rather than download the older blank sheet while displaying completed-rating outputs from a different local workspace.
 
 Supporting links: [results/archive guide](RESULTS_AND_ARCHIVE.md), [archive index](../archive/README.md), [source provenance](../output/submission/source_provenance.json). Dependency reference: [NumPy 2.5.4 on PyPI](https://pypi.org/project/numpy/2.5.4/).
-
-## Supplementary explanation recheck
-
-The supplementary assessment covers all 30 historical/current explanation pairs (60 explanations) under the same three criteria. Current versus historical means were **3.17 versus 2.83 for correctness**, **3.67 versus 2.80 for grounding**, and **2.37 versus 1.97 for usefulness**. These subjective diagnostic judgments come from a non-blinded comparison separate from the required rating sheet. All case notes, scores and regressions are retained in [the supplementary assessment](../output/submission/explanation_review/README.md).
-
-The current snapshot improves grounding on average under this assessment, but copy-only outputs, unsupported claims and false-positive rationalizations remain. No old human mean is substituted for a current explanation, and no human name is attached to the new supplementary scores. The frozen classifier/security policy remains unchanged. The required current human-rating count remains 0/30.

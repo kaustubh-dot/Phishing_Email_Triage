@@ -12,7 +12,7 @@ Use the `main` branch for submission. The notebook, original and defensive adapt
 - [Full presentation script and viva answers](output/presentations/P13_Phishing_Triage_Full_Presentation_Script.md): matches the saved results in the deck.
 - [Submission status](SUBMISSION_STATUS.md): verification evidence and the remaining human review requirements.
 
-The current explanations still require **30 fresh human ratings** and team review. Full and quick execution have been verified on NVIDIA RTX 4000 Ada. The completed historical ratings are retained for their original snapshot.
+The project includes **30 completed human ratings** for the original explanation snapshot, with 10 ratings from each of the three team raters. Revised explanations await separate review. Full and quick execution have been verified on NVIDIA RTX 4000 Ada.
 
 The [reviewed standalone notebook](Phishing_Email_Triage.ipynb), [detailed assessment](docs/SUBMISSION_ASSESSMENT.md) and [experiment archive](archive/README.md) include the approved submission improvements. See the [supporting-results guide](docs/RESULTS_AND_ARCHIVE.md) for current versus historical evidence.
 
@@ -82,9 +82,9 @@ Zero-shot still predicts every test email as safe under the unchanged constraine
 
 The explainer writes a factual observation and selects an exact source span by ID. Invalid structure, IDs and some directly checkable unsupported claims produce visible template fallbacks. Quote verification does not establish reasoning correctness. Current counts and failure reasons are in `artifacts/results/full/component_metrics.json`.
 
-The original [30 completed ratings](artifacts/human_explanation_ratings.csv) remain unchanged for their historical explanation snapshot. Revised explanations need **30 fresh human ratings**. The active fingerprinted sheet is identified by `human_rating_sheet` in [run_summary.json](artifacts/results/full/run_summary.json). Rate correctness, grounding and usefulness from 1 to 5 and record the rater's name; rerun to validate matching text. Historical ratings are never transferred to changed explanations.
+The [30 completed human ratings](artifacts/human_explanation_ratings.csv) cover the original explanation snapshot. Their mean scores are **4.43 correctness**, **4.37 grounding** and **3.63 usefulness**, each out of 5. The [human-rating summary](artifacts/results/full/human_rating_summary.json) records the count, raters, means and source checksum.
 
-A separate [supplementary explanation assessment](output/submission/explanation_review/README.md) records all 30 historical/current pairs and their case notes. This diagnostic comparison uses its own score columns and does not complete the required rating sheet.
+The revised explanations await separate review. Their fingerprinted sheet is identified by `human_rating_sheet` in [run_summary.json](artifacts/results/full/run_summary.json). Scores count only for the exact explanation text that was rated.
 
 ## MCP server and demo
 

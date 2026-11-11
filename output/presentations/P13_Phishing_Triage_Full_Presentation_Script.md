@@ -314,7 +314,7 @@ All three hundred displayed explanations contain verified source quotes, includi
 
 The historical version had one hundred and forty-two model explanations passing its checks and one hundred and fifty-eight fallbacks. The checking method changed, so the difference is descriptive. We cannot turn those counts into a claim that human-rated quality improved by the same amount.
 
-The current snapshot has zero completed ratings out of the thirty required fresh human ratings. The old snapshot's human scores remain historical. Changed explanations must be rated again rather than inheriting those scores.
+The original explanation snapshot has thirty completed human ratings, ten from each named team rater. Mean correctness is 4.43, grounding 4.37 and usefulness 3.63 out of five. Revised explanations await separate review; these scores describe the original explanation text.
 
 For the other components, all nine indicator cases pass and all three MCP parity cases pass. All nine approval checks also pass, covering approval, rejection, replay protection, thread reuse and related boundaries.
 

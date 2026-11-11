@@ -1,6 +1,6 @@
 # Experiment archive
 
-This directory preserves supporting evidence and explains which implementation it describes. The active benchmark is [artifacts/results/full](../artifacts/results/full/). The approved reviewed notebook is [Phishing_Email_Triage.ipynb](../Phishing_Email_Triage.ipynb), with its execution provenance and supplementary assessment under [output/submission](../output/submission/).
+This directory preserves supporting evidence and explains which implementation it describes. The active benchmark is [artifacts/results/full](../artifacts/results/full/). The approved reviewed notebook is [Phishing_Email_Triage.ipynb](../Phishing_Email_Triage.ipynb), with its execution provenance under [output/submission](../output/submission/).
 
 | Evidence | Scope | How to interpret it |
 | --- | --- | --- |

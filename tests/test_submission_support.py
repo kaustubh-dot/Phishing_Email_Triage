@@ -85,13 +85,13 @@ class RatingTests(unittest.TestCase):
         changed.loc[1,'email_id']=changed.loc[0,'email_id']
         self.assertFalse(rating_snapshot_matches(changed,expected))
 
-    def test_supplementary_assessment_fields_cannot_count_as_human_ratings(self):
+    def test_unrelated_score_fields_cannot_count_as_human_ratings(self):
         frame=cases().drop(columns=['rater','correctness_1_to_5',
                                    'grounding_1_to_5','usefulness_1_to_5'])
-        frame['review_scope']='supplementary explanation assessment'
-        frame['assessment_correctness_1_to_5']=5
-        frame['assessment_grounding_1_to_5']=5
-        frame['assessment_usefulness_1_to_5']=5
+        frame['review_scope']='diagnostic example'
+        frame['diagnostic_correctness_1_to_5']=5
+        frame['diagnostic_grounding_1_to_5']=5
+        frame['diagnostic_usefulness_1_to_5']=5
         frame.to_csv(self.path,index=False)
         result=load_current_ratings(cases(),self.path)
         self.assertEqual(int(result['valid'].sum()),0)

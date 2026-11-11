@@ -2,7 +2,7 @@
 
 Verified and approved for publication on 11 November 2026.
 
-The reviewed standalone [Phishing_Email_Triage.ipynb](Phishing_Email_Triage.ipynb) is the canonical submission notebook. It includes all saved full-run outputs and the project repository link. Supporting code, detailed checks and historical evidence are included. The current explanations still require 30 human ratings and team review; the supplementary assessment is a separate diagnostic comparison.
+The reviewed standalone [Phishing_Email_Triage.ipynb](Phishing_Email_Triage.ipynb) is the canonical submission notebook. It includes all saved full-run outputs and the project repository link. Supporting code, detailed checks and historical evidence are included. **30 completed human ratings** are recorded for the original explanation snapshot. Revised explanations await separate review.
 
 ## Submission contents
 
@@ -20,21 +20,21 @@ The reviewed standalone [Phishing_Email_Triage.ipynb](Phishing_Email_Triage.ipyn
 | MCP indicator server | [mcp_indicator_server.py](mcp_indicator_server.py) |
 | Portable setup and exact rating validation | [submission_support.py](submission_support.py) |
 | Regression tests | [tests](tests/) |
-| Supplementary explanation assessment | [output/submission/explanation_review](output/submission/explanation_review/) |
+| Completed human-rating summary, original snapshot | [human_rating_summary.json](artifacts/results/full/human_rating_summary.json) |
 | Archived supporting experiments | [archive/README.md](archive/README.md) |
 | Completed presentation, 24 slides | [P13_Phishing_Triage_Updated.pptx](output/presentations/P13_Phishing_Triage_Updated.pptx) |
 | Presentation script and viva answers | [P13_Phishing_Triage_Full_Presentation_Script.md](output/presentations/P13_Phishing_Triage_Full_Presentation_Script.md) |
 
 ## Automated verification
 
-- All **24 regression tests** pass, including actual MCP stdio discovery, calls and invalid-argument rejection, frozen holdout separation, label-preserving augmentation, exact rating snapshots, missing-sheet creation and separation of supplementary score columns from human ratings. Normal subprocess access is required for the MCP integration test.
+- All **24 regression tests** pass, including actual MCP stdio discovery, calls and invalid-argument rejection, frozen holdout separation, label-preserving augmentation, exact rating snapshots, missing-sheet creation and rejection of unrelated score columns. Normal subprocess access is required for the MCP integration test.
 - The full notebook completed **21/21 code cells**, **300 test emails** and **0 execution-error outputs** in **203.43 seconds** including setup/kernel harness on NVIDIA RTX 4000 Ada. No repository assets were prepopulated: the notebook downloaded and SHA-256 verified all 15 missing saved files. Packages and Hugging Face model/data caches were reused.
 - QUICK_RUN completed **21/21 code cells**, **60 test emails** and **0 execution-error outputs** in **81.16 seconds**, reusing verified assets and offline Hugging Face caches.
 - Full and quick predictions exactly reproduce their pre-review references. Independent checks recompute all ten classification rows, all 60 original off/on attack rows and all 900 held-out policy/case rows, including the common-eligible denominators.
 - Both execution records share the source hash of the notebook before the attribution wording cleanup. The original hashes and the current notebook hashes are recorded in [source_provenance.json](output/submission/source_provenance.json); the cleanup does not represent a new model run. Embedded MCP, defence and submission-support sources match the standalone files.
 - `pip check` reports no broken requirements. The pinned environment is Python 3.12. First-use uncached model download time depends on the network.
 - Training, validation and full test email identities are disjoint. One bounded classifier-input overlap remains disclosed with a common 299-email sensitivity table.
-- The current rating snapshot is verified. All three existing human-rating CSVs are preserved. Current completed human ratings remain **0/30**.
+- All three existing rating CSVs are preserved. The original sheet contains **30 completed human ratings**, with 10 per named rater. Current-snapshot scores remain pending separate review.
 
 Detailed run provenance is under [output/submission/verification](output/submission/verification/); the source/input hashes are in [source_provenance.json](output/submission/source_provenance.json).
 

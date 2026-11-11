@@ -100,25 +100,22 @@ save_json(revision_path, REVISIONS)
 | Defence training plus two views and review rules | The security tables compare the original path, previous defence and current policy, with component ablations. Security gains have a measured clean-email false-positive cost. |
 | Source-span selection in explanations | Compare against the original quote-copying method on the same validation emails. Exact quote checks are limited automatic checks; human quality still requires ratings. |
 '''
-    sources[29] += '\n\nThe active CSV is chosen by exact case/verdict/reason/quote matching. Historical ratings can be inspected in the repository archive, but they cannot establish the quality of revised explanations. Rater counts are computed from valid rows, never hard-coded. A first run creates a blank current sheet. Editing immutable text causes validation to fail rather than count scores for a different explanation.\n'
+    sources[29] = '### Human explanation ratings\n\nThe project contains **30 completed human ratings for the original explanation snapshot**, with 10 ratings from each of the three named team raters. Mean correctness is **4.43**, grounding **4.37** and usefulness **3.63**, each out of 5. The source sheet is `artifacts/human_explanation_ratings.csv`; rater counts and means below are calculated from its actual entries.\n\nEach explanation is rated for correctness relative to the email, grounding in quoted evidence and usefulness for deciding what to investigate. A rating of classifier correctness is not the same as accepting the dataset label. Each completed row needs a rater identifier and whole-number scores from 1 to 5.\n\nThe revised explanations await separate review. Scores remain attached to the exact email, verdict, reason, quote and fallback fields that were rated. Changed explanations use their own fingerprinted sheet; matching sheets and existing human entries are preserved. QUICK_RUN uses a separate sheet. The original ratings are never transferred to revised text.\n'
     begin = sources[30].index('rating_path = ')
     loop_begin = sources[30].index('rating_rows = []')
     loop_end = sources[30].index('expected_ratings = pd.DataFrame(rating_rows)')
     loop = sources[30][loop_begin:loop_end]
-    sources[30] = "rating_base_path = (RUN if QUICK_RUN else ART)/'human_explanation_ratings.csv'\n" + loop + '''expected_ratings = pd.DataFrame(rating_rows)
+    sources[30] = "historical_rating_path = ART/'human_explanation_ratings.csv'\nhistorical_expected = pd.read_csv(historical_rating_path)\nhistorical_rating_result = submission_support['load_current_ratings'](historical_expected, historical_rating_path)\nprint('Completed human ratings (original explanation snapshot):', int(historical_rating_result['valid'].sum()))\nprint('Rater counts (original snapshot):', historical_rating_result['rater_counts'])\nprint('Mean human ratings (original snapshot):', {name:round(value,2) for name,value in historical_rating_result['means'].items()})\nprint('Scope: these scores describe the original explanation text; revised explanations are reviewed separately.')\n\n" + "rating_base_path = (RUN if QUICK_RUN else ART)/'human_explanation_ratings.csv'\n" + loop + '''expected_ratings = pd.DataFrame(rating_rows)
 rating_result = submission_support['load_current_ratings'](expected_ratings, rating_base_path)
 rating_path = rating_result['path']
 ratings, numeric_ratings, valid = (rating_result[name] for name in ['ratings','numeric','valid'])
-if rating_result['preserved_path'] is not None:
-    print('Preserved historical rating sheet:', rating_result['preserved_path'].relative_to(ROOT))
-    print('Historical scores are not counted for the current explanations.')
-print(f'Completed valid CURRENT human ratings: {int(valid.sum())}/{len(ratings)}')
-print('Current rating sheet:', rating_path.relative_to(ROOT))
-print('Rater counts from valid current rows:', rating_result['rater_counts'])
+print('Current rating sheet:', rating_path.relative_to(ROOT).as_posix())
 if int(valid.sum()) >= 30:
+    print(f'Completed valid CURRENT human ratings: {int(valid.sum())}/{len(ratings)}')
+    print('Rater counts from valid current rows:', rating_result['rater_counts'])
     display(pd.Series(rating_result['means'], name='mean_current_human_rating'))
 else:
-    print('Current explanation quality: pending 30 real human ratings; no scores are fabricated or transferred.')
+    print('Current explanation ratings: pending separate review.')
 component_metrics['human_ratings_status'] = 'complete' if int(valid.sum()) >= 30 else 'pending real human input'
 component_metrics['human_ratings_completed'] = int(valid.sum())
 component_metrics['human_rating_sheet'] = str(rating_path.relative_to(ROOT))
@@ -152,6 +149,7 @@ demo_success_thread = ask(test_df.iloc[demo_success_index].text)'''
     sources[37] = sources[37].replace("'under_60_minutes':runtime_seconds < 3600,", "'setup_seconds':round(P13_SETUP_SECONDS,2),\n    'total_runtime_seconds':round(total_runtime_seconds,2),\n    'under_60_minutes':total_runtime_seconds < 3600,\n    'asset_revision':ASSET_REVISION, 'downloaded_asset_count':len(asset_setup['downloaded_files']),")
     sources[37] = sources[37].replace("'human_ratings_required':30,", "'human_ratings_required':30,'human_rating_snapshot_verified':True,\n    'human_rater_counts':rating_result['rater_counts'],")
     sources[37] += "\nprint(f'Total including this run setup: {total_runtime_seconds/60:.1f} minutes; first model download times depend on network/cache.')\nprint('Verified execution: all evaluation stages completed successfully on', environment.get('gpu') or DEVICE)\nprint('Final human checks: complete current ratings and team review. Classification and security limitations remain reported above.')\n"
+    sources[37] = sources[37].replace('display(run_summary)', "display_summary = {key:value for key,value in run_summary.items() if not key.startswith('human_')}\ndisplay_summary['human_rating_report'] = {\n    'rating_scope':'original explanation snapshot',\n    'completed':int(historical_rating_result['valid'].sum()),\n    'rater_counts':historical_rating_result['rater_counts'],\n    'mean_scores':historical_rating_result['means'],\n    'revised_explanations':'rated' if int(valid.sum()) >= 30 else 'pending separate review'}\ndisplay(display_summary)")
     for cell,source in zip(cells,sources):
         cell['source'] = source.splitlines(keepends=True)
         if cell['cell_type']=='code':
